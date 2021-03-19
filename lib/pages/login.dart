@@ -12,17 +12,22 @@ class _LoginState extends State<Login> {
   TextBox box1;
   PassField pass1;
 
+
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData;
+    queryData = MediaQuery.of(context);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.end,
           children:<Widget>[
             ClipPath(
               clipper: MyClipper(),
               child: Container(
-                height: 200,
+                height: queryData.size.height/4,
                 decoration: BoxDecoration(
                   color: Colors.orange[500],
                 ),
@@ -48,50 +53,54 @@ class _LoginState extends State<Login> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 7,),
-                  Text(
-                    "Please login to your account.",
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  SizedBox(height: 30,),
-                   box1 = new TextBox(hint: "Email Address", icon: Icons.email,
-                     type: TextInputType.emailAddress,),
-                  SizedBox(height: 30,),
-                  pass1 = new PassField(),
-                  SizedBox(height: 20,),
-                  TextButton(
-                    onPressed: ()
-                    {
-                      setState(() {
-                        print(box1.getInfo());
-                        print(pass1.getInfo());
-
-                      });
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty
-                          .all(Colors.orange[500]),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>
-                        (RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(200),
-                      )),
-                      padding: MaterialStateProperty.all(
-                        EdgeInsets.symmetric(vertical: 14,horizontal: 128)
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children:<Widget> [
+                      SizedBox(height: 7,),
+                      Text(
+                        "Please login to your account.",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.normal,
+                        ),
                       ),
-                    ),
+                      SizedBox(height: 30,),
+                      box1 = new TextBox(hint: "Email Address", icon: Icons.email,
+                        type: TextInputType.emailAddress,),
+                      SizedBox(height: 30,),
+                      pass1 = new PassField(),
+                      SizedBox(height: 20,),
+                      TextButton(
+                        onPressed: ()
+                        {
+                          setState(() {
+                            print(box1.getInfo());
+                            print(pass1.getInfo());
 
-                    child: Text(
-                      "LOGIN",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25,
+                          });
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty
+                              .all(Colors.orange[500]),
+                          shape: MaterialStateProperty.all<RoundedRectangleBorder>
+                            (RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(200),
+                          )),
+                          padding: MaterialStateProperty.all(
+                              EdgeInsets.symmetric(vertical: 13, horizontal: 0)),
+                        ),
 
+                        child: Text(
+                          "LOGIN",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
+
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -141,9 +150,9 @@ class _LoginState extends State<Login> {
                   child: ClipPath(
                     clipper: BottomClip(),
                     child: Container(
-                      height: 150,
+                      height: queryData.size.height/5,
                       decoration: BoxDecoration(
-                        color: Colors.grey[50],
+                         color: Colors.grey[50],
                       ),
 
                     ),
@@ -151,8 +160,10 @@ class _LoginState extends State<Login> {
                 ),
               ],
             ),
+
           ],
         ),
+
       ),
     );
   }
