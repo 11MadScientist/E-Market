@@ -1,15 +1,16 @@
+import 'package:e_market/designs/passfield.dart';
 import 'package:flutter/material.dart';
 import 'package:e_market/designs/myclipper.dart';
 import 'package:e_market/designs/bottomclipper.dart';
-
+import 'package:e_market/designs/textbox.dart';
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
 }
 class _LoginState extends State<Login> {
 
-  TextEditingController _nameControler = TextEditingController();
-  bool secure = true;
+  TextBox box1;
+  PassField pass1;
 
   @override
   Widget build(BuildContext context) {
@@ -56,56 +57,42 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   SizedBox(height: 30,),
-                  TextField(
-                    decoration: InputDecoration(
-                    hintText: "Email Address",
-                    enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.orange[500]),
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    ),
-
-                    focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.green),
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                    ),
-                    suffixIcon: Icon(
-                    Icons.email,
-                    color: Colors.orange[500],
-                    ),
-                    ),
-                    keyboardType: TextInputType.emailAddress,
-                    maxLines: 1,
-                  ),
+                   box1 = new TextBox(hint: "Email Address", icon: Icons.email,
+                     type: TextInputType.emailAddress,),
                   SizedBox(height: 30,),
-                  TextField(
-                    decoration: InputDecoration(
-                      hintText: "Password",
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.orange[500]),
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                      ),
+                  pass1 = new PassField(),
+                  SizedBox(height: 20,),
+                  TextButton(
+                    onPressed: ()
+                    {
+                      setState(() {
+                        print(box1.getInfo());
+                        print(pass1.getInfo());
 
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.green),
-                        borderRadius: BorderRadius.all(Radius.circular(30)),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          secure ? Icons.security:Icons.remove_red_eye,
-                          color: Colors.orange[500],
-                        ),
-                        onPressed: ()
-                        {
-                          setState(() {
-                            secure = !secure;
-                          });
-                        },
+                      });
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty
+                          .all(Colors.orange[500]),
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>
+                        (RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(200),
+                      )),
+                      padding: MaterialStateProperty.all(
+                        EdgeInsets.symmetric(vertical: 14,horizontal: 128)
                       ),
                     ),
-                    obscureText: secure,
-                    maxLines: 1,
+
+                    child: Text(
+                      "LOGIN",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+
+                      ),
+                    ),
                   ),
-                  SizedBox(height: 20,),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
@@ -145,19 +132,24 @@ class _LoginState extends State<Login> {
                 ],
               ),
             ),
-            SizedBox(height: 20,),
-            Container(
-              color: Colors.orange[500],
-              child: ClipPath(
-                clipper: BottomClip(),
-                child: Container(
-                  height: 150,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[50],
-                  ),
+            SizedBox(height: 9,),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Container(
+                  color: Colors.orange[500],
+                  child: ClipPath(
+                    clipper: BottomClip(),
+                    child: Container(
+                      height: 150,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[50],
+                      ),
 
+                    ),
+                  ),
                 ),
-              ),
+              ],
             ),
           ],
         ),
