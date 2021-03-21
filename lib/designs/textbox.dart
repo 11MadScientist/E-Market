@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 
 TextEditingController _nameController = TextEditingController();
 
-
-
-
 class TextBox extends StatefulWidget {
   @override
   final String hint;
