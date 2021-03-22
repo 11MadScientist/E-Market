@@ -19,22 +19,32 @@ class _LandingState extends State<Landing> {
                 image: AssetImage("lib/assests/background.png"),
                 fit: BoxFit.cover)),
         child: Stack(
+          alignment: Alignment.topCenter,
           children: <Widget>[
             Positioned(
                 child: Container(
+
               decoration: BoxDecoration(
                   image: DecorationImage(
-                      image:
-                          AssetImage("lib/assests/landing-illustration.png"))),
+                      image: AssetImage("lib/assests/landing-illustration.png")
+                  )
+              ),
             )),
-            Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 50.0, 0, 0),
-                  child: Text('STAY AT HOME'),
+
+            Positioned(
+              top: 150,
+              child: Container(
+                child: Text(
+                  'Order Online. \nStay Safe With Us!',
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
                 ),
-              ],
-            ),
+              ),
+            )
           ],
         ),
       ),
