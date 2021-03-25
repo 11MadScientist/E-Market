@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:e_market/designs/textbox.dart';
-import 'package:adobe_xd/pinned.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:adobe_xd/page_link.dart';
+import 'package:e_market/designs/appbar.dart';
+import 'package:e_market/designs/categorycard.dart';
+import 'package:e_market/designs/sellershomecard.dart';
+
 
 class home extends StatefulWidget {
   @override
@@ -11,972 +11,756 @@ class home extends StatefulWidget {
 
 class _homeState extends State<home> {
   bool isBuyer = false;
+
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData = MediaQuery.of(context);
     return Scaffold(
         resizeToAvoidBottomInset: true,
-        appBar: AppBar(
-          toolbarHeight: 100,
-          title: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              SizedBox(height: 20),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
+        appBar: MyAppBar(size: queryData.size.width, screenName: "Home",),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.only(left:10,right: 10),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      child: Text(
+                        "Categories",
                         style: TextStyle(
-                          decorationColor: Colors.orange,
+                          fontSize: 17,
                         ),
-                        decoration: InputDecoration(
-                          hintText: 'Search',
-                          prefixIcon: Icon(
-                            Icons.search,
-                            color: Colors.orange,
-                          ),
-                          fillColor: Colors.white,
-                          filled: true,
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.orange)),
-                        )),
-                  ),
-                  Spacer(
-                    flex: 1,
-                  ),
-                  Icon(
-                    Icons.account_circle,
-                    // color: Colors.white,
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Icon(
-                    Icons.notifications,
-                    // color: Colors.white,
-                  )
-                ],
-              ),
-              SizedBox(height: 10),
-              Text(
-                "Home",
-                style: TextStyle(
-                  fontSize: 20,
-                  // fontFamily: "Poppins",
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 10)
-            ],
-          ),
-          centerTitle: true,
-          backgroundColor: Colors.orange,
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                    child: Text(
-                      "Categories",
-                      style: TextStyle(
-                        fontSize: 17,
                       ),
                     ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
+                    Container(
+                      margin: EdgeInsets.symmetric(vertical: 15.0),
+                      height: 85,
+                      width: queryData.size.width,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+
                         children: [
-                          //MEAT CATEGORY
-                          Container(
-                            width: 64,
-                            height: 64,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14.0),
-                              color: const Color(0x78d0e6a5),
+                          CategoryCard(col: Colors.orange, category: "meat",),
+                          CategoryCard(col: Colors.orange, category: "meat",),
+                          CategoryCard(col: Colors.orange, category: "meat",),
+                          CategoryCard(col: Colors.orange, category: "meat",),
+                          CategoryCard(col: Colors.orange, category: "meat",),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Visibility(
+                  visible: false,
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                              child: Text(
+                                "Stores Nearby You",
+                                style: TextStyle(
+                                  fontSize: 17,
+                                ),
+                              ),
                             ),
-                            child: Container(
-                              width: 64,
-                              height: 64,
-                              alignment: Alignment.center,
-                              child: Stack(
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  SvgPicture.string(
-                                    '<svg viewBox="7.6 21.2 49.1 27.3" ><path transform="translate(902.0, -208.0)" d="M -847.0294799804688 234.4897918701172 C -847.1924438476563 234.2647705078125 -848.4301147460938 233.1075286865234 -848.4301147460938 233.1075286865234 C -848.4301147460938 233.1075286865234 -848.6907348632813 232.8503875732422 -850.0587768554688 232.4325103759766 C -851.4266967773438 232.0145874023438 -853.1856079101563 231.0502471923828 -853.1856079101563 231.0502471923828 C -853.1856079101563 231.0502471923828 -854.1951904296875 230.5680541992188 -854.7490234375 230.3751831054688 C -855.302734375 230.1823120117188 -856.3449096679688 229.8608551025391 -858.0061645507813 229.5715637207031 C -859.6672973632813 229.2822723388672 -861.0354614257813 229.2179412841797 -863.0222778320313 229.1858215332031 C -865.0090942382813 229.1536712646484 -869.5037841796875 229.1215209960938 -871.39306640625 229.4108428955078 C -873.2822875976563 229.7001647949219 -876.6045532226563 229.9251861572266 -878.0050659179688 230.0216064453125 C -879.4057006835938 230.1180114746094 -879.666259765625 230.2787322998047 -884.0308227539063 230.3751831054688 C -888.3953857421875 230.4716339111328 -890.4800415039063 232.0145874023438 -890.4800415039063 232.0145874023438 C -890.4800415039063 232.0145874023438 -890.9034423828125 232.4646148681641 -891.3269653320313 232.8825073242188 C -891.7503662109375 233.3003997802734 -892.5645751953125 234.2326202392578 -892.7925415039063 234.5862121582031 C -893.0205688476563 234.9397888183594 -893.5418090820313 235.6148223876953 -893.2811889648438 237.3185119628906 C -893.0205688476563 239.022216796875 -892.9880981445313 239.9222869873047 -893.7371826171875 242.3653106689453 C -894.4862670898438 244.8083343505859 -894.7796630859375 244.9690399169922 -893.2811889648438 247.60498046875 C -891.7828369140625 250.2408447265625 -892.7925415039063 251.8481140136719 -892.7925415039063 251.8481140136719 C -892.7925415039063 251.8481140136719 -893.5418090820313 253.7125244140625 -891.2943725585938 254.0018310546875 C -889.0469360351563 254.2911376953125 -884.71484375 255.4805297851563 -883.314208984375 255.9305725097656 C -881.9136962890625 256.3805541992188 -878.2656860351563 256.8627624511719 -876.0508422851563 255.9305725097656 C -873.8358764648438 254.9983215332031 -872.239990234375 252.5552978515625 -869.73193359375 251.8481140136719 C -867.223876953125 251.1409301757813 -866.6375732421875 250.3694458007813 -861.7192993164063 250.0158386230469 C -856.8010864257813 249.6622619628906 -856.8987426757813 250.1444396972656 -854.2279663085938 249.1479187011719 C -851.5570068359375 248.1514282226563 -848.788330078125 245.965576171875 -847.87646484375 244.9690856933594 C -846.9644165039063 243.9725494384766 -845.2382202148438 242.20458984375 -845.2382202148438 241.4973907470703 C -845.2382202148438 240.7902069091797 -845.922119140625 240.7902069091797 -846.1500854492188 240.4044342041016 C -846.3781127929688 240.0187072753906 -845.9547119140625 238.7329254150391 -845.9547119140625 238.7329254150391 C -845.9547119140625 238.7329254150391 -845.5313110351563 237.6399841308594 -845.7918090820313 236.7399139404297 C -846.0524291992188 235.8398742675781 -846.8665771484375 234.7148132324219 -847.0294799804688 234.4897918701172 Z" fill="#fcb9b9" stroke="none" stroke-width="0.20000000298023224" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
-                                    allowDrawingOutsideViewBox: true,
-                                    fit: BoxFit.fill,
+                                  Container(
+                                    width: 174,
+                                    height: 214,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      color: Colors.orange,
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(15),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Icon(
+                                                Icons.favorite_border,
+                                                color: Colors.white,
+                                                size: 20,
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            height: 80,
+                                            // decoration: BoxDecoration(color: Colors.black),
+                                            alignment: Alignment.center,
+                                            child: CircleAvatar(
+                                              backgroundColor: Colors.orange[100],
+                                              child: Text(
+                                                "TS",
+                                                style: TextStyle(
+                                                  fontFamily: "Poppins",
+                                                  color: Colors.orange,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                              ),
+                                              radius: 30,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 13,
+                                          ),
+                                          Text(
+                                            "Tommy Store",
+                                            style: TextStyle(
+                                              fontSize: 15,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Container(
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "Basak, Lapu-Lapu City",
+                                                        style: TextStyle(
+                                                          fontSize: 10,
+                                                          color: Colors.white,
+                                                        ),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            "4.5",
+                                                            style: TextStyle(
+                                                              fontSize: 15,
+                                                              color: Colors.white,
+                                                            ),
+                                                          ),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: Colors.white,
+                                                            size: 20,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                  child: Stack(
+                                                    alignment: Alignment.center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.circle,
+                                                        color: Colors.white,
+                                                        size: 30,
+                                                      ),
+                                                      Icon(
+                                                        Icons.chevron_right,
+                                                        color: Colors.orange,
+                                                        size: 20,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                  SvgPicture.string(
-                                    '<svg viewBox="8.6 21.8 47.3 18.4" ><path transform="translate(902.2, -207.87)" d="M -847.2099609375 236.1953430175781 C -847.2099609375 236.1953430175781 -844.3414306640625 237.34228515625 -848.6995239257813 239.5318908691406 C -853.0575561523438 241.7215270996094 -856.2020263671875 241.0437927246094 -856.2020263671875 241.0437927246094 C -856.2020263671875 241.0437927246094 -860.2842407226563 241.7736511230469 -863.1527709960938 242.3471069335938 C -866.0213623046875 242.9205932617188 -866.3524169921875 243.0769958496094 -870.6552734375 244.7453002929688 C -874.9580688476563 246.41357421875 -874.792724609375 246.5178527832031 -877.6061401367188 247.664794921875 C -880.4195556640625 248.8117370605469 -884.4464721679688 247.1955871582031 -884.4464721679688 247.1955871582031 C -884.4464721679688 247.1955871582031 -886.04638671875 247.0391845703125 -888.9700927734375 246.8827819824219 C -891.8939208984375 246.7263793945313 -891.8388061523438 246.3614501953125 -891.8388061523438 246.3614501953125 C -891.8388061523438 246.3614501953125 -893.9901733398438 244.8495788574219 -893.49365234375 243.5983581542969 C -892.9971313476563 242.3471069335938 -892.4454956054688 241.304443359375 -892.3351440429688 240.4181518554688 C -892.224853515625 239.5318908691406 -892.9971313476563 237.7593688964844 -892.8316650390625 236.1953430175781 C -892.6661987304688 234.6312866210938 -890.7905883789063 232.910888671875 -890.7905883789063 232.910888671875 C -890.7905883789063 232.910888671875 -889.3561401367188 231.2947387695313 -886.1566772460938 231.086181640625 C -882.9570922851563 230.8776550292969 -880.143798828125 230.5648498535156 -877.6061401367188 230.5127258300781 C -875.0685424804688 230.4606018066406 -871.4276733398438 230.0956726074219 -869.9932861328125 230.1477966308594 C -868.5589599609375 230.1999206542969 -869.7725219726563 229.6785583496094 -863.4837036132813 229.6785583496094 C -857.1949462890625 229.6785583496094 -854.4918212890625 231.086181640625 -854.4918212890625 231.086181640625 L -853.0575561523438 231.6075134277344 C -853.0575561523438 231.6075134277344 -852.505859375 231.5553894042969 -851.1820068359375 232.6502075195313 C -849.8580322265625 233.7450256347656 -849.3062744140625 233.6407470703125 -848.4788208007813 233.9535522460938 C -847.6513671875 234.266357421875 -846.8239135742188 236.1953430175781 -846.8239135742188 236.1953430175781" fill="#bc2828" stroke="none" stroke-width="0.20000000298023224" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
-                                    allowDrawingOutsideViewBox: true,
-                                    fit: BoxFit.fill,
+                                  SizedBox(
+                                    width: 10,
                                   ),
-                                  Positioned(
-                                    top: 5,
-                                    left: 5,
-                                    child: SvgPicture.string(
-                                      '<svg viewBox="19.8 24.8 19.7 8.9" ><path transform="translate(905.35, -207.25)" d="M -867.4296875 236.1090698242188 L -874.9691162109375 236.4700012207031 C -874.9691162109375 236.4700012207031 -876.33251953125 236.3898010253906 -877.0142822265625 236.1090698242188 C -877.696044921875 235.8283386230469 -877.736083984375 234.8257751464844 -878.297607421875 234.1039123535156 C -878.859130859375 233.382080078125 -879.500732421875 232.5399169921875 -880.6236572265625 232.2190856933594 C -881.7464599609375 231.8982543945313 -883.02978515625 232.1388549804688 -883.8319091796875 232.4596862792969 C -884.6339111328125 232.780517578125 -885.1953125 233.1414489746094 -885.47607421875 233.9034118652344 C -885.7568359375 234.6653747558594 -884.393310546875 235.4674377441406 -884.393310546875 235.4674377441406 C -884.393310546875 235.4674377441406 -883.310546875 235.2669067382813 -883.310546875 235.7080383300781 C -883.310546875 236.149169921875 -883.1500244140625 236.3096008300781 -883.510986328125 236.9512329101563 C -883.8719482421875 237.5928955078125 -884.3531494140625 238.5152587890625 -884.1927490234375 239.2772216796875 C -884.0323486328125 240.0391845703125 -884.0323486328125 240.9214477539063 -881.5458984375 240.9214477539063 C -879.0595703125 240.9214477539063 -877.21484375 241.1620788574219 -876.0518798828125 240.0792846679688 C -874.888916015625 238.9964904785156 -875.4503173828125 238.4751586914063 -874.9691162109375 238.3548583984375 C -874.4879150390625 238.2345275878906 -873.966552734375 237.9538269042969 -871.0389404296875 237.8335266113281 C -868.1114501953125 237.7131958007813 -866.828125 237.5928649902344 -866.2265625 237.2319641113281 C -865.6251220703125 236.8710327148438 -865.9459228515625 236.7106323242188 -865.9459228515625 236.7106323242188 C -865.9459228515625 236.7106323242188 -866.1463623046875 236.1893005371094 -866.667724609375 236.1090698242188 C -867.1890869140625 236.0288696289063 -867.4296875 236.1090698242188 -867.4296875 236.1090698242188 Z" fill="#ffffff" stroke="none" stroke-width="0.20000000298023224" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
-                                      allowDrawingOutsideViewBox: true,
-                                      fit: BoxFit.fill,
+                                  Container(
+                                    width: 174,
+                                    height: 214,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      color: Colors.orange,
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(15),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Icon(
+                                                Icons.favorite_border,
+                                                color: Colors.white,
+                                                size: 20,
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            height: 80,
+                                            // decoration: BoxDecoration(color: Colors.black),
+                                            alignment: Alignment.center,
+                                            child: CircleAvatar(
+                                              backgroundColor: Colors.orange[100],
+                                              child: Text(
+                                                "TS",
+                                                style: TextStyle(
+                                                  fontFamily: "Poppins",
+                                                  color: Colors.orange,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                              ),
+                                              radius: 30,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 13,
+                                          ),
+                                          Text(
+                                            "Tommy Store",
+                                            style: TextStyle(
+                                              fontFamily: "Poppins",
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Container(
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "Basak, Lapu-Lapu City",
+                                                        style: TextStyle(
+                                                          fontFamily: "Poppins",
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontSize: 10,
+                                                        ),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            "4.5",
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  "Poppins",
+                                                              color: Colors.white,
+                                                              // fontWeight: FontWeight.bold,
+                                                              fontSize: 15,
+                                                            ),
+                                                          ),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: Colors.white,
+                                                            size: 20,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                  child: Stack(
+                                                    alignment: Alignment.center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.circle,
+                                                        color: Colors.white,
+                                                        size: 30,
+                                                      ),
+                                                      Icon(
+                                                        Icons.chevron_right,
+                                                        color: Colors.orange,
+                                                        size: 20,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Container(
+                                    width: 174,
+                                    height: 214,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      color: Colors.orange,
+                                    ),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(15),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Icon(
+                                                Icons.favorite_border,
+                                                color: Colors.white,
+                                                size: 20,
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                            height: 80,
+                                            // decoration: BoxDecoration(color: Colors.black),
+                                            alignment: Alignment.center,
+                                            child: CircleAvatar(
+                                              backgroundColor: Colors.orange[100],
+                                              child: Text(
+                                                "TS",
+                                                style: TextStyle(
+                                                  fontFamily: "Poppins",
+                                                  color: Colors.orange,
+                                                  fontWeight: FontWeight.normal,
+                                                ),
+                                              ),
+                                              radius: 30,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 13,
+                                          ),
+                                          Text(
+                                            "Tommy Store",
+                                            style: TextStyle(
+                                              fontFamily: "Poppins",
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 15,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10,
+                                          ),
+                                          Container(
+                                            child: Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Column(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "Basak, Lapu-Lapu City",
+                                                        style: TextStyle(
+                                                          fontFamily: "Poppins",
+                                                          color: Colors.white,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          fontSize: 10,
+                                                        ),
+                                                      ),
+                                                      Row(
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Text(
+                                                            "4.5",
+                                                            style: TextStyle(
+                                                              fontFamily:
+                                                                  "Poppins",
+                                                              color: Colors.white,
+                                                              // fontWeight: FontWeight.bold,
+                                                              fontSize: 15,
+                                                            ),
+                                                          ),
+                                                          Icon(
+                                                            Icons.star,
+                                                            color: Colors.white,
+                                                            size: 20,
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Container(
+                                                  child: Stack(
+                                                    alignment: Alignment.center,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.circle,
+                                                        color: Colors.white,
+                                                        size: 30,
+                                                      ),
+                                                      Icon(
+                                                        Icons.chevron_right,
+                                                        color: Colors.orange,
+                                                        size: 20,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
                             ),
-                          ),
-                          Text(
-                            "Meat",
-                            style: TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Column(children: [
-                        Container(
-                          width: 64,
-                          height: 64,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14.0),
-                            color: Colors.red[100],
-                          ),
-                          child: Stack(
-                            children: [
-                              Positioned(
-                                top: 10,
-                                left: 10,
-                                child: SvgPicture.string(
-                                  '<svg viewBox="7.4 11.3 37.3 32.1" ><path transform="translate(-111.0, -208.0)" d="M 155.7007446289063 247.120849609375 C 155.7007446289063 247.120849609375 153.5452270507813 248.9529571533203 154.6229858398438 249.8151397705078 C 155.7007446289063 250.6773223876953 151.3898315429688 249.3301849365234 151.3898315429688 250.8928680419922 C 151.3898315429688 252.4555511474609 150.7432250976563 249.3840637207031 149.1805419921875 248.8451995849609 C 147.6178588867188 248.3063354492188 146.2167358398438 247.1747436523438 144.0613403320313 247.120849609375 C 141.9059448242188 247.0669555664063 138.780517578125 246.5819702148438 136.7328491210938 246.8514099121094 C 134.6851806640625 247.120849609375 130.2664794921875 246.4741973876953 128.5960693359375 246.1508941650391 C 126.9256591796875 245.8275909423828 126.0095825195313 245.3426055908203 123.6386108398438 243.7260284423828 C 121.2676391601563 242.1094512939453 119.543212890625 239.9540100097656 119.3276977539063 238.9840698242188 C 119.1121826171875 238.0141296386719 118.4116821289063 236.8286285400391 118.4116821289063 234.7270812988281 C 118.4116821289063 232.6255340576172 119.219970703125 229.8234710693359 119.59716796875 229.3923797607422 C 119.974365234375 228.9612884521484 120.6210327148438 226.9136199951172 122.0220336914063 225.620361328125 C 123.4230346679688 224.3271026611328 122.1298217773438 224.8120880126953 125.2012939453125 222.3333282470703 C 128.2727661132813 219.8545684814453 129.0810546875 219.4773559570313 130.3743286132813 219.3157043457031 C 131.6676025390625 219.154052734375 133.6074829101563 219.5851287841797 134.8468627929688 220.1239929199219 C 136.0862426757813 220.6628570556641 137.05615234375 220.9322967529297 138.4572143554688 222.3333282470703 C 139.8582763671875 223.7343597412109 140.720458984375 225.0814971923828 141.7981567382813 226.8058471679688 C 142.8758544921875 228.5301971435547 144.0613403320313 229.5540313720703 144.0613403320313 229.5540313720703 C 144.0613403320313 229.5540313720703 144.8157958984375 230.0929107666016 146.3245849609375 233.2721710205078 C 147.8333740234375 236.4514312744141 147.025146484375 235.5892639160156 148.7494506835938 238.3913269042969 C 150.4737548828125 241.1933898925781 150.6354370117188 242.3250122070313 151.3898315429688 243.1871795654297 C 152.1442260742188 244.0493469238281 151.9826049804688 244.4804382324219 153.5991821289063 245.5042724609375 C 155.2157592773438 246.5281066894531 155.7007446289063 247.120849609375 155.7007446289063 247.120849609375 Z" fill="#ff9c2a" stroke="none" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
-                                  allowDrawingOutsideViewBox: true,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              Positioned(
-                                top: 37,
-                                left: 42,
-                                child: SvgPicture.string(
-                                  '<svg viewBox="41.7 39.8 12.0 9.0" ><path transform="translate(-111.0, -208.0)" d="M 155.8883666992188 247.8748779296875 C 156.3858032226563 248.1650390625 156.5515747070313 249.2427520751953 157.753662109375 249.9474182128906 C 158.9557495117188 250.6520843505859 158.3340454101563 250.6935424804688 159.86767578125 251.1494903564453 C 161.4013061523438 251.6054382324219 162.6033325195313 251.9784851074219 163.059326171875 251.8541412353516 C 163.5153198242188 251.7297973632813 164.2199096679688 251.8126983642578 164.3442993164063 252.0614013671875 C 164.4686889648438 252.3101043701172 164.7173461914063 252.5173492431641 164.593017578125 253.0562133789063 C 164.4686889648438 253.5950775146484 164.8002319335938 253.470703125 164.3442993164063 254.2168273925781 C 163.8883666992188 254.9629516601563 162.1889038085938 254.2168273925781 162.1889038085938 254.2168273925781 L 162.5205078125 255.7505035400391 C 162.5205078125 255.7505035400391 162.6448364257813 257.1183776855469 161.3184204101563 256.8282165527344 C 159.9920043945313 256.5380554199219 159.49462890625 256.6209716796875 158.9971923828125 255.7505035400391 C 158.499755859375 254.8800506591797 158.66552734375 255.0043792724609 158.4583129882813 254.5484313964844 C 158.2510986328125 254.0924835205078 158.7070922851563 253.8852233886719 157.2977294921875 253.0562133789063 C 155.8883666992188 252.2272033691406 152.6552124023438 250.4862670898438 152.6552124023438 250.4862670898438 L 155.100830078125 250.4862670898438 L 154.6033935546875 248.8282470703125 C 154.6033935546875 248.8282470703125 155.3909301757813 247.584716796875 155.8883666992188 247.8748779296875 Z" fill="#ffffff" stroke="none" stroke-width="1" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
-                                  allowDrawingOutsideViewBox: true,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                            ],
-                          ),
+                          ],
                         ),
-                        Text(
-                          "Chicken",
-                          style: TextStyle(
-                            fontSize: 14,
-                          ),
-                        ),
-                      ]),
-                      Column(
-                        children: [
-                          Container(
-                            width: 64,
-                            height: 64,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14.0),
-                              color: const Color(220219219),
-                            ),
-                            child: Container(
-                              width: 50,
-                              height: 50,
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: AssetImage("assets/images/spice.png"),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Text(
-                            "Spices",
-                            style: TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
-                        ],
                       ),
                       Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Container(
-                            width: 64,
-                            height: 64,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14.0),
-                              color: Colors.red[100],
+                          Text(
+                            "Best Selling Products",
+                            style: TextStyle(
+                              fontSize: 17,
+                              fontFamily: "Poppins",
+                              color: Colors.blue[900],
+                              fontWeight: FontWeight.normal,
                             ),
-                            alignment: Alignment.center,
-                            child: Stack(
+                          ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
                               children: [
-                                Positioned(
-                                  top: 10,
-                                  left: 30,
-                                  child: SvgPicture.string(
-                                    '<svg viewBox="31.7 7.8 19.0 18.4" ><path transform="matrix(0.669131, 0.743145, -0.743145, 0.669131, 44.55, 7.84)" d="M 8.2027587890625 15.69691467285156 L 6.54473876953125 13.20989990234375 C 6.54473876953125 13.20989990234375 6.002685546875 12.38090515136719 6.162109375 11.93450927734375 C 6.321533203125 11.48811340332031 7.2825927734375 10.7744140625 7.43353271484375 10.64234924316406 C 7.58447265625 10.51028442382813 8.45233154296875 10.03861999511719 7.99951171875 9.887680053710938 C 7.54669189453125 9.736740112304688 7.43353271484375 9.623550415039063 7.43353271484375 9.623550415039063 C 7.43353271484375 9.623550415039063 7.73541259765625 9.019790649414063 8.07501220703125 8.9443359375 C 8.41461181640625 8.868881225585938 9.35791015625 8.7745361328125 8.6787109375 8.4349365234375 C 7.99951171875 8.0953369140625 8.2027587890625 8.038742065429688 8.2027587890625 8.038742065429688 C 8.2027587890625 8.038742065429688 9.282470703125 6.793533325195313 8.92401123046875 6.831268310546875 C 8.5655517578125 6.869003295898438 8.5089111328125 7.2840576171875 8.32025146484375 7.019927978515625 C 8.131591796875 6.75579833984375 9.5654296875 4.774795532226563 8.52777099609375 5.208724975585938 C 7.4901123046875 5.642654418945313 7.56561279296875 5.26531982421875 7.56561279296875 5.020050048828125 C 7.56561279296875 4.7747802734375 8.41461181640625 4.378585815429688 8.07501220703125 3.888046264648438 C 7.73541259765625 3.397506713867188 7.56561279296875 3.567306518554688 7.56561279296875 3.567306518554688 C 7.56561279296875 3.567306518554688 7.54669189453125 4.303115844726563 7.3203125 3.888046264648438 C 7.09393310546875 3.472976684570313 7.09393310546875 2.246627807617188 6.6033935546875 2.435302734375 C 6.11285400390625 2.623977661132813 6.16937255859375 3.189987182617188 6.037353515625 2.75604248046875 C 5.90533447265625 2.322097778320313 6.20721435546875 1.41650390625 5.28271484375 1.378768920898438 C 4.35821533203125 1.341033935546875 4.62237548828125 0.7750244140625 4.62237548828125 0.7750244140625 C 4.62237548828125 0.7750244140625 4.5657958984375 -0.0928497314453125 3.9620361328125 0.3976898193359375 C 3.3582763671875 0.8882293701171875 3.3770751953125 0.11468505859375 3.056396484375 0.020355224609375 C 2.7357177734375 -0.073974609375 2.377197265625 0.190155029296875 2.377197265625 0.190155029296875 C 2.377197265625 0.190155029296875 2.7545166015625 1.133499145507813 2.377197265625 1.227828979492188 C 1.9998779296875 1.322158813476563 1.32073974609375 1.284439086914063 1.26409912109375 1.510833740234375 C 1.20745849609375 1.737228393554688 2.18853759765625 2.227767944335938 1.5281982421875 2.435302734375 C 0.86785888671875 2.642837524414063 0.58489990234375 2.75604248046875 0.58489990234375 2.75604248046875 L 0.58489990234375 3.227706909179688 C 0.58489990234375 3.227706909179688 1.5848388671875 3.699386596679688 1.09429931640625 3.888046264648438 C 0.603759765625 4.076705932617188 0 4.189910888671875 0 4.189910888671875 C 0 4.189910888671875 1.1131591796875 4.982330322265625 1.09429931640625 5.208724975585938 C 1.075439453125 5.43511962890625 0.339599609375 5.491714477539063 0.339599609375 5.491714477539063 C 0.339599609375 5.491714477539063 0.452880859375 6.321868896484375 0.75469970703125 6.453933715820313 C 1.0565185546875 6.58599853515625 0.1697998046875 7.019927978515625 0.1697998046875 7.019927978515625 L 1.26409912109375 7.94439697265625 C 1.26409912109375 7.94439697265625 0.867919921875 8.340606689453125 0.75469970703125 8.340606689453125 C 0.6414794921875 8.340606689453125 1 8.812255859375 1.77349853515625 9.1141357421875 C 2.5469970703125 9.416015625 1.33953857421875 9.208480834960938 1.1885986328125 9.623550415039063 C 1.03765869140625 10.03861999511719 1.98101806640625 10.15180969238281 2.11309814453125 10.30274963378906 C 2.24517822265625 10.45368957519531 1.77349853515625 10.96308898925781 1.77349853515625 10.96308898925781 C 1.77349853515625 10.96308898925781 1.848876953125 11.30270385742188 2.22625732421875 11.24609375 C 2.6036376953125 11.18948364257813 3.113037109375 11.18948364257813 3.113037109375 11.39701843261719 C 3.113037109375 11.60455322265625 2.641357421875 12.07621765136719 3.113037109375 12.18942260742188 C 3.584716796875 12.30262756347656 4.358154296875 11.88754272460938 4.3770751953125 12.18942260742188 C 4.39599609375 12.49130249023438 4.30157470703125 13.00070190429688 4.0374755859375 13.00070190429688 C 3.77337646484375 13.00070190429688 3.943115234375 13.35916137695313 4.3770751953125 13.39689636230469 C 4.81103515625 13.43463134765625 5.207275390625 13.43463134765625 5.28271484375 13.54783630371094 C 5.358154296875 13.66104125976563 5.45245361328125 13.84971618652344 5.8675537109375 14.41571044921875 C 6.28265380859375 14.98170471191406 6.88641357421875 15.39677429199219 7.26373291015625 15.88731384277344 C 7.64105224609375 16.37785339355469 8.6409912109375 17.30232238769531 8.6409912109375 17.30232238769531 L 9.150390625 16.7740478515625 L 8.2027587890625 15.69691467285156 Z" fill="#1aa43a" stroke="#0d7d27" stroke-width="0.20000000298023224" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
-                                    allowDrawingOutsideViewBox: true,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 13,
-                                  left: 33,
-                                  child: SvgPicture.string(
-                                    '<svg viewBox="33.4 10.3 19.4 17.4" ><path transform="matrix(0.573576, 0.819152, -0.819152, 0.573576, 47.58, 10.32)" d="M 8.2027587890625 15.69691467285156 L 6.54473876953125 13.20989990234375 C 6.54473876953125 13.20989990234375 6.002685546875 12.38090515136719 6.162109375 11.93450927734375 C 6.321533203125 11.48811340332031 7.2825927734375 10.7744140625 7.43353271484375 10.64234924316406 C 7.58447265625 10.51028442382813 8.45233154296875 10.03861999511719 7.99951171875 9.887680053710938 C 7.54669189453125 9.736740112304688 7.43353271484375 9.623550415039063 7.43353271484375 9.623550415039063 C 7.43353271484375 9.623550415039063 7.73541259765625 9.019790649414063 8.07501220703125 8.9443359375 C 8.41461181640625 8.868881225585938 9.35791015625 8.7745361328125 8.6787109375 8.4349365234375 C 7.99951171875 8.0953369140625 8.2027587890625 8.038742065429688 8.2027587890625 8.038742065429688 C 8.2027587890625 8.038742065429688 9.282470703125 6.793533325195313 8.92401123046875 6.831268310546875 C 8.5655517578125 6.869003295898438 8.5089111328125 7.2840576171875 8.32025146484375 7.019927978515625 C 8.131591796875 6.75579833984375 9.5654296875 4.774795532226563 8.52777099609375 5.208724975585938 C 7.4901123046875 5.642654418945313 7.56561279296875 5.26531982421875 7.56561279296875 5.020050048828125 C 7.56561279296875 4.7747802734375 8.41461181640625 4.378585815429688 8.07501220703125 3.888046264648438 C 7.73541259765625 3.397506713867188 7.56561279296875 3.567306518554688 7.56561279296875 3.567306518554688 C 7.56561279296875 3.567306518554688 7.54669189453125 4.303115844726563 7.3203125 3.888046264648438 C 7.09393310546875 3.472976684570313 7.09393310546875 2.246627807617188 6.6033935546875 2.435302734375 C 6.11285400390625 2.623977661132813 6.16937255859375 3.189987182617188 6.037353515625 2.75604248046875 C 5.90533447265625 2.322097778320313 6.20721435546875 1.41650390625 5.28271484375 1.378768920898438 C 4.35821533203125 1.341033935546875 4.62237548828125 0.7750244140625 4.62237548828125 0.7750244140625 C 4.62237548828125 0.7750244140625 4.5657958984375 -0.0928497314453125 3.9620361328125 0.3976898193359375 C 3.3582763671875 0.8882293701171875 3.3770751953125 0.11468505859375 3.056396484375 0.020355224609375 C 2.7357177734375 -0.073974609375 2.377197265625 0.190155029296875 2.377197265625 0.190155029296875 C 2.377197265625 0.190155029296875 2.7545166015625 1.133499145507813 2.377197265625 1.227828979492188 C 1.9998779296875 1.322158813476563 1.32073974609375 1.284439086914063 1.26409912109375 1.510833740234375 C 1.20745849609375 1.737228393554688 2.18853759765625 2.227767944335938 1.5281982421875 2.435302734375 C 0.86785888671875 2.642837524414063 0.58489990234375 2.75604248046875 0.58489990234375 2.75604248046875 L 0.58489990234375 3.227706909179688 C 0.58489990234375 3.227706909179688 1.5848388671875 3.699386596679688 1.09429931640625 3.888046264648438 C 0.603759765625 4.076705932617188 0 4.189910888671875 0 4.189910888671875 C 0 4.189910888671875 1.1131591796875 4.982330322265625 1.09429931640625 5.208724975585938 C 1.075439453125 5.43511962890625 0.339599609375 5.491714477539063 0.339599609375 5.491714477539063 C 0.339599609375 5.491714477539063 0.452880859375 6.321868896484375 0.75469970703125 6.453933715820313 C 1.0565185546875 6.58599853515625 0.1697998046875 7.019927978515625 0.1697998046875 7.019927978515625 L 1.26409912109375 7.94439697265625 C 1.26409912109375 7.94439697265625 0.867919921875 8.340606689453125 0.75469970703125 8.340606689453125 C 0.6414794921875 8.340606689453125 1 8.812255859375 1.77349853515625 9.1141357421875 C 2.5469970703125 9.416015625 1.33953857421875 9.208480834960938 1.1885986328125 9.623550415039063 C 1.03765869140625 10.03861999511719 1.98101806640625 10.15180969238281 2.11309814453125 10.30274963378906 C 2.24517822265625 10.45368957519531 1.77349853515625 10.96308898925781 1.77349853515625 10.96308898925781 C 1.77349853515625 10.96308898925781 1.848876953125 11.30270385742188 2.22625732421875 11.24609375 C 2.6036376953125 11.18948364257813 3.113037109375 11.18948364257813 3.113037109375 11.39701843261719 C 3.113037109375 11.60455322265625 2.641357421875 12.07621765136719 3.113037109375 12.18942260742188 C 3.584716796875 12.30262756347656 4.358154296875 11.88754272460938 4.3770751953125 12.18942260742188 C 4.39599609375 12.49130249023438 4.30157470703125 13.00070190429688 4.0374755859375 13.00070190429688 C 3.77337646484375 13.00070190429688 3.943115234375 13.35916137695313 4.3770751953125 13.39689636230469 C 4.81103515625 13.43463134765625 5.207275390625 13.43463134765625 5.28271484375 13.54783630371094 C 5.358154296875 13.66104125976563 5.45245361328125 13.84971618652344 5.8675537109375 14.41571044921875 C 6.28265380859375 14.98170471191406 6.88641357421875 15.39677429199219 7.26373291015625 15.88731384277344 C 7.64105224609375 16.37785339355469 8.6409912109375 17.30232238769531 8.6409912109375 17.30232238769531 L 9.150390625 16.7740478515625 L 8.2027587890625 15.69691467285156 Z" fill="#1aa43a" stroke="#0d7d27" stroke-width="0.20000000298023224" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
-                                    allowDrawingOutsideViewBox: true,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 17,
-                                  left: 40,
-                                  child: SvgPicture.string(
-                                    '<svg viewBox="38.5 14.2 18.0 19.2" ><path transform="matrix(-0.777146, -0.62932, 0.62932, -0.777146, 45.6, 33.45)" d="M 8.202736854553223 1.605404853820801 L 6.544721603393555 4.092422485351563 C 6.544721603393555 4.092422485351563 6.002669811248779 4.921418190002441 6.162095069885254 5.367815971374512 C 6.321518421173096 5.814211845397949 7.282577514648438 6.527913093566895 7.433517456054688 6.659979820251465 C 7.584457397460938 6.792059898376465 8.452315330505371 7.263728141784668 7.999497413635254 7.414665222167969 C 7.546678066253662 7.565605163574219 7.433518886566162 7.678794860839844 7.433518886566162 7.678794860839844 C 7.433518886566162 7.678794860839844 7.735400676727295 8.28255558013916 8.074997901916504 8.358010292053223 C 8.414596557617188 8.433466911315918 9.357895851135254 8.527812957763672 8.67869758605957 8.867414474487305 C 7.999500274658203 9.207011222839355 8.202746391296387 9.263606071472168 8.202746391296387 9.263606071472168 C 8.202746391296387 9.263606071472168 9.282459259033203 10.50881958007813 8.92400074005127 10.47108364105225 C 8.565540313720703 10.43334770202637 8.50889778137207 10.0182933807373 8.320240020751953 10.28242301940918 C 8.13158130645752 10.54655265808105 9.565421104431152 12.52756023406982 8.527762413024902 12.09362888336182 C 7.490104198455811 11.65969848632813 7.565604686737061 12.03703308105469 7.565604686737061 12.28230285644531 C 7.565605163574219 12.52757358551025 8.414603233337402 12.92376899719238 8.075004577636719 13.41430950164795 C 7.73540735244751 13.9048490524292 7.565606594085693 13.7350492477417 7.565606594085693 13.7350492477417 C 7.565606594085693 13.7350492477417 7.546685218811035 12.99923896789551 7.320306777954102 13.41430950164795 C 7.09392786026001 13.82937908172607 7.093960285186768 15.05574512481689 6.603420734405518 14.86706829071045 C 6.112882137298584 14.67837715148926 6.169399738311768 14.11236572265625 6.037381649017334 14.54631233215332 C 5.905362129211426 14.98027229309082 6.207244396209717 15.88586711883545 5.282745838165283 15.92360210418701 C 4.358246803283691 15.96133613586426 4.622406959533691 16.52734565734863 4.622406959533691 16.52734565734863 C 4.622406959533691 16.52734565734863 4.565828800201416 17.39522171020508 3.9620680809021 16.90467834472656 C 3.358308076858521 16.41413688659668 3.377107858657837 17.18768501281738 3.056429862976074 17.28201484680176 C 2.735751152038574 17.37634468078613 2.377230882644653 17.11221122741699 2.377230882644653 17.11221122741699 C 2.377230882644653 17.11221122741699 2.754548311233521 16.16886711120605 2.3772292137146 16.07453727722168 C 1.999910593032837 15.98020648956299 1.320773005485535 16.01792526245117 1.264131903648376 15.7915153503418 C 1.207491278648376 15.56512069702148 2.188568353652954 15.07459545135498 1.528229951858521 14.86706066131592 C 0.8678907155990601 14.65949440002441 0.5849318504333496 14.54628849029541 0.5849318504333496 14.54628849029541 L 0.5849311947822571 14.07462310791016 C 0.5849311947822571 14.07462310791016 1.584838151931763 13.60295963287354 1.094298720359802 13.41428375244141 C 0.6037593483924866 13.22562313079834 0 13.11241626739502 0 13.11241626739502 C 0 13.11241626739502 1.113157153129578 12.3199987411499 1.094297051429749 12.09360313415527 C 1.07543683052063 11.86720848083496 0.3395975530147552 11.81061267852783 0.3395975530147552 11.81061267852783 C 0.3395975530147552 11.81061267852783 0.4528775811195374 10.98045539855957 0.7546959519386292 10.84839057922363 C 1.056514263153076 10.7163257598877 0.1697958707809448 10.28239631652832 0.1697958707809448 10.28239631652832 L 1.264092922210693 9.357927322387695 C 1.264092922210693 9.357927322387695 0.8679136633872986 8.961716651916504 0.7546935677528381 8.961715698242188 C 0.6414733529090881 8.961715698242188 0.999992847442627 8.490065574645996 1.773490190505981 8.188201904296875 C 2.546987533569336 7.886323928833008 1.33953070640564 8.093855857849121 1.188590407371521 7.678771018981934 C 1.037649869918823 7.263698577880859 1.981008410453796 7.150527000427246 2.11308765411377 6.999587059020996 C 2.24516749382019 6.848647117614746 1.773487687110901 6.339231491088867 1.773487687110901 6.339231491088867 C 1.773487687110901 6.339231491088867 1.848865628242493 5.999617576599121 2.226245403289795 6.056227684020996 C 2.603625535964966 6.112837791442871 3.113024473190308 6.112838745117188 3.113024473190308 5.905303955078125 C 3.113024234771729 5.697769165039063 2.641344308853149 5.226100921630859 3.113023519515991 5.112897872924805 C 3.584702491760254 4.999692916870117 4.358140468597412 5.414780616760254 4.377060413360596 5.112900733947754 C 4.395980834960938 4.811018943786621 4.301559448242188 4.301618576049805 4.037460803985596 4.301617622375488 C 3.773360729217529 4.301617622375488 3.943099498748779 3.943157196044922 4.377058029174805 3.905423164367676 C 4.811017990112305 3.86768913269043 5.207258224487305 3.867690086364746 5.282697677612305 3.754484176635742 C 5.358137130737305 3.641279220581055 5.452435493469238 3.452604293823242 5.867534637451172 2.886609077453613 C 6.282634258270264 2.320614814758301 6.886393070220947 1.905544281005859 7.263710975646973 1.415004730224609 C 7.641029357910156 0.9244651794433594 8.640966415405273 0 8.640966415405273 0 L 9.15036678314209 0.5282745361328125 L 8.202736854553223 1.605404853820801 Z" fill="#1aa43a" stroke="#0d7d27" stroke-width="0.20000000298023224" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
-                                    allowDrawingOutsideViewBox: true,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
-                                Positioned(
-                                  top: 25,
-                                  left: 17,
-                                  child: SvgPicture.string(
-                                    '<svg viewBox="17.0 23.8 24.6 24.8" ><path transform="translate(-292.0, -209.0)" d="M 331.935791015625 236.5365295410156 C 334.7139892578125 240.7605743408203 333.1513061523438 242.5388031005859 333.1513061523438 242.5388031005859 C 333.1513061523438 242.5388031005859 332.5604248046875 243.8112487792969 331.935791015625 244.4329986572266 C 331.3111572265625 245.0547485351563 330.5235595703125 245.7593994140625 329.7774658203125 246.3397064208984 C 329.0313720703125 246.9200134277344 326.1712646484375 248.9096374511719 325.6738891601563 249.2412414550781 C 325.176513671875 249.5728454589844 322.1091918945313 251.6039123535156 322.1091918945313 251.6039123535156 C 322.1091918945313 251.6039123535156 318.5859375 254.0909423828125 317.05224609375 254.9613952636719 C 315.5185546875 255.8318481445313 314.1092529296875 256.6608581542969 313.1558837890625 257.0339050292969 C 312.2025146484375 257.4069519042969 311.4149780273438 257.6142272949219 310.4616088867188 257.6142272949219 C 309.5082397460938 257.6142272949219 309.4667358398438 257.3655090332031 309.259521484375 257.0339050292969 C 309.0523071289063 256.7023010253906 308.886474609375 255.5831451416016 309.259521484375 254.6297912597656 C 309.632568359375 253.6764373779297 309.7155151367188 253.5106353759766 309.7155151367188 253.5106353759766 C 309.7155151367188 253.5106353759766 310.9590454101563 250.4847564697266 311.7051391601563 249.4070434570313 C 312.4512329101563 248.3293304443359 314.4822998046875 244.8311004638672 316.1817626953125 242.5388031005859 C 317.8812255859375 240.2465057373047 318.1300048828125 239.6661987304688 320.078125 237.0548248291016 C 322.0262451171875 234.4434509277344 323.1054077148438 233.3484954833984 324.4053344726563 233.0541687011719 C 325.7052612304688 232.7598419189453 326.686279296875 232.7843780517578 327.2258911132813 233.0541687011719 C 327.7655029296875 233.3239593505859 328.1578979492188 233.4220886230469 329.3597412109375 234.1578826904297 C 330.5615844726563 234.8936767578125 330.8068237304688 235.237060546875 331.1502075195313 235.6049652099609 C 331.4935913085938 235.9728698730469 331.935791015625 236.5365295410156 331.935791015625 236.5365295410156 Z" fill="#ff9c2a" stroke="none" stroke-width="0.20000000298023224" stroke-miterlimit="4" stroke-linecap="butt" /></svg>',
-                                    allowDrawingOutsideViewBox: true,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ),
+                                Container(
+                                    width: 250,
+                                    height: 130,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(15),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width: 80,
+                                            height: 100,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(20.0),
+                                                image: DecorationImage(
+                                                  image: AssetImage(
+                                                      'assets/images/recommend.jpg'),
+                                                  fit: BoxFit.cover,
+                                                )),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        "Spices",
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily: "Poppins",
+                                                          color: Colors.black45,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Icon(
+                                                      Icons.favorite,
+                                                      color: Colors.red,
+                                                      size: 20,
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  'Herbs and Spices',
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontFamily: "Poppins",
+                                                    color: Colors.blue[900],
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'Tommy Store',
+                                                  style: TextStyle(
+                                                    fontSize: 10,
+                                                    fontFamily: "Poppins",
+                                                    color: Colors.blue[900],
+                                                  ),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        'P 10.58/kl',
+                                                        style: TextStyle(
+                                                          fontSize: 17,
+                                                          fontFamily: "Poppins",
+                                                          color: Colors.blue[900],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Icon(
+                                                      Icons.chevron_right,
+                                                      color: Colors.blue[900],
+                                                      size: 20,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )),
+                                Container(
+                                    width: 250,
+                                    height: 130,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(15),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width: 80,
+                                            height: 100,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(20.0),
+                                                image: DecorationImage(
+                                                  image: AssetImage(
+                                                      'assets/images/recommend.jpg'),
+                                                  fit: BoxFit.cover,
+                                                )),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        "Spices",
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily: "Poppins",
+                                                          color: Colors.black45,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Icon(
+                                                      Icons.favorite,
+                                                      color: Colors.red,
+                                                      size: 20,
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  'Herbs and Spices',
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontFamily: "Poppins",
+                                                    color: Colors.blue[900],
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'Tommy Store',
+                                                  style: TextStyle(
+                                                    fontSize: 10,
+                                                    fontFamily: "Poppins",
+                                                    color: Colors.blue[900],
+                                                  ),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        'P 10.58/kl',
+                                                        style: TextStyle(
+                                                          fontSize: 17,
+                                                          fontFamily: "Poppins",
+                                                          color: Colors.blue[900],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Icon(
+                                                      Icons.chevron_right,
+                                                      color: Colors.blue[900],
+                                                      size: 20,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )),
+                                Container(
+                                    width: 250,
+                                    height: 130,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(15),
+                                      child: Row(
+                                        children: [
+                                          Container(
+                                            width: 80,
+                                            height: 100,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(20.0),
+                                                image: DecorationImage(
+                                                  image: AssetImage(
+                                                      'assets/images/recommend.jpg'),
+                                                  fit: BoxFit.cover,
+                                                )),
+                                          ),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Expanded(
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        "Spices",
+                                                        style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily: "Poppins",
+                                                          color: Colors.black45,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Icon(
+                                                      Icons.favorite,
+                                                      color: Colors.red,
+                                                      size: 20,
+                                                    ),
+                                                  ],
+                                                ),
+                                                SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  'Herbs and Spices',
+                                                  style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontFamily: "Poppins",
+                                                    color: Colors.blue[900],
+                                                  ),
+                                                ),
+                                                Text(
+                                                  'Tommy Store',
+                                                  style: TextStyle(
+                                                    fontSize: 10,
+                                                    fontFamily: "Poppins",
+                                                    color: Colors.blue[900],
+                                                  ),
+                                                ),
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(
+                                                        'P 10.58/kl',
+                                                        style: TextStyle(
+                                                          fontSize: 17,
+                                                          fontFamily: "Poppins",
+                                                          color: Colors.blue[900],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Icon(
+                                                      Icons.chevron_right,
+                                                      color: Colors.blue[900],
+                                                      size: 20,
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )),
                               ],
-                            ),
-                          ),
-                          Text(
-                            "Vegetables",
-                            style: TextStyle(
-                              fontSize: 14,
                             ),
                           ),
                         ],
                       ),
                     ],
                   ),
-                ],
-              ),
-              Visibility(
-                visible: false,
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                            child: Text(
-                              "Stores Nearby You",
-                              style: TextStyle(
-                                fontSize: 17,
-                              ),
-                            ),
-                          ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: 174,
-                                  height: 214,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    color: Colors.orange,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(15),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Icon(
-                                              Icons.favorite_border,
-                                              color: Colors.white,
-                                              size: 20,
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          height: 80,
-                                          // decoration: BoxDecoration(color: Colors.black),
-                                          alignment: Alignment.center,
-                                          child: CircleAvatar(
-                                            backgroundColor: Colors.orange[100],
-                                            child: Text(
-                                              "TS",
-                                              style: TextStyle(
-                                                fontFamily: "Poppins",
-                                                color: Colors.orange,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                            ),
-                                            radius: 30,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 13,
-                                        ),
-                                        Text(
-                                          "Tommy Store",
-                                          style: TextStyle(
-                                            fontSize: 15,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Container(
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Basak, Lapu-Lapu City",
-                                                      style: TextStyle(
-                                                        fontSize: 10,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          "4.5",
-                                                          style: TextStyle(
-                                                            fontSize: 15,
-                                                            color: Colors.white,
-                                                          ),
-                                                        ),
-                                                        Icon(
-                                                          Icons.star,
-                                                          color: Colors.white,
-                                                          size: 20,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Container(
-                                                child: Stack(
-                                                  alignment: Alignment.center,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.circle,
-                                                      color: Colors.white,
-                                                      size: 30,
-                                                    ),
-                                                    Icon(
-                                                      Icons.chevron_right,
-                                                      color: Colors.orange,
-                                                      size: 20,
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  width: 174,
-                                  height: 214,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    color: Colors.orange,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(15),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Icon(
-                                              Icons.favorite_border,
-                                              color: Colors.white,
-                                              size: 20,
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          height: 80,
-                                          // decoration: BoxDecoration(color: Colors.black),
-                                          alignment: Alignment.center,
-                                          child: CircleAvatar(
-                                            backgroundColor: Colors.orange[100],
-                                            child: Text(
-                                              "TS",
-                                              style: TextStyle(
-                                                fontFamily: "Poppins",
-                                                color: Colors.orange,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                            ),
-                                            radius: 30,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 13,
-                                        ),
-                                        Text(
-                                          "Tommy Store",
-                                          style: TextStyle(
-                                            fontFamily: "Poppins",
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Container(
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Basak, Lapu-Lapu City",
-                                                      style: TextStyle(
-                                                        fontFamily: "Poppins",
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        fontSize: 10,
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          "4.5",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppins",
-                                                            color: Colors.white,
-                                                            // fontWeight: FontWeight.bold,
-                                                            fontSize: 15,
-                                                          ),
-                                                        ),
-                                                        Icon(
-                                                          Icons.star,
-                                                          color: Colors.white,
-                                                          size: 20,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Container(
-                                                child: Stack(
-                                                  alignment: Alignment.center,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.circle,
-                                                      color: Colors.white,
-                                                      size: 30,
-                                                    ),
-                                                    Icon(
-                                                      Icons.chevron_right,
-                                                      color: Colors.orange,
-                                                      size: 20,
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 10,
-                                ),
-                                Container(
-                                  width: 174,
-                                  height: 214,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    color: Colors.orange,
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(15),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          children: [
-                                            Icon(
-                                              Icons.favorite_border,
-                                              color: Colors.white,
-                                              size: 20,
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
-                                          height: 80,
-                                          // decoration: BoxDecoration(color: Colors.black),
-                                          alignment: Alignment.center,
-                                          child: CircleAvatar(
-                                            backgroundColor: Colors.orange[100],
-                                            child: Text(
-                                              "TS",
-                                              style: TextStyle(
-                                                fontFamily: "Poppins",
-                                                color: Colors.orange,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                            ),
-                                            radius: 30,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 13,
-                                        ),
-                                        Text(
-                                          "Tommy Store",
-                                          style: TextStyle(
-                                            fontFamily: "Poppins",
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        Container(
-                                          child: Row(
-                                            children: [
-                                              Expanded(
-                                                child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Text(
-                                                      "Basak, Lapu-Lapu City",
-                                                      style: TextStyle(
-                                                        fontFamily: "Poppins",
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                        fontSize: 10,
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .start,
-                                                      children: [
-                                                        Text(
-                                                          "4.5",
-                                                          style: TextStyle(
-                                                            fontFamily:
-                                                                "Poppins",
-                                                            color: Colors.white,
-                                                            // fontWeight: FontWeight.bold,
-                                                            fontSize: 15,
-                                                          ),
-                                                        ),
-                                                        Icon(
-                                                          Icons.star,
-                                                          color: Colors.white,
-                                                          size: 20,
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                              Container(
-                                                child: Stack(
-                                                  alignment: Alignment.center,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.circle,
-                                                      color: Colors.white,
-                                                      size: 30,
-                                                    ),
-                                                    Icon(
-                                                      Icons.chevron_right,
-                                                      color: Colors.orange,
-                                                      size: 20,
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Best Selling Products",
-                          style: TextStyle(
-                            fontSize: 17,
-                            fontFamily: "Poppins",
-                            color: Colors.blue[900],
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                        SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: Row(
-                            children: [
-                              Container(
-                                  width: 250,
-                                  height: 130,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(15),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          width: 80,
-                                          height: 100,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                              image: DecorationImage(
-                                                image: AssetImage(
-                                                    'assets/images/recommend.jpg'),
-                                                fit: BoxFit.cover,
-                                              )),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                      "Spices",
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontFamily: "Poppins",
-                                                        color: Colors.black45,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Icon(
-                                                    Icons.favorite,
-                                                    color: Colors.red,
-                                                    size: 20,
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              Text(
-                                                'Herbs and Spices',
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontFamily: "Poppins",
-                                                  color: Colors.blue[900],
-                                                ),
-                                              ),
-                                              Text(
-                                                'Tommy Store',
-                                                style: TextStyle(
-                                                  fontSize: 10,
-                                                  fontFamily: "Poppins",
-                                                  color: Colors.blue[900],
-                                                ),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                      'P 10.58/kl',
-                                                      style: TextStyle(
-                                                        fontSize: 17,
-                                                        fontFamily: "Poppins",
-                                                        color: Colors.blue[900],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Icon(
-                                                    Icons.chevron_right,
-                                                    color: Colors.blue[900],
-                                                    size: 20,
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )),
-                              Container(
-                                  width: 250,
-                                  height: 130,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(15),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          width: 80,
-                                          height: 100,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                              image: DecorationImage(
-                                                image: AssetImage(
-                                                    'assets/images/recommend.jpg'),
-                                                fit: BoxFit.cover,
-                                              )),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                      "Spices",
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontFamily: "Poppins",
-                                                        color: Colors.black45,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Icon(
-                                                    Icons.favorite,
-                                                    color: Colors.red,
-                                                    size: 20,
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              Text(
-                                                'Herbs and Spices',
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontFamily: "Poppins",
-                                                  color: Colors.blue[900],
-                                                ),
-                                              ),
-                                              Text(
-                                                'Tommy Store',
-                                                style: TextStyle(
-                                                  fontSize: 10,
-                                                  fontFamily: "Poppins",
-                                                  color: Colors.blue[900],
-                                                ),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                      'P 10.58/kl',
-                                                      style: TextStyle(
-                                                        fontSize: 17,
-                                                        fontFamily: "Poppins",
-                                                        color: Colors.blue[900],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Icon(
-                                                    Icons.chevron_right,
-                                                    color: Colors.blue[900],
-                                                    size: 20,
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )),
-                              Container(
-                                  width: 250,
-                                  height: 130,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(15),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          width: 80,
-                                          height: 100,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20.0),
-                                              image: DecorationImage(
-                                                image: AssetImage(
-                                                    'assets/images/recommend.jpg'),
-                                                fit: BoxFit.cover,
-                                              )),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                      "Spices",
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontFamily: "Poppins",
-                                                        color: Colors.black45,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Icon(
-                                                    Icons.favorite,
-                                                    color: Colors.red,
-                                                    size: 20,
-                                                  ),
-                                                ],
-                                              ),
-                                              SizedBox(
-                                                height: 5,
-                                              ),
-                                              Text(
-                                                'Herbs and Spices',
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  fontFamily: "Poppins",
-                                                  color: Colors.blue[900],
-                                                ),
-                                              ),
-                                              Text(
-                                                'Tommy Store',
-                                                style: TextStyle(
-                                                  fontSize: 10,
-                                                  fontFamily: "Poppins",
-                                                  color: Colors.blue[900],
-                                                ),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(
-                                                      'P 10.58/kl',
-                                                      style: TextStyle(
-                                                        fontSize: 17,
-                                                        fontFamily: "Poppins",
-                                                        color: Colors.blue[900],
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Icon(
-                                                    Icons.chevron_right,
-                                                    color: Colors.blue[900],
-                                                    size: 20,
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
                 ),
-              ),
-              Visibility(
-                visible: true,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -986,217 +770,21 @@ class _homeState extends State<home> {
                           fontSize: 17,
                         ),
                       ),
-                      SingleChildScrollView(
-                        child: Column(
+                      Container(
+                        height: queryData.size.height - 230,
+                        child: ListView(
+                          scrollDirection: Axis.vertical,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                              child: Container(
-                                height: 300,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.orange,
-                                  ),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Column(
-                                  children: [
-                                    Expanded(
-                                        child: Padding(
-                                      padding: EdgeInsets.all(20),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.account_circle,
-                                                size: 20,
-                                                color: Colors.blue[900],
-                                              ),
-                                              Expanded(
-                                                child: Text("Tommy Store"),
-                                              ),
-                                              Text('1h ago')
-                                            ],
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadiusDirectional
-                                                            .circular(15),
-                                                    image: DecorationImage(
-                                                      image: AssetImage(
-                                                          'assets/images/eggplant3.jpg'),
-                                                      fit: BoxFit.cover,
-                                                    ))),
-                                          ),
-                                          Text(
-                                            'Fresh Eggplants',
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          Text(
-                                            'P80/kl',
-                                          ),
-                                        ],
-                                      ),
-                                    )),
-                                    Container(
-                                      height: 70,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(15),
-                                            bottomRight: Radius.circular(15)),
-                                        color: Colors.orange,
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(20.0),
-                                        child: Row(
-                                          children: [
-                                            Icon(
-                                              Icons.favorite,
-                                              color: Colors.white,
-                                              size: 20,
-                                            ),
-                                            Text(
-                                              '120',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            Expanded(child: Container()),
-                                            Icon(
-                                              Icons.star,
-                                              color: Colors.white,
-                                              size: 20,
-                                            ),
-                                            Text(
-                                              '4.5',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                              child: Container(
-                                height: 300,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.orange,
-                                  ),
-                                  borderRadius: BorderRadius.circular(15),
-                                ),
-                                child: Column(
-                                  children: [
-                                    Expanded(
-                                        child: Padding(
-                                      padding: EdgeInsets.all(20),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                Icons.account_circle,
-                                                size: 20,
-                                                color: Colors.blue[900],
-                                              ),
-                                              Expanded(
-                                                child: Text("Tommy Store"),
-                                              ),
-                                              Text('1h ago')
-                                            ],
-                                          ),
-                                          Expanded(
-                                            child: Container(
-                                                decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadiusDirectional
-                                                            .circular(15),
-                                                    image: DecorationImage(
-                                                      image: AssetImage(
-                                                          'assets/images/eggplant3.jpg'),
-                                                      fit: BoxFit.cover,
-                                                    ))),
-                                          ),
-                                          Text(
-                                            'Fresh Eggplants',
-                                            style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          Text(
-                                            'P80/kl',
-                                          ),
-                                        ],
-                                      ),
-                                    )),
-                                    Container(
-                                      height: 70,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.only(
-                                            bottomLeft: Radius.circular(15),
-                                            bottomRight: Radius.circular(15)),
-                                        color: Colors.orange,
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(20.0),
-                                        child: Row(
-                                          children: [
-                                            Icon(
-                                              Icons.favorite,
-                                              color: Colors.white,
-                                              size: 20,
-                                            ),
-                                            Text(
-                                              '120',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                            Expanded(child: Container()),
-                                            Icon(
-                                              Icons.star,
-                                              color: Colors.white,
-                                              size: 20,
-                                            ),
-                                            Text(
-                                              '4.5',
-                                              style: TextStyle(
-                                                color: Colors.white,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
+                            SellerCard(),
+                            SellerCard(),
                           ],
                         ),
                       ),
                     ],
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ));
   }
