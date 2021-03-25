@@ -47,8 +47,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/recommend.jpg
-    - images/spice.png
+    - assets/images/recommend.jpg
+    - assets/images/spice.png
+    - assets/images/eggplant3.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
@@ -80,6 +81,6 @@ flutter:
   fonts:
     - family: Poppins
       fonts:
-        - asset: fonts/Poppins-Regular.ttf
-        - asset: fonts/Poppins-Bold.ttf
-        - asset: fonts/Poppins-Medium.ttf
+        - asset: assets/fonts/Poppins-Regular.ttf
+        - asset: assets/fonts/Poppins-Bold.ttf
+        - asset: assets/fonts/Poppins-Medium.ttf
