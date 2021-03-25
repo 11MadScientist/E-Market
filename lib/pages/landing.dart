@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:e_market/designs/textbox.dart';
 
 class Landing extends StatefulWidget {
   Landing({Key key}) : super(key: key);
@@ -116,7 +115,10 @@ class _LandingState extends State<Landing> {
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                               fontSize: 18, ),),
-                  onPressed: () => {},
+                  onPressed: () =>
+                  {
+                    Navigator.pushReplacementNamed(context, '/login')
+                  },
                   style: ElevatedButton.styleFrom(
                     onPrimary: Colors.black87,
                     shape: RoundedRectangleBorder(
@@ -136,7 +138,10 @@ class _LandingState extends State<Landing> {
                               fontFamily: 'Poppins',
                               fontWeight: FontWeight.w500,
                               fontSize: 18, ),),
-                  onPressed: () => {},
+                  onPressed: () =>
+                  {
+                    Navigator.pushReplacementNamed(context, '/login')
+                  },
                   style: ElevatedButton.styleFrom(
                     onPrimary: Colors.black87,
                     shape: RoundedRectangleBorder(

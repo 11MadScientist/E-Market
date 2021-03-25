@@ -125,7 +125,7 @@ PassField confPassBox;
                                 GestureDetector(
                                   onTap: ()
                                   {
-                                    Navigator.pushReplacementNamed(context, '/');
+                                    Navigator.pushReplacementNamed(context, '/login');
                                   },
                                   child: Text(
                                     "Go to Login!",
