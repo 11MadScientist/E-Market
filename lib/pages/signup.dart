@@ -111,6 +111,37 @@ PassField confPassBox;
                                 ),
                               ),
                             ),
+                            SizedBox(height: 20,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  "Have an existing account?",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),),
+                                SizedBox(width: 4,),
+                                GestureDetector(
+                                  onTap: ()
+                                  {
+                                    Navigator.pushReplacementNamed(context, '/');
+                                  },
+                                  child: Text(
+                                    "Go to Login!",
+                                    style: TextStyle(
+
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 14,
+                                      decoration: TextDecoration.underline,
+                                      decorationColor: Colors.orange[500],
+                                      decorationThickness: 2,
+                                      color: Colors.orange[500],
+
+                                    ),),
+                                ),
+                              ],
+                            ),
 
                           ],
                         )
