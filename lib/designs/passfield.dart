@@ -5,6 +5,8 @@ bool secure = true;
 
 class PassField extends StatefulWidget {
   @override
+  final String hint;
+  const PassField({this.hint});
 
   String getInfo()
   {
@@ -21,7 +23,7 @@ class _PassFieldState extends State<PassField> {
     return TextField(
       controller: _nameController,
       decoration: InputDecoration(
-        hintText: "Password",
+        hintText: widget.hint,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.orange[500]),
           borderRadius: BorderRadius.all(Radius.circular(30)),

@@ -9,20 +9,19 @@ class Login extends StatefulWidget {
 }
 class _LoginState extends State<Login> {
 
-  TextBox box1;
-  PassField pass1;
+  TextBox emailbox;
+  PassField passbox;
 
 
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
-    double height = MediaQuery.of(context).size.height;
 
     return Scaffold(
       body:SingleChildScrollView(
         child: SizedBox(
-            height: height,
+            height: queryData.size.height,
             child: Column(
               children:<Widget>[
                 ClipPath(
@@ -66,17 +65,17 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           SizedBox(height: 30,),
-                          box1 = new TextBox(hint: "Email Address", icon: Icons.email,
+                          emailbox = new TextBox(hint: "Email Address", icon: Icons.email,
                             type: TextInputType.emailAddress,),
                           SizedBox(height: 30,),
-                          pass1 = new PassField(),
+                          passbox = new PassField(hint: "Password",),
                           SizedBox(height: 20,),
                           TextButton(
                             onPressed: ()
                             {
                               setState(() {
-                                print(box1.getInfo());
-                                print(pass1.getInfo());
+                                print(emailbox.getInfo());
+                                print(passbox.getInfo());
 
                               });
                             },
@@ -127,32 +126,44 @@ class _LoginState extends State<Login> {
                               fontSize: 14,
                             ),),
                           SizedBox(width: 4,),
-                          Text(
-                            "Create new now!",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 14,
-                              decoration: TextDecoration.underline,
-                              decorationColor: Colors.orange[500],
-                              decorationThickness: 2,
-                              color: Colors.orange[500],
-                            ),),
+                          GestureDetector(
+                            onTap: ()
+                            {
+                              Navigator.pushReplacementNamed(context, '/signup');
+                            },
+                            child: Text(
+                              "Create new now!",
+                              style: TextStyle(
+
+                                fontWeight: FontWeight.bold,
+                                fontSize: 14,
+                                decoration: TextDecoration.underline,
+                                decorationColor: Colors.orange[500],
+                                decorationThickness: 2,
+                                color: Colors.orange[500],
+
+                              ),),
+                          ),
                         ],
                       ),
                     ],
                   ),
                 ),
-                Spacer(),
-                Container(
-                  color: Colors.orange[500],
-                  child: ClipPath(
-                    clipper: BottomClip(),
-                    child: Container(
-                      height: queryData.size.height/6,
-                      decoration: BoxDecoration(
-                        color: Colors.grey[50],
-                      ),
+                Expanded(
+                    flex: 1,
+                    child: SizedBox(height: 20,)),
+                Expanded(
+                  flex: 2,
+                  child: Container(
+                    color: Colors.orange[500],
+                    child: ClipPath(
+                      clipper: BottomClip(),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.grey[50],
+                        ),
 
+                      ),
                     ),
                   ),
                 ),
