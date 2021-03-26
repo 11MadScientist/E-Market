@@ -74,8 +74,7 @@ class _LoginState extends State<Login> {
                             onPressed: ()
                             {
                               setState(() {
-                                print(emailbox.getInfo());
-                                print(passbox.getInfo());
+                                Navigator.pushReplacementNamed(context, '/home');
 
                               });
                             },

@@ -4,7 +4,8 @@ class MyAppBar extends AppBar
 {
 
   MyAppBar({Key key, double size, String screenName})
-      :super(key: key, toolbarHeight: 100, title:
+      :super(key: key, toolbarHeight: 100, backgroundColor: Colors.orange[500],
+    title:
   Column(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: <Widget>[

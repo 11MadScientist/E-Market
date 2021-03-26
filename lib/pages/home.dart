@@ -4,12 +4,12 @@ import 'package:e_market/designs/categorycard.dart';
 import 'package:e_market/designs/sellershomecard.dart';
 
 
-class home extends StatefulWidget {
+class Home extends StatefulWidget {
   @override
-  _homeState createState() => _homeState();
+  _HomeState createState() => _HomeState();
 }
 
-class _homeState extends State<home> {
+class _HomeState extends State<Home> {
   bool isBuyer = false;
 
   @override
