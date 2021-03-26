@@ -771,10 +771,11 @@ class _homeState extends State<home> {
                         ),
                       ),
                       Container(
-                        height: queryData.size.height - 230,
+                        height: queryData.size.height - 300,
                         child: ListView(
                           scrollDirection: Axis.vertical,
                           children: [
+                            SellerCard(),
                             SellerCard(),
                             SellerCard(),
                           ],
