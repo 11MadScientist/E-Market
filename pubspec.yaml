@@ -50,8 +50,7 @@ flutter:
     - assets/images/recommend.jpg
     - assets/images/spice.png
     - assets/images/eggplant3.jpg
-    - lib/assests/background.png
-    - lib/assests/landing-illustration.png
+    - assets/images/boxdesign.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
