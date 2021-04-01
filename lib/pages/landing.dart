@@ -27,6 +27,8 @@ class _LandingState extends State<Landing> {
               height: 300,
               width: 300,
                 child: Container(
+                    height: 300,
+              width: 300,
               decoration: BoxDecoration(
                   image: DecorationImage(
                       image: AssetImage("lib/assests/landing-illustration.png"),                    
