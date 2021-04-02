@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class MyAppBar extends AppBar
 {
 
-  MyAppBar({Key key, double size, String screenName})
+  MyAppBar({Key key, double size, String screenName, BuildContext context})
       :super(key: key, toolbarHeight: 100, backgroundColor: Colors.orange[500],
     title:
   Column(
@@ -35,7 +35,7 @@ class MyAppBar extends AppBar
             color: Colors.white,),
             onPressed: ()
             {
-
+                Navigator.pushNamed(context, '/profile');
             },
           ),
           IconButton(
