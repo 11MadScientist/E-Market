@@ -17,7 +17,8 @@ class _HomeState extends State<Home> {
     MediaQueryData queryData = MediaQuery.of(context);
     return Scaffold(
         resizeToAvoidBottomInset: true,
-        appBar: MyAppBar(size: queryData.size.width, screenName: "Home",),
+        appBar: MyAppBar(size: queryData.size.width, screenName: "Home",
+        context:this.context,),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.only(left:10,right: 10),
