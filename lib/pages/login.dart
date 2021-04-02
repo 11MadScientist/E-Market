@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:e_market/designs/myclipper.dart';
 import 'package:e_market/designs/bottomclipper.dart';
 import 'package:e_market/designs/textbox.dart';
+
+import 'dart:async';
+import 'dart:convert';
+
 class Login extends StatefulWidget {
   @override
   _LoginState createState() => _LoginState();
@@ -12,11 +16,26 @@ class _LoginState extends State<Login> {
   TextBox emailbox;
   PassField passbox;
 
+  String getEmail = ' ';
+  String getPass = ' ';
+
+  bool checkCredentials(String email, String pass)
+  {
+    if(email.isEmpty || pass.isEmpty)
+      return true;
+    else if(email.toLowerCase().compareTo(getEmail.toLowerCase()) != 0
+        || pass.toLowerCase().compareTo(getPass.toLowerCase()) != 0)
+      return true;
+    else
+      return false;
+  }
 
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;
     queryData = MediaQuery.of(context);
+
+    checkCredentials('email', 'pass');
 
     return Scaffold(
       body:SingleChildScrollView(
@@ -73,10 +92,13 @@ class _LoginState extends State<Login> {
                           TextButton(
                             onPressed: ()
                             {
-                              setState(() {
-                                Navigator.pushReplacementNamed(context, '/home');
-
-                              });
+                              if(checkCredentials(emailbox.getInfo(), passbox.getInfo()))
+                                popUpDialog();
+                              else{
+                                setState(() {
+                                  Navigator.pushReplacementNamed(context, '/home');
+                                });
+                              }
                             },
                             style: ButtonStyle(
                               backgroundColor: MaterialStateProperty
@@ -170,5 +192,50 @@ class _LoginState extends State<Login> {
                ])),
       )
     );
+  }
+
+ Future popUpDialog() async
+  {
+      return (
+      showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context){
+            return AlertDialog(
+              title: Text(
+                  'ERROR!',
+              style: TextStyle(
+                fontFamily: 'Poppins',
+                fontWeight: FontWeight.bold,
+              ),),
+              content: Container(
+                padding: EdgeInsets.all(15.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Icon(
+                      Icons.error_outline,
+                      color: Colors.red,
+                      size: 65,
+                    ),
+                    Text(
+                        'Email/Password is incorrect!',
+                    style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 18.0,
+                    ),),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text('Close'))
+              ],
+            );
+          })
+      );
   }
 }
