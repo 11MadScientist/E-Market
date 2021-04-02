@@ -7,11 +7,11 @@ class APIGateway {
 
   Profile profile;
 
-  Future<Profile> asyncGet() async
+  Future<Profile> asyncGet(String email) async
   {
     try
     {
-      Network network = Network(envEndPoints.getEndPoints('/api/userinfo/1'));
+      Network network = Network(envEndPoints.getEndPoints('/api/userinfo/$email'));
       dynamic body = await network.getData();
 
       profile = Profile.fromJson(body);
