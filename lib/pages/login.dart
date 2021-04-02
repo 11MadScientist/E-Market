@@ -93,7 +93,7 @@ class _LoginState extends State<Login> {
                             onPressed: ()
                             {
                               if(checkCredentials(emailbox.getInfo(), passbox.getInfo()))
-                                popUpDialog();
+                                popUpDialog(queryData);
                               else{
                                 setState(() {
                                   Navigator.pushReplacementNamed(context, '/home');
@@ -194,7 +194,7 @@ class _LoginState extends State<Login> {
     );
   }
 
- Future popUpDialog() async
+ Future popUpDialog(MediaQueryData data) async
   {
       return (
       showDialog(
@@ -202,38 +202,48 @@ class _LoginState extends State<Login> {
           barrierDismissible: false,
           builder: (BuildContext context){
             return AlertDialog(
-              title: Text(
-                  'ERROR!',
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.bold,
-              ),),
-              content: Container(
-                padding: EdgeInsets.all(15.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Icon(
-                      Icons.error_outline,
-                      color: Colors.red,
-                      size: 65,
-                    ),
-                    Text(
-                        'Email/Password is incorrect!',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: 18.0,
-                    ),),
-                  ],
+                title: Text(
+                    'ERROR!',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.bold,
+                  fontSize: data.size.width * .05,
+                ),),
+                content: Container(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Icon(
+                        Icons.error_outline,
+                        color: Colors.red,
+                        size: data.size.width * .15 ,
+                      ),
+                      // Expanded(child: SizedBox(width: data.size.width * .005,)),
+                      Expanded(
+                        child: Text(
+                            'Email/Password is incorrect!',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: data.size.width * .05,
+                        ),),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              actions: <Widget>[
-                TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    child: Text('Close'))
-              ],
+                actions: <Widget>[
+                  TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                          'Close',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: data.size.width * .04,
+                        ),
+                      ))
+                ],
             );
           })
       );
