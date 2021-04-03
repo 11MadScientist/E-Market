@@ -6,11 +6,12 @@ bool secure = true;
 class PassField extends StatefulWidget {
   @override
   final String hint;
-  const PassField({this.hint});
+  final TextEditingController controller;
+  const PassField({this.hint, this.controller});
 
   String getInfo()
   {
-    return _nameController.text;
+    return controller.text;
   }
 
   _PassFieldState createState() => _PassFieldState();
@@ -21,7 +22,7 @@ class _PassFieldState extends State<PassField> {
   @override
   Widget build(BuildContext context) {
     return TextField(
-      controller: _nameController,
+      controller: widget.controller,
       decoration: InputDecoration(
         hintText: widget.hint,
         enabledBorder: OutlineInputBorder(

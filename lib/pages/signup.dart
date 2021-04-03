@@ -14,9 +14,13 @@ class SignUp extends StatefulWidget {
 
 class _SignUpState extends State<SignUp> {
 TextBox nameBox;
+TextEditingController _nameController = new TextEditingController();
 TextBox emailBox;
+TextEditingController _emailController = new TextEditingController();
 PassField passBox;
+TextEditingController _passwordController = new TextEditingController();
 PassField confPassBox;
+TextEditingController _confpasswordController = new TextEditingController();
 
 
   @override
@@ -66,27 +70,40 @@ PassField confPassBox;
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
+
                             nameBox = new TextBox(
                               hint: "Full Name",
                               icon: Icons.account_circle,
                               type: TextInputType.text,
+                              controller: _nameController,
                             ),
                             SizedBox(height: 20,),
                             emailBox = new TextBox(
                               hint: "Email Address",
                               icon: Icons.email,
                               type: TextInputType.emailAddress,
+                              controller: _emailController,
+
                             ),
                             SizedBox(height: 20,),
-                            passBox = new PassField(hint: "Password",),
+                            passBox = new PassField(
+                              hint: "Password",
+                              controller: _passwordController,),
                             SizedBox(height: 20,),
-                            confPassBox = new PassField(hint: "Confirm Password",),
+                            confPassBox = new PassField(
+                              hint: "Confirm Password",
+                              controller: _confpasswordController,
+                            ),
                             SizedBox(height: 20,),
                             TextButton(
                               onPressed: ()
                               {
                                 setState(()
                                 {
+                                  print(nameBox.getInfo());
+                                  print(emailBox.getInfo());
+                                  print(passBox.getInfo());
+                                  print(confPassBox.getInfo());
 
                                 });
                               },

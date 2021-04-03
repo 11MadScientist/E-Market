@@ -15,7 +15,9 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
 
   TextBox emailbox;
+  TextEditingController _emailController = new TextEditingController();
   PassField passbox;
+  TextEditingController _passwordController = new TextEditingController();
   PopUp popup;
 
   String getEmail = ' ';
@@ -86,10 +88,17 @@ class _LoginState extends State<Login> {
                             ),
                           ),
                           SizedBox(height: 30,),
-                          emailbox = new TextBox(hint: "Email Address", icon: Icons.email,
-                            type: TextInputType.emailAddress,),
+                          emailbox = new TextBox(
+                            hint: "Email Address",
+                            icon: Icons.email,
+                            type: TextInputType.emailAddress,
+                            controller: _emailController,
+                          ),
                           SizedBox(height: 30,),
-                          passbox = new PassField(hint: "Password",),
+                          passbox = new PassField(
+                            hint: "Password",
+                            controller: _passwordController,
+                          ),
                           SizedBox(height: 20,),
                           TextButton(
                             onPressed: ()
