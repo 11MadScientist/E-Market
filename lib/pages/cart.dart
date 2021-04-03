@@ -1,12 +1,12 @@
 import "package:e_market/designs/appbar.dart";
 import 'package:flutter/material.dart';
 
-class cart extends StatefulWidget {
+class Cart extends StatefulWidget {
   @override
-  _cartState createState() => _cartState();
+  _CartState createState() => _CartState();
 }
 
-class _cartState extends State<cart> {
+class _CartState extends State<Cart> {
   List<bool> isSelected = [false, false, false];
   @override
   Widget build(BuildContext context) {
