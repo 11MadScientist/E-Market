@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 
 class Landing extends StatefulWidget {
   Landing({Key key}) : super(key: key);
@@ -10,147 +11,116 @@ class Landing extends StatefulWidget {
 class _LandingState extends State<Landing> {
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData = MediaQuery.of(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Container(
-        padding: EdgeInsets.all(15.0),
-        decoration: BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage("lib/assests/background.png"),
-                fit: BoxFit.cover)),
-        child: Stack(
-          alignment: Alignment.topCenter,
+      resizeToAvoidBottomInset: true,
+      body: SingleChildScrollView(
+        child: ListView(
+          shrinkWrap: true,
           children: <Widget>[
-            Positioned(
-              top: 250,
-              left: 15,
-              height: 300,
-              width: 300,
-                child: Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("lib/assests/landing-illustration.png"),                    
-                  ),
-              ),
-            )),
+            Stack(
+              children: <Widget>[
+              Container(
+                width: queryData.size.width,
+                height: queryData.size.height,
+                padding: EdgeInsets.all(15.0),
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('lib/assets/background.png'),
+                      fit: BoxFit.cover
+                      ))),
 
-            Positioned(
-              top: 180,
-              child: Container(
-                child: Text(
-                  'Order Online. \nStay Safe With Us!',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 35,
-                  ),
+                Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                Container(
+                margin: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                  width: 100,
+                  height: 130,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('lib/assets/e-merkado.png')
+                      ))),
+                Container(
+                margin: const EdgeInsets.fromLTRB(0, 40, 0, 0),
+                child: Column(
+                children: <Widget>
+                [
+                  AutoSizeText("E-Merkado",
+                                  style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 40.0,
+                                        fontWeight: FontWeight.bold,
+                                        fontFamily: 'Poppins'
+                                  ),),
+
+                  AutoSizeText("A one-tap-away public market",
+                                  style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.normal,
+                                        fontFamily: 'Poppins'
+                                  ),),
+
+                                  ],
+                                )
+                  ,)
+                ],),
+
+
+              Container(
+                alignment: Alignment.center,
+                width: queryData.size.width,
+                height: queryData.size.height,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('lib/assets/landing-illustration.png'),
+                      )),
+              child: Column(
+               mainAxisAlignment: MainAxisAlignment.center,
+               children: <Widget>[
+               Container(
+                 margin: const EdgeInsets.fromLTRB(0, 520, 0, 0),
+                child:  ElevatedButton(
+                child: Text("I'm a Seller", style: TextStyle(
+                fontSize: 22,
+                fontFamily: 'Poppins'
+                ),), onPressed: ()=>{},
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.orange,
+                  padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
+                  shadowColor: Colors.orange[200],
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                  elevation: 10,
                 ),
+                ),),
+
+                 Container(
+                 margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                child:  ElevatedButton(
+                child: Text("I'm a Buyer", style: TextStyle(
+                fontSize: 22,
+                fontFamily: 'Poppins'
+                ),), onPressed: ()=>{},
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.orange,
+                  padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
+                  shadowColor: Colors.orange[200],
+                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                  elevation: 10,
+                ),
+                ),),
+
+                
+
+              ],)
               ),
+                   
+              
+              ], 
             ),
-
-
-          // Positioned(
-          //   top: 550,
-          //   width: 200,
-          //   child: OutlineButton(onPressed: (){},  
-          //   color: Colors.black38, 
-          //   shape: RoundedRectangleBorder(side: BorderSide(
-          //   color: Colors.black87,
-          //   width: 4,
-          //   style: BorderStyle.solid
-          // ), borderRadius: BorderRadius.circular(50)),
-          
-          //   child: Padding(padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: <Widget>[
-          //        Text("I am a Seller",
-          //       style: TextStyle(
-          //         fontFamily: 'Poppins',
-          //         fontWeight: FontWeight.w500,
-          //         fontSize: 20, ),),
-          //         Icon(
-          //           Icons.arrow_forward,
-          //           color: Colors.black,
-                    
-          //         )
-          //     ],
-          //   ),),
-          //   )),
-             
-             
-          //   Positioned(
-          //     top: 600,
-          //     width: 200,
-          //     child:   new OutlineButton(onPressed: (){},  
-          //     color: Colors.black38, 
-          //     shape: RoundedRectangleBorder(side: BorderSide(
-          //     color: Colors.black87,
-          //     width: 4,
-          //     style: BorderStyle.solid
-          // ), borderRadius: BorderRadius.circular(50),),
-          
-          //   child: Padding(padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //     children: <Widget>[
-          //        Text("I am a Buyer",
-          //       style: TextStyle(
-          //         fontFamily: 'Poppins',
-          //         fontWeight: FontWeight.w500,
-          //         fontSize: 20, ),),
-          //         Icon(
-          //           Icons.arrow_forward,
-          //           color: Colors.black,
-          //         )
-          //     ],
-          //   ),),
-          //   ))
-    Positioned(
-            top: 540,
-            width: 200,  
-              child: OutlinedButton(
-                  child: Text("I'm a Seller", style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18, ),),
-                  onPressed: () =>
-                  {
-                    Navigator.pushReplacementNamed(context, '/login')
-                  },
-                  style: ElevatedButton.styleFrom(
-                    onPrimary: Colors.black87,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(32.0),
-                    ),
-                    padding: EdgeInsets.all(10.0),
-                    
-                  ),
-            ),),  
-
-            
-            Positioned(
-            top: 600,
-            width: 200,  
-              child: OutlinedButton(
-                  child: Text("I'm a Buyer", style: TextStyle(
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18, ),),
-                  onPressed: () =>
-                  {
-                    Navigator.pushReplacementNamed(context, '/login')
-                  },
-                  style: ElevatedButton.styleFrom(
-                    onPrimary: Colors.black87,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(32.0),
-                    ),
-                    padding: EdgeInsets.all(10.0),
-                    
-                  ),
-            ),)  
+                 
           ],
         ),
       ),
