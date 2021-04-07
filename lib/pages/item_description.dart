@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class itemDescription extends StatefulWidget {
+class ItemDescription extends StatefulWidget {
   @override
-  _itemDescriptionState createState() => _itemDescriptionState();
+  _ItemDescriptionState createState() => _ItemDescriptionState();
 }
 
-class _itemDescriptionState extends State<itemDescription> {
+class _ItemDescriptionState extends State<ItemDescription> {
   bool toggleDescription = false;
   var iconDescription =
       Icon(Icons.keyboard_arrow_down, color: Colors.blue[900]);
