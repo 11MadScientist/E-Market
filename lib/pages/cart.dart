@@ -50,7 +50,7 @@ class _CartState extends State<Cart> {
                                       decoration: BoxDecoration(
                                           image: DecorationImage(
                                               image: AssetImage(
-                                                  'assets/images/meat.png'),
+                                                  'lib/assets/meat.png'),
                                               fit: BoxFit.cover))),
                                   SizedBox(
                                     height: 10,
@@ -141,7 +141,7 @@ class _CartState extends State<Cart> {
                                       decoration: BoxDecoration(
                                           image: DecorationImage(
                                               image: AssetImage(
-                                                  'assets/images/meat.png'),
+                                                  'lib/assets/meat.png'),
                                               fit: BoxFit.cover))),
                                   SizedBox(
                                     height: 10,

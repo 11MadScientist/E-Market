@@ -555,6 +555,10 @@ class _ItemDescriptionState extends State<ItemDescription> {
                         SizedBox(
                           width: double.infinity,
                           child: ElevatedButton(
+                            onPressed: ()
+                            {
+                              Navigator.pushNamed(context, '/cart');
+                            },
                             style: ButtonStyle(
                               foregroundColor:
                                   MaterialStateProperty.all(Colors.white),
