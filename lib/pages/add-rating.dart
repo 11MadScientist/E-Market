@@ -30,7 +30,6 @@ class _AddRatingState extends State<AddRating> {
               Expanded(child: 
                 Container(
                   margin: const EdgeInsets.all(20.0),
-                  padding: const EdgeInsets.all(10.0),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.orangeAccent),
                     borderRadius: BorderRadius.all(Radius.circular(8.0)),
@@ -41,7 +40,7 @@ class _AddRatingState extends State<AddRating> {
                       Container(
                         width: 100,
                         height: 90,
-                        margin: const EdgeInsets.all(20.0),
+                        margin: const EdgeInsets.fromLTRB(0, 20, 20, 20),
                         decoration: BoxDecoration(
                             borderRadius:
                                 BorderRadius.all(Radius.circular(8.0)),
@@ -74,7 +73,7 @@ class _AddRatingState extends State<AddRating> {
                             direction: Axis.horizontal,
                             allowHalfRating: true,
                             itemCount: 5,
-                            itemSize: 35.0,
+                            itemSize: 20.0,
                             // itemPadding: EdgeInsets.symmetric(horizontal: 0.0),
                             itemBuilder: (context, _) => Icon(
                               Icons.star,
