@@ -16,7 +16,7 @@ class _UserProfileState extends State<UserProfile> {
   void _session() async
   {
     setState(() {
-      _userProfile = apiGateway.asyncGet("wmacejkovic@gmail.com");
+      _userProfile = apiGateway.asyncGet("modesto.pouros@gmail.com");
       print("setstate: ${_userProfile}");
     });
   }

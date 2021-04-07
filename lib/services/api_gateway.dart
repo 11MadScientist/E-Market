@@ -13,7 +13,7 @@ class APIGateway {
     {
       Network network = Network(envEndPoints.getEndPoints('/api/userinfo/$email'));
       dynamic body = await network.getData();
-
+      print("api: ${body}");
       profile = Profile.fromJson(body);
     }
     catch (e)
