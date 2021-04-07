@@ -98,32 +98,40 @@ class _LandingState extends State<Landing> {
                           Container(
                             margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                             child:  ElevatedButton(
-                            child: Text("I'm a Seller", style: TextStyle(
-                            fontSize: widthSize * 0.055,
-                            fontFamily: 'Poppins'
-                            ),), onPressed: ()=>{},
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.orange,
-                              padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
-                              shadowColor: Colors.orange[200],
-                              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                              elevation: 10,
-                            ),
+                              onPressed: ()
+                              {
+                                Navigator.pushReplacementNamed(context, '/login');
+                              },
+                              child: Text("I'm a Seller", style: TextStyle(
+                              fontSize: widthSize * 0.055,
+                              fontFamily: 'Poppins'
+                              ),),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.orange,
+                                padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
+                                shadowColor: Colors.orange[200],
+                                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                                elevation: 10,
+                              ),
                             ),),
                             Container(
                             margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
                             child:  ElevatedButton(
-                            child: Text("I'm a Buyer", style: TextStyle(
-                            fontSize: widthSize * 0.055,
-                            fontFamily: 'Poppins'
-                            ),), onPressed: ()=>{},
-                            style: ElevatedButton.styleFrom(
-                              primary: Colors.orange,
-                              padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
-                              shadowColor: Colors.orange[200],
-                              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                              elevation: 10,
-                            ),
+                              onPressed: ()
+                              {
+                                Navigator.pushReplacementNamed(context, '/login');
+                              },
+                              child: Text("I'm a Buyer", style: TextStyle(
+                              fontSize: widthSize * 0.055,
+                              fontFamily: 'Poppins'
+                              ),),
+                              style: ElevatedButton.styleFrom(
+                                primary: Colors.orange,
+                                padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
+                                shadowColor: Colors.orange[200],
+                                shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                                elevation: 10,
+                              ),
                             ),),
                           ],
                         ),

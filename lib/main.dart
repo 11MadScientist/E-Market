@@ -9,7 +9,7 @@ import 'package:e_market/pages/cart.dart';
 void main() => runApp(MaterialApp(
   initialRoute: '/',
   routes: {
-    '/'       : (context) => Landing(),
+    '/'       :(context) => Landing(),
     '/login'  :(context) => Login(),
     '/signup' :(context) => SignUp(),
     '/home'   :(context) => Home(),
