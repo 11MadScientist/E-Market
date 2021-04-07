@@ -38,7 +38,7 @@ class _AddRatingState extends State<AddRating> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                    Expanded(child:   Container(
+                      Container(
                         width: 100,
                         height: 90,
                         margin: const EdgeInsets.all(20.0),
@@ -48,12 +48,11 @@ class _AddRatingState extends State<AddRating> {
                             image: DecorationImage(
                                 image: AssetImage("lib/assests/cabbage.jpg"),
                                 fit: BoxFit.fill)),
-                      ),),
+                      ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          Expanded(child: 
-                              Text(
+                          Text(
                             "Tommy Store",
                             style: TextStyle(
                                 fontSize: 22,
@@ -61,9 +60,7 @@ class _AddRatingState extends State<AddRating> {
                                 fontWeight: FontWeight.bold,
                                 color: Colors.orange),
                           ),
-                          ),
-                      Expanded(child: 
-                           Text(
+                          Text(
                             "Cabbage",
                             style: TextStyle(
                                 fontSize: 18,
@@ -71,9 +68,6 @@ class _AddRatingState extends State<AddRating> {
                                 fontWeight: FontWeight.normal,
                                 color: Colors.orange),
                           ),
-                      ),
-                     
-                      Expanded(child: 
                           RatingBar.builder(
                             initialRating: 3,
                             minRating: 1,
@@ -89,16 +83,14 @@ class _AddRatingState extends State<AddRating> {
                             onRatingUpdate: (rating) {
                               print(rating);
                             },
-                          ),),
-                          Expanded(child: 
-                                Text(
+                          ),
+                          Text(
                             "Average Rating",
                             style: TextStyle(
                                 fontSize: 10,
                                 fontFamily: "Poppins",
                                 fontWeight: FontWeight.normal,
                                 color: Colors.black),
-                          ),
                           ),
                         ],
                       ),
