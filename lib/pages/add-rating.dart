@@ -16,7 +16,7 @@ class _AddRatingState extends State<AddRating> {
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
     return Scaffold(
-      resizeToAvoidBottomInset: true,
+      
       appBar: MyAppBar(
         size: queryData.size.width,
         screenName: "Rate Product",
@@ -27,6 +27,7 @@ class _AddRatingState extends State<AddRating> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+              Expanded(child: 
                 Container(
                   margin: const EdgeInsets.all(20.0),
                   padding: const EdgeInsets.all(10.0),
@@ -96,6 +97,7 @@ class _AddRatingState extends State<AddRating> {
                     ],
                   ),
                 ),
+              )
               ],
             ),
             Container(
