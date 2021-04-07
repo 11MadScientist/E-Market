@@ -43,7 +43,7 @@ class SellerCard extends StatelessWidget {
                                     .circular(15),
                                 image: DecorationImage(
                                   image: AssetImage(
-                                      'assets/images/eggplant3.jpg'),
+                                      'lib/assets/eggplant3.jpg'),
                                   fit: BoxFit.cover,
                                 ))),
                       ),
