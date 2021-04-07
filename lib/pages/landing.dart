@@ -9,121 +9,130 @@ class Landing extends StatefulWidget {
 }
 
 class _LandingState extends State<Landing> {
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
+
+    double heightSize = queryData.size.height;
+    double widthSize = queryData.size.width;
+
     return Scaffold(
       backgroundColor: Colors.white,
-      resizeToAvoidBottomInset: true,
-      body: SingleChildScrollView(
-        child: ListView(
-          shrinkWrap: true,
+      resizeToAvoidBottomInset: false,
+      body: Stack(
           children: <Widget>[
-            Stack(
-              children: <Widget>[
-              Container(
-                width: queryData.size.width,
-                height: queryData.size.height,
-                padding: EdgeInsets.all(15.0),
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('lib/assets/background.png'),
-                      fit: BoxFit.cover
-                      ))),
-
-                Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                Container(
-                margin: const EdgeInsets.fromLTRB(0, 40, 0, 0),
-                  width: 100,
-                  height: 130,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('lib/assets/e-merkado.png')
-                      ))),
-                Container(
-                margin: const EdgeInsets.fromLTRB(0, 40, 0, 0),
-                child: Column(
-                children: <Widget>
-                [
-                  AutoSizeText("E-Merkado",
-                                  style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 40.0,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Poppins'
-                                  ),),
-
-                  AutoSizeText("A one-tap-away public market",
-                                  style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 12.0,
-                                        fontWeight: FontWeight.normal,
-                                        fontFamily: 'Poppins'
-                                  ),),
-
-                                  ],
-                                )
-                  ,)
-                ],),
-
-
-              Container(
-                alignment: Alignment.center,
-                width: queryData.size.width,
-                height: queryData.size.height,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('lib/assets/landing-illustration.png'),
-                      )),
-              child: Column(
-               mainAxisAlignment: MainAxisAlignment.center,
-               children: <Widget>[
-               Container(
-                 margin: const EdgeInsets.fromLTRB(0, 520, 0, 0),
-                child:  ElevatedButton(
-                child: Text("I'm a Seller", style: TextStyle(
-                fontSize: 22,
-                fontFamily: 'Poppins'
-                ),), onPressed: ()=>{},
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.orange,
-                  padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
-                  shadowColor: Colors.orange[200],
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                  elevation: 10,
+            Container(
+              width: widthSize,
+              height: heightSize,
+              padding: EdgeInsets.all(15.0),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('lib/assets/background.png'),
+                  fit: BoxFit.fill,
                 ),
-                ),),
-
-                 Container(
-                 margin: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                child:  ElevatedButton(
-                child: Text("I'm a Buyer", style: TextStyle(
-                fontSize: 22,
-                fontFamily: 'Poppins'
-                ),), onPressed: ()=>{},
-                style: ElevatedButton.styleFrom(
-                  primary: Colors.orange,
-                  padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
-                  shadowColor: Colors.orange[200],
-                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
-                  elevation: 10,
-                ),
-                ),),
-
-                
-
-              ],)
               ),
-                   
-              
-              ], 
             ),
-                 
+            Container(
+              height: heightSize,
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.fromLTRB(10, 25, 10, 10),
+                      child: Container(
+                        width: widthSize,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                                  width: widthSize * .25,
+                                  height: widthSize * .30,
+                                  decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: AssetImage('lib/assets/e-merkado.png'),
+                                      fit: BoxFit.fill,
+                                    ),
+                                  ),
+                                ),
+                        Column(
+                          children: <Widget>[
+                            AutoSizeText(
+                              "E-Merkado",
+                              style: TextStyle(
+                              color: Colors.white,
+                              fontSize: widthSize * .08,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: 'Poppins'
+                        ),),
+                            AutoSizeText(
+                              "A one-tap-away public market",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: heightSize < 1366 ? heightSize * .018 : heightSize * .02,
+                                  fontWeight: FontWeight.normal,
+                                  fontFamily: 'Poppins'
+                              ),),
+                          ],
+                        ),
+                          ],
+                        ),
+                      )),
+                  Expanded(
+                    flex: 2,
+                      child: Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.only(top: 50.0),
+                        width: widthSize,
+                        height: heightSize,
+                        decoration: BoxDecoration(
+                            image: DecorationImage(
+                              image: AssetImage('lib/assets/landing-illustration.png'),
+                              )),
+                      )),
+                  Expanded(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Column(
+                          children: <Widget>[
+                          Container(
+                            margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                            child:  ElevatedButton(
+                            child: Text("I'm a Seller", style: TextStyle(
+                            fontSize: widthSize * 0.055,
+                            fontFamily: 'Poppins'
+                            ),), onPressed: ()=>{},
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.orange,
+                              padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
+                              shadowColor: Colors.orange[200],
+                              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                              elevation: 10,
+                            ),
+                            ),),
+                            Container(
+                            margin: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                            child:  ElevatedButton(
+                            child: Text("I'm a Buyer", style: TextStyle(
+                            fontSize: widthSize * 0.055,
+                            fontFamily: 'Poppins'
+                            ),), onPressed: ()=>{},
+                            style: ElevatedButton.styleFrom(
+                              primary: Colors.orange,
+                              padding: const EdgeInsets.fromLTRB(30, 15, 30, 15),
+                              shadowColor: Colors.orange[200],
+                              shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+                              elevation: 10,
+                            ),
+                            ),),
+                          ],
+                        ),
+                      )),
+                ],
+              ),
+            ),
           ],
         ),
-      ),
     );
   }
 }
