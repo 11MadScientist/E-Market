@@ -5,16 +5,18 @@ import 'package:e_market/pages/landing.dart';
 import 'package:e_market/pages/home.dart';
 import 'package:e_market/pages/user_profile.dart';
 import 'package:e_market/pages/cart.dart';
+import 'package:e_market/pages/item_description.dart';
 
 void main() => runApp(MaterialApp(
   initialRoute: '/',
   routes: {
-    '/'       :(context) => Landing(),
-    '/login'  :(context) => Login(),
-    '/signup' :(context) => SignUp(),
-    '/home'   :(context) => Home(),
-    '/profile':(context) => UserProfile(),
-    '/cart'   :(context) => Cart(),
+    '/'         :(context) => Landing(),
+    '/login'    :(context) => Login(),
+    '/signup'   :(context) => SignUp(),
+    '/home'     :(context) => Home(),
+    '/profile'  :(context) => UserProfile(),
+    '/cart'     :(context) => Cart(),
+    '/item_desc':(context) => ItemDescription(),
   },
 ));
 

@@ -21,7 +21,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
             height: 400,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/eggplant3.jpg'),
+                image: AssetImage('lib/assets/eggplant3.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -51,6 +51,10 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                 size: 50,
                               ),
                               IconButton(
+                                onPressed: ()
+                                  {
+                                    Navigator.pop(context);
+                                  },
                                   icon: Icon(
                                 Icons.chevron_left_outlined,
                                 color: Colors.white,
@@ -68,7 +72,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
                       height: 119,
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                        image: AssetImage('assets/images/boxdesign.png'),
+                        image: AssetImage('lib/assets/boxdesign.png'),
                         alignment: Alignment.topCenter,
                       )),
                     ),
@@ -231,7 +235,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                       borderRadius: BorderRadius.circular(15),
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            'assets/images/eggplant3.jpg'),
+                                            'lib/assets/eggplant3.jpg'),
                                         fit: BoxFit.cover,
                                       )),
                                 ),
@@ -245,7 +249,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                       borderRadius: BorderRadius.circular(15),
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            'assets/images/eggplant3.jpg'),
+                                            'lib/assets/eggplant3.jpg'),
                                         fit: BoxFit.cover,
                                       )),
                                 ),
@@ -259,7 +263,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                       borderRadius: BorderRadius.circular(15),
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            'assets/images/eggplant3.jpg'),
+                                            'lib/assets/eggplant3.jpg'),
                                         fit: BoxFit.cover,
                                       )),
                                 ),
@@ -273,7 +277,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                       borderRadius: BorderRadius.circular(15),
                                       image: DecorationImage(
                                         image: AssetImage(
-                                            'assets/images/eggplant3.jpg'),
+                                            'lib/assets/eggplant3.jpg'),
                                         fit: BoxFit.cover,
                                       )),
                                 ),
