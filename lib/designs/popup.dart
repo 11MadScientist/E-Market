@@ -20,6 +20,7 @@ class PopUp{
             barrierDismissible: false,
             builder: (BuildContext context){
               return AlertDialog(
+                insetPadding: EdgeInsets.symmetric(vertical: 250, horizontal: 100),
                 title: Text(
                   title,
                   style: TextStyle(

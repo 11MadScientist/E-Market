@@ -485,7 +485,7 @@ class _HomeState extends State<Home> {
                                                     BorderRadius.circular(20.0),
                                                 image: DecorationImage(
                                                   image: AssetImage(
-                                                      'assets/images/recommend.jpg'),
+                                                      'lib/assets/recommend.jpg'),
                                                   fit: BoxFit.cover,
                                                 )),
                                           ),
@@ -580,7 +580,7 @@ class _HomeState extends State<Home> {
                                                     BorderRadius.circular(20.0),
                                                 image: DecorationImage(
                                                   image: AssetImage(
-                                                      'assets/images/recommend.jpg'),
+                                                      'lib/assets/recommend.jpg'),
                                                   fit: BoxFit.cover,
                                                 )),
                                           ),
@@ -675,7 +675,7 @@ class _HomeState extends State<Home> {
                                                     BorderRadius.circular(20.0),
                                                 image: DecorationImage(
                                                   image: AssetImage(
-                                                      'assets/images/recommend.jpg'),
+                                                      'lib/assets/recommend.jpg'),
                                                   fit: BoxFit.cover,
                                                 )),
                                           ),
