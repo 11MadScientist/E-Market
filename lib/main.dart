@@ -8,17 +8,33 @@ import 'package:e_market/pages/cart.dart';
 import 'package:e_market/pages/item_description.dart';
 
 void main() => runApp(MaterialApp(
-  initialRoute: '/',
-  routes: {
-    '/'         :(context) => Landing(),
-    '/login'    :(context) => Login(),
-    '/signup'   :(context) => SignUp(),
-    '/home'     :(context) => Home(),
-    '/profile'  :(context) => UserProfile(),
-    '/cart'     :(context) => Cart(),
-    '/item_desc':(context) => ItemDescription(),
-  },
-));
+      // THEMING
+      theme: ThemeData(
+          scaffoldBackgroundColor: Colors.white,
+          primarySwatch: Colors.orange,
+          fontFamily: 'Poppins',
+          appBarTheme: AppBarTheme(
+            foregroundColor: Colors.white,
+            backwardsCompatibility: false,
+          ),
+          textTheme: TextTheme(
+            bodyText1: TextStyle(),
+            bodyText2: TextStyle(),
+          ).apply(
+            bodyColor: Colors.blue[900],
+            displayColor: Colors.blue[900],
+          )),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Landing(),
+        '/login': (context) => Login(),
+        '/signup': (context) => SignUp(),
+        '/home': (context) => Home(),
+        '/profile': (context) => UserProfile(),
+        '/cart': (context) => Cart(),
+        '/item_desc': (context) => ItemDescription(),
+      },
+    ));
 
 // void main()
 // {
