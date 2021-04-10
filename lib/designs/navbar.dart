@@ -9,54 +9,43 @@ class _NavBarState extends State<NavBar> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    return Container(
-      width: size.width,
-      height: 80,
-      color: Color.fromRGBO(0, 0, 0, 0),
-      child: Stack(
-        children: [
-          Container(
-            child: Stack(
+    return Stack(
+      children: [
+        CustomPaint(
+          size: Size(size.width, 80),
+          painter: BNBCustomPainter(),
+        ),
+        Center(
+          heightFactor: 0.6,
+          child: FloatingActionButton(
+            onPressed: () {},
+            backgroundColor: Colors.orange[500],
+            child: Icon(Icons.shopping_basket),
+            elevation: 0.1,
+          ),
+        ),
+        Container(
+            width: size.width,
+            height: 80,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                CustomPaint(
-                  size: Size(size.width, 80),
-                  painter: BNBCustomPainter(),
+                IconButton(
+                  icon: Icon(Icons.home),
+                  color: Colors.white,
+                  onPressed: () {},
                 ),
-                Center(
-                  heightFactor: 0.6,
-                  child: FloatingActionButton(
-                    onPressed: () {},
-                    backgroundColor: Colors.orange[500],
-                    child: Icon(Icons.shopping_basket),
-                    elevation: 0.1,
-                  ),
+                SizedBox(
+                  width: size.width * .20,
                 ),
-                Container(
-                    width: size.width,
-                    height: 80,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        IconButton(
-                          icon: Icon(Icons.home),
-                          color: Colors.white,
-                          onPressed: () {},
-                        ),
-                        SizedBox(
-                          width: size.width * .20,
-                        ),
-                        IconButton(
-                          icon: Icon(Icons.shop),
-                          color: Colors.white,
-                          onPressed: () {},
-                        ),
-                      ],
-                    )),
+                IconButton(
+                  icon: Icon(Icons.shop),
+                  color: Colors.white,
+                  onPressed: () {},
+                ),
               ],
-            ),
-          )
-        ],
-      ),
+            )),
+      ],
     );
   }
 }

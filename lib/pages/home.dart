@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:e_market/designs/appbar.dart';
 import 'package:e_market/designs/categorycard.dart';
 import 'package:e_market/designs/sellershomecard.dart';
-import 'package:e_market/designs/navbar.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -811,6 +811,24 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-        bottomNavigationBar: NavBar());
+    bottomNavigationBar: CurvedNavigationBar(
+      height: 50,
+      color: Colors.orange[500],
+      backgroundColor: Colors.white,
+      items: <Widget>[
+        Icon(Icons.home, size:20,color: Colors.white),
+        Icon(Icons.shopping_basket, size:20,color: Colors.white),
+        Icon(Icons.home, size:20,color: Colors.white),
+    ],
+      animationDuration: Duration(milliseconds: 250),
+      animationCurve: Curves.linearToEaseOut,
+      index: 1,
+      onTap: (index)
+      {
+        print("$index");
+      },
+
+    ));
+
   }
 }

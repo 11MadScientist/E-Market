@@ -1,10 +1,7 @@
 import 'package:e_market/designs/passfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/material.dart';
 import 'package:e_market/designs/myclipper.dart';
-import 'package:e_market/designs/bottomclipper.dart';
 import 'package:e_market/designs/textbox.dart';
-import 'package:e_market/designs/navbar.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -13,14 +10,49 @@ class SignUp extends StatefulWidget {
 
 
 class _SignUpState extends State<SignUp> {
-TextBox nameBox;
-TextEditingController _nameController = new TextEditingController();
-TextBox emailBox;
-TextEditingController _emailController = new TextEditingController();
-PassField passBox;
-TextEditingController _passwordController = new TextEditingController();
-PassField confPassBox;
-TextEditingController _confpasswordController = new TextEditingController();
+ bool isFirstPage = true;
+ String buttonText = "NEXT";
+//first batch
+  //name textboxes
+  TextBox fnameBox;
+  TextEditingController f_nameController = new TextEditingController();
+  TextBox lnameBox;
+  TextEditingController l_nameController = new TextEditingController();
+
+  String fname;
+  String lname;
+
+  //password textboxes
+  PassField passBox;
+  TextEditingController _passwordController = new TextEditingController();
+  PassField confPassBox;
+  TextEditingController _confpasswordController = new TextEditingController();
+  String pass;
+  String confpass;
+
+ //second batch
+  //email
+  TextBox emailBox;
+  TextEditingController _emailController = new TextEditingController();
+
+  String email;
+
+  //Phone number
+  TextBox phoneNumBox;
+  TextEditingController _phoneNumberController = new TextEditingController();
+
+  String phoneNumber;
+
+  //Address
+  TextBox detailedAddressBox;
+  TextEditingController _detailedAddressController = new TextEditingController();
+  TextBox generalAddressBox;
+  TextEditingController _generalAddressController = new TextEditingController();
+
+  String detailedAddress;
+  String generalAddress;
+
+
 
 
   @override
@@ -70,40 +102,39 @@ TextEditingController _confpasswordController = new TextEditingController();
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
-
-                            nameBox = new TextBox(
-                              hint: "Full Name",
-                              icon: Icons.account_circle,
-                              type: TextInputType.text,
-                              controller: _nameController,
-                            ),
-                            SizedBox(height: 20,),
-                            emailBox = new TextBox(
-                              hint: "Email Address",
-                              icon: Icons.email,
-                              type: TextInputType.emailAddress,
-                              controller: _emailController,
-
-                            ),
-                            SizedBox(height: 20,),
-                            passBox = new PassField(
-                              hint: "Password",
-                              controller: _passwordController,),
-                            SizedBox(height: 20,),
-                            confPassBox = new PassField(
-                              hint: "Confirm Password",
-                              controller: _confpasswordController,
-                            ),
+                            boxes(),
                             SizedBox(height: 20,),
                             TextButton(
                               onPressed: ()
                               {
                                 setState(()
                                 {
-                                  print(nameBox.getInfo());
-                                  print(emailBox.getInfo());
-                                  print(passBox.getInfo());
-                                  print(confPassBox.getInfo());
+                                  if(isFirstPage)
+                                    {
+                                      buttonText = "FINISH";
+                                      fname = fnameBox.getInfo();
+                                      lname = lnameBox.getInfo();
+                                      pass = passBox.getInfo();
+                                      confpass = confPassBox.getInfo();
+                                      isFirstPage = false;
+                                    }
+                                  else if(!isFirstPage)
+                                    {
+                                      email = emailBox.getInfo();
+                                      phoneNumber = phoneNumBox.getInfo();
+                                      detailedAddress = detailedAddressBox.getInfo();
+                                      generalAddress = generalAddressBox.getInfo();
+
+                                      print(fname);
+                                      print(lname);
+                                      print(pass);
+                                      print(confpass);
+                                      print(email);
+                                      print(phoneNumber);
+                                      print(detailedAddress);
+                                      print(generalAddress);
+
+                                    }
 
                                 });
                               },
@@ -119,12 +150,11 @@ TextEditingController _confpasswordController = new TextEditingController();
                               ),
 
                               child: Text(
-                                "SIGN UP",
+                                buttonText,
                                 style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 25,
-
                                 ),
                               ),
                             ),
@@ -173,5 +203,74 @@ TextEditingController _confpasswordController = new TextEditingController();
         ]
       ),
     );
+  }
+
+  Widget boxes()
+  {
+    if(isFirstPage)
+      {
+        return
+            Column(
+              children: [
+                fnameBox = new TextBox(
+                  hint: "First Name",
+                  icon: Icons.account_circle,
+                  type: TextInputType.text,
+                  controller: f_nameController,
+                ),
+                SizedBox(height: 20,),
+                lnameBox = new TextBox(
+                  hint: "Last Name",
+                  icon: Icons.account_circle,
+                  type: TextInputType.text,
+                  controller: l_nameController,
+                ),
+                SizedBox(height: 20,),
+                passBox = new PassField(
+                  hint: "Password",
+                  controller: _passwordController,),
+                SizedBox(height: 20,),
+                confPassBox = new PassField(
+                  hint: "Confirm Password",
+                  controller: _confpasswordController,
+                ),
+              ],
+            );
+      }
+    else
+      {
+        return
+          Column(
+            children: [
+              emailBox= new TextBox(
+                hint: "Email Address",
+                icon: Icons.email_outlined,
+                type: TextInputType.emailAddress,
+                controller: _emailController,
+              ),
+              SizedBox(height: 20,),
+              phoneNumBox = new TextBox(
+                hint: "Phone Number",
+                icon: Icons.phone,
+                type: TextInputType.number,
+                controller: _phoneNumberController,
+              ),
+              SizedBox(height: 20,),
+              detailedAddressBox = new TextBox(
+                hint: "house number, street name",
+                icon: Icons.location_city,
+                type: TextInputType.text,
+                controller: _detailedAddressController,
+              ),
+              SizedBox(height: 20,),
+              generalAddressBox = new TextBox(
+                hint: "Barangay, City, Province",
+                icon: Icons.location_on,
+                type: TextInputType.text,
+                controller: _generalAddressController,
+              ),
+            ],
+          );
+      }
   }
 }
