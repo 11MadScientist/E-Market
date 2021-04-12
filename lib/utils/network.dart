@@ -21,4 +21,17 @@ class Network
         return response.toString();
       }
   }
+  Future postData(Map data) async
+  {
+    http.Response response = await http.post(url, body: data);
+
+    if (response.statusCode == 201)
+      {
+        return data;
+      }
+    else
+      {
+        return response.toString();
+      }
+  }
 }

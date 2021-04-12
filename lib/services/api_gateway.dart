@@ -2,7 +2,8 @@ import 'package:e_market/model/profile.dart';
 import 'package:e_market/utils/env_endpoints.dart';
 import 'package:e_market/utils/network.dart';
 
-class APIGateway {
+class APIGateway
+{
   final EnvEndPoints envEndPoints = EnvEndPoints();
 
   Profile profile;
@@ -13,7 +14,6 @@ class APIGateway {
     {
       Network network = Network(envEndPoints.getEndPoints('/api/userinfo/$email'));
       dynamic body = await network.getData();
-      print("api: ${body}");
       profile = Profile.fromJson(body);
     }
     catch (e)
@@ -22,4 +22,21 @@ class APIGateway {
     }
     return profile;
   }
-}
+
+  Future<Profile> asyncPost(Map data) async
+  {
+    Profile profile;
+    try
+    {
+      Network network = Network(envEndPoints.getEndPoints('/api/userinfo'));
+      dynamic body = await network.postData(data);
+      profile = Profile.fromJson(body);
+    }
+    catch(e)
+    {
+      print(e);
+    }
+    return profile;
+  }
+  }
+
