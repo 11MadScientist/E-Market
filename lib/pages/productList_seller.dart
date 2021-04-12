@@ -346,8 +346,73 @@ class _productState extends State<product> {
                           ],
                         ),
                       ),
-                      Container(
-                        child: Text("dfdsfgdshg"),
+                      //ADD PRODUCT
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.orange,
+                              width: 1,
+                            ),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Photos"),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: queryData.size.width * .25,
+                                    height: queryData.size.height * .1,
+                                    decoration: BoxDecoration(
+                                      color: Colors.orange,
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
+                                    child: IconButton(
+                                      icon: Icon(
+                                        Icons.add_photo_alternate_rounded,
+                                        color: Colors.white,
+                                      ),
+                                      iconSize: 50,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          0, 0, 10, 0),
+                                      child: Text("Product Name"),
+                                    ),
+                                    //PRODUCT TEXTFIELD
+                                    Expanded(
+                                      child: SizedBox(
+                                        height: 30,
+                                        child: TextField(
+                                          decoration: InputDecoration(
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              borderSide: BorderSide(
+                                                color: Colors.orange,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ],
                   ),
