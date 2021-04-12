@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:e_market/designs/appbar.dart';
 import 'package:e_market/designs/categorycard.dart';
 import 'package:e_market/designs/sellershomecard.dart';
-
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -17,11 +17,14 @@ class _HomeState extends State<Home> {
     MediaQueryData queryData = MediaQuery.of(context);
     return Scaffold(
         resizeToAvoidBottomInset: true,
-        appBar: MyAppBar(size: queryData.size.width, screenName: "Home",
-        context:this.context,),
+        appBar: MyAppBar(
+          size: queryData.size.width,
+          screenName: "Home",
+          context: this.context,
+        ),
         body: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.only(left:10,right: 10),
+            padding: const EdgeInsets.only(left: 10, right: 10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -43,13 +46,27 @@ class _HomeState extends State<Home> {
                       width: queryData.size.width,
                       child: ListView(
                         scrollDirection: Axis.horizontal,
-
                         children: [
-                          CategoryCard(col: Colors.orange, category: "meat",),
-                          CategoryCard(col: Colors.orange, category: "meat",),
-                          CategoryCard(col: Colors.orange, category: "meat",),
-                          CategoryCard(col: Colors.orange, category: "meat",),
-                          CategoryCard(col: Colors.orange, category: "meat",),
+                          CategoryCard(
+                            col: Colors.orange,
+                            category: "meat",
+                          ),
+                          CategoryCard(
+                            col: Colors.orange,
+                            category: "meat",
+                          ),
+                          CategoryCard(
+                            col: Colors.orange,
+                            category: "meat",
+                          ),
+                          CategoryCard(
+                            col: Colors.orange,
+                            category: "meat",
+                          ),
+                          CategoryCard(
+                            col: Colors.orange,
+                            category: "meat",
+                          ),
                         ],
                       ),
                     ),
@@ -76,7 +93,8 @@ class _HomeState extends State<Home> {
                             SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Container(
                                     width: 174,
@@ -107,7 +125,8 @@ class _HomeState extends State<Home> {
                                             // decoration: BoxDecoration(color: Colors.black),
                                             alignment: Alignment.center,
                                             child: CircleAvatar(
-                                              backgroundColor: Colors.orange[100],
+                                              backgroundColor:
+                                                  Colors.orange[100],
                                               child: Text(
                                                 "TS",
                                                 style: TextStyle(
@@ -138,7 +157,8 @@ class _HomeState extends State<Home> {
                                                 Expanded(
                                                   child: Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Text(
                                                         "Basak, Lapu-Lapu City",
@@ -156,7 +176,8 @@ class _HomeState extends State<Home> {
                                                             "4.5",
                                                             style: TextStyle(
                                                               fontSize: 15,
-                                                              color: Colors.white,
+                                                              color:
+                                                                  Colors.white,
                                                             ),
                                                           ),
                                                           Icon(
@@ -225,7 +246,8 @@ class _HomeState extends State<Home> {
                                             // decoration: BoxDecoration(color: Colors.black),
                                             alignment: Alignment.center,
                                             child: CircleAvatar(
-                                              backgroundColor: Colors.orange[100],
+                                              backgroundColor:
+                                                  Colors.orange[100],
                                               child: Text(
                                                 "TS",
                                                 style: TextStyle(
@@ -258,7 +280,8 @@ class _HomeState extends State<Home> {
                                                 Expanded(
                                                   child: Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Text(
                                                         "Basak, Lapu-Lapu City",
@@ -280,7 +303,8 @@ class _HomeState extends State<Home> {
                                                             style: TextStyle(
                                                               fontFamily:
                                                                   "Poppins",
-                                                              color: Colors.white,
+                                                              color:
+                                                                  Colors.white,
                                                               // fontWeight: FontWeight.bold,
                                                               fontSize: 15,
                                                             ),
@@ -351,7 +375,8 @@ class _HomeState extends State<Home> {
                                             // decoration: BoxDecoration(color: Colors.black),
                                             alignment: Alignment.center,
                                             child: CircleAvatar(
-                                              backgroundColor: Colors.orange[100],
+                                              backgroundColor:
+                                                  Colors.orange[100],
                                               child: Text(
                                                 "TS",
                                                 style: TextStyle(
@@ -384,7 +409,8 @@ class _HomeState extends State<Home> {
                                                 Expanded(
                                                   child: Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     children: [
                                                       Text(
                                                         "Basak, Lapu-Lapu City",
@@ -406,7 +432,8 @@ class _HomeState extends State<Home> {
                                                             style: TextStyle(
                                                               fontFamily:
                                                                   "Poppins",
-                                                              color: Colors.white,
+                                                              color:
+                                                                  Colors.white,
                                                               // fontWeight: FontWeight.bold,
                                                               fontSize: 15,
                                                             ),
@@ -545,7 +572,8 @@ class _HomeState extends State<Home> {
                                                         style: TextStyle(
                                                           fontSize: 17,
                                                           fontFamily: "Poppins",
-                                                          color: Colors.blue[900],
+                                                          color:
+                                                              Colors.blue[900],
                                                         ),
                                                       ),
                                                     ),
@@ -640,7 +668,8 @@ class _HomeState extends State<Home> {
                                                         style: TextStyle(
                                                           fontSize: 17,
                                                           fontFamily: "Poppins",
-                                                          color: Colors.blue[900],
+                                                          color:
+                                                              Colors.blue[900],
                                                         ),
                                                       ),
                                                     ),
@@ -735,7 +764,8 @@ class _HomeState extends State<Home> {
                                                         style: TextStyle(
                                                           fontSize: 17,
                                                           fontFamily: "Poppins",
-                                                          color: Colors.blue[900],
+                                                          color:
+                                                              Colors.blue[900],
                                                         ),
                                                       ),
                                                     ),
@@ -771,23 +801,34 @@ class _HomeState extends State<Home> {
                           fontSize: 17,
                         ),
                       ),
-                      Container(
-                        height: queryData.size.height - 300,
-                        child: ListView(
-                          scrollDirection: Axis.vertical,
-                          children: [
-                            SellerCard(),
-                            SellerCard(),
-                            SellerCard(),
-                          ],
-                        ),
-                      ),
+                      SellerCard(),
+                      SellerCard(),
+                      SellerCard(),
                     ],
                   ),
                 ),
               ],
             ),
           ),
-        ));
+        ),
+    bottomNavigationBar: CurvedNavigationBar(
+      height: 50,
+      color: Colors.orange[500],
+      backgroundColor: Colors.white,
+      items: <Widget>[
+        Icon(Icons.home, size:20,color: Colors.white),
+        Icon(Icons.shopping_basket, size:20,color: Colors.white),
+        Icon(Icons.home, size:20,color: Colors.white),
+    ],
+      animationDuration: Duration(milliseconds: 250),
+      animationCurve: Curves.linearToEaseOut,
+      index: 1,
+      onTap: (index)
+      {
+        print("$index");
+      },
+
+    ));
+
   }
 }
