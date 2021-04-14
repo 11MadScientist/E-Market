@@ -27,11 +27,11 @@ class Network
 
     if (response.statusCode == 201)
       {
-        return data;
+        return "Success";
       }
     else
       {
-        return response.toString();
+        return "Failure";
       }
   }
 }

@@ -6,30 +6,39 @@ class Profile
   final String firstname;
   final String lastname;
   final String email;
+  final String phonenumber;
+  final String address;
   final String usertype;
+
 
   Profile({
     @required this.id,
     @required this.firstname,
     @required this.lastname,
     @required this.email,
+    @required this.phonenumber,
+    @required this.address,
     @required this.usertype,
 });
 
   factory Profile.fromJson(Map<String, dynamic> json)
   {
     return Profile(
-      id        :json['data']['id'] as int,
-      firstname :json['data']['firstname'] as String,
-      lastname  :json['data']['lastname'] as String,
-      email     :json['data']['email'] as String,
-      usertype  :json['data']['usertype'] as String,
+      id         :json['data']['id'] as int,
+      firstname  :json['data']['firstname'] as String,
+      lastname   :json['data']['lastname'] as String,
+      email      :json['data']['email'] as String,
+      phonenumber:json['data']['phonenumber'],
+      address    :json['data']['address'],
+      usertype   :json['data']['usertype'] as String,
     );
   }
   Map<String, dynamic> toJson() => {
-    "firstname": firstname,
-    "lastname": lastname,
-    "email": email,
-    "usertype": usertype,
+    "firstname"   : firstname,
+    "lastname"    : lastname,
+    "email"       : email,
+    "phonenumber" : phonenumber,
+    "address"     : address,
+    "usertype"    : usertype,
   };
 }

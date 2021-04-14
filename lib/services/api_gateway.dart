@@ -25,18 +25,17 @@ class APIGateway
 
   Future<Profile> asyncPost(Map data) async
   {
-    Profile profile;
+    String message;
     try
     {
       Network network = Network(envEndPoints.getEndPoints('/api/userinfo'));
-      dynamic body = await network.postData(data);
-      profile = Profile.fromJson(body);
+      message = await network.postData(data);
+      print(message);
     }
     catch(e)
     {
       print(e);
     }
-    return profile;
   }
   }
 

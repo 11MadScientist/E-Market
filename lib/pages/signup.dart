@@ -1,15 +1,34 @@
 import 'package:e_market/designs/passfield.dart';
+import 'package:e_market/model/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:e_market/designs/myclipper.dart';
 import 'package:e_market/designs/textbox.dart';
+import 'package:http/http.dart' as http;
+import 'package:e_market/services/api_gateway.dart';
+import 'package:e_market/utils/env_endpoints.dart';
+import 'package:flutter/material.dart';
+import 'package:e_market/model/profile.dart';
 
 class SignUp extends StatefulWidget {
   @override
   _SignUpState createState() => _SignUpState();
 }
 
+Future<Profile> createUser(Map data) async
+{
+  final String api = "http://emarket.hustle/api/userinfo";
+  final response = await http.post(api,body:data);
 
-class _SignUpState extends State<SignUp> {
+  if(response.statusCode == 201)
+    print("success");
+  else
+    print("failure");
+}
+
+class _SignUpState extends State<SignUp>{
+final EnvEndPoints envEndPoints = EnvEndPoints();
+final APIGateway apiGateway = APIGateway();
+
  bool isFirstPage = true;
  String buttonText = "NEXT";
 //first batch
@@ -125,15 +144,18 @@ class _SignUpState extends State<SignUp> {
                                       detailedAddress = detailedAddressBox.getInfo();
                                       generalAddress = generalAddressBox.getInfo();
 
-                                      print(fname);
-                                      print(lname);
-                                      print(pass);
-                                      print(confpass);
-                                      print(email);
-                                      print(phoneNumber);
-                                      print(detailedAddress);
-                                      print(generalAddress);
+                                      Map data ={
+                                        "firstname"  :fname,
+                                        "lastname"   :lname,
+                                        "password"   :pass,
+                                        "email"      :email,
+                                        "phonenumber":phoneNumber,
+                                        "address"    :detailedAddress + " " + generalAddress,
+                                        "usertype"   :"Buyer",
 
+                                      } ;
+
+                                     apiGateway.asyncPost(data);
                                     }
 
                                 });
