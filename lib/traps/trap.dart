@@ -2,7 +2,7 @@ class Trap
 {
   String message;
 
-  String Error()
+  error()
   {
     return "Error: ${message}";
   }

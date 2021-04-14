@@ -6,8 +6,7 @@ import 'package:e_market/designs/textbox.dart';
 import 'package:http/http.dart' as http;
 import 'package:e_market/services/api_gateway.dart';
 import 'package:e_market/utils/env_endpoints.dart';
-import 'package:flutter/material.dart';
-import 'package:e_market/model/profile.dart';
+import 'package:e_market/traps/signup_trap.dart';
 
 class SignUp extends StatefulWidget {
   @override
@@ -229,6 +228,7 @@ final APIGateway apiGateway = APIGateway();
 
   Widget boxes()
   {
+    SignupTrap trap = SignupTrap();
     if(isFirstPage)
       {
         return
@@ -239,6 +239,7 @@ final APIGateway apiGateway = APIGateway();
                   icon: Icons.account_circle,
                   type: TextInputType.text,
                   controller: f_nameController,
+                  func: trap.NameTrap,
                 ),
                 SizedBox(height: 20,),
                 lnameBox = new TextBox(
@@ -246,6 +247,7 @@ final APIGateway apiGateway = APIGateway();
                   icon: Icons.account_circle,
                   type: TextInputType.text,
                   controller: l_nameController,
+                  func: trap.NameTrap,
                 ),
                 SizedBox(height: 20,),
                 passBox = new PassField(
