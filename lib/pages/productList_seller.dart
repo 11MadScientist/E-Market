@@ -8,10 +8,12 @@ class product extends StatefulWidget {
 }
 
 class _productState extends State<product> {
+  String _chosenValue;
+  String _chosenUnit;
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
-    String _chosenValue;
+
     return Scaffold(
       appBar: MyAppBar(
         size: queryData.size.width,
@@ -144,6 +146,7 @@ class _productState extends State<product> {
                                                   BorderRadius.circular(15),
                                             ),
                                             child: DropdownButton<String>(
+                                              underline: Container(),
                                               elevation: 0,
                                               focusColor: Colors.white,
                                               value: _chosenValue,
@@ -352,44 +355,51 @@ class _productState extends State<product> {
                         child: Container(
                           padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
                             border: Border.all(
                               color: Colors.orange,
                               width: 1,
                             ),
-                            borderRadius: BorderRadius.circular(15),
                           ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Photos"),
-                              Row(
-                                children: [
-                                  Container(
-                                    width: queryData.size.width * .25,
-                                    height: queryData.size.height * .1,
-                                    decoration: BoxDecoration(
-                                      color: Colors.orange,
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    child: IconButton(
-                                      icon: Icon(
-                                        Icons.add_photo_alternate_rounded,
-                                        color: Colors.white,
-                                      ),
-                                      iconSize: 50,
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              //PHOTOS
                               Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Text("Photos"),
+                              ),
+                              SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
                                 child: Row(
                                   children: [
-                                    Padding(
-                                      padding: const EdgeInsets.fromLTRB(
-                                          0, 0, 10, 0),
-                                      child: Text("Product Name"),
+                                    Container(
+                                      width: queryData.size.width * .35,
+                                      height: queryData.size.height * .15,
+                                      decoration: BoxDecoration(
+                                        color: Colors.orange,
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      child: IconButton(
+                                        icon: Icon(
+                                          Icons.add_photo_alternate_rounded,
+                                          color: Colors.white,
+                                        ),
+                                        iconSize: 50,
+                                      ),
                                     ),
+                                  ],
+                                ),
+                              ),
+                              //PRODUCT NAME
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(bottom: 10, top: 20),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                        width: queryData.size.width * .3,
+                                        child: Text("Product Name")),
                                     //PRODUCT TEXTFIELD
                                     Expanded(
                                       child: SizedBox(
@@ -410,6 +420,211 @@ class _productState extends State<product> {
                                   ],
                                 ),
                               ),
+                              //CATEGORY
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                        width: queryData.size.width * .3,
+                                        child: Text("Category")),
+                                    //DROPDOWN CATEGORY
+                                    Expanded(
+                                      child: Container(
+                                        height: 30,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: Colors.orange,
+                                            width: 1,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: DropdownButton<String>(
+                                          elevation: 0,
+                                          underline: Container(),
+                                          focusColor: Colors.white,
+                                          value: _chosenValue,
+                                          style: TextStyle(
+                                              color: Colors.blue[900]),
+                                          iconEnabledColor: Colors.blue[900],
+                                          items: <String>[
+                                            'Meat',
+                                            'Chicken',
+                                            'Spices',
+                                            'Vegetable',
+                                            'Other',
+                                          ].map<DropdownMenuItem<String>>(
+                                              (String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(
+                                                value,
+                                                style: TextStyle(
+                                                    color: Colors.blue[900],
+                                                    fontFamily: 'Poppins'),
+                                              ),
+                                            );
+                                          }).toList(),
+                                          onChanged: (String value) {
+                                            setState(() {
+                                              _chosenValue = value;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              //DESCRIPTION
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                        width: queryData.size.width * .3,
+                                        child: Text("Description")),
+                                    //DESCRIPTION TEXTFIELD
+                                    Expanded(
+                                      child: Container(
+                                        height: 100,
+                                        child: TextField(
+                                          maxLines: 5,
+                                          decoration: InputDecoration(
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              borderSide: BorderSide(
+                                                color: Colors.orange,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              //PRICE
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 10),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                        width: queryData.size.width * .3,
+                                        child: Text("Price")),
+                                    //PRICE TEXTFIELD
+                                    Expanded(
+                                      child: Container(
+                                        height: 30,
+                                        child: TextField(
+                                          decoration: InputDecoration(
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              borderSide: BorderSide(
+                                                color: Colors.orange,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    //UNIT FIELDS
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 10),
+                                      child: Container(
+                                        padding: EdgeInsets.only(left: 20),
+                                        height: 30,
+                                        width: queryData.size.width * .2,
+                                        decoration: BoxDecoration(
+                                          border: Border.all(
+                                            color: Colors.orange,
+                                            width: 1,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        child: DropdownButton<String>(
+                                          elevation: 0,
+                                          underline: Container(),
+                                          focusColor: Colors.white,
+                                          value: _chosenUnit,
+                                          style: TextStyle(
+                                              color: Colors.blue[900]),
+                                          iconEnabledColor: Colors.blue[900],
+                                          items: <String>['/kl', '/pc']
+                                              .map<DropdownMenuItem<String>>(
+                                                  (String value) {
+                                            return DropdownMenuItem<String>(
+                                              value: value,
+                                              child: Text(
+                                                value,
+                                                style: TextStyle(
+                                                    color: Colors.blue[900],
+                                                    fontFamily: 'Poppins'),
+                                              ),
+                                            );
+                                          }).toList(),
+                                          onChanged: (String value) {
+                                            setState(() {
+                                              _chosenUnit = value;
+                                            });
+                                          },
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              //STOCK
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                        width: queryData.size.width * .3,
+                                        child: Text("Stock")),
+                                    //PRODUCT TEXTFIELD
+                                    Expanded(
+                                      child: SizedBox(
+                                        height: 30,
+                                        child: TextField(
+                                          decoration: InputDecoration(
+                                            enabledBorder: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(15),
+                                              borderSide: BorderSide(
+                                                color: Colors.orange,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                width: double.infinity,
+                                height: 50,
+                                child: ElevatedButton(
+                                  style: ButtonStyle(
+                                    shape: MaterialStateProperty.all(
+                                        RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(15),
+                                    )),
+                                    backgroundColor: MaterialStateProperty.all(
+                                      Colors.orange,
+                                    ),
+                                    foregroundColor:
+                                        MaterialStateProperty.all(Colors.white),
+                                  ),
+                                  child: Text("Save and Publish"),
+                                ),
+                              )
                             ],
                           ),
                         ),
