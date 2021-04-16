@@ -1,5 +1,6 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
-import 'package:e_market/designs/popup.dart';
 
 class TextBox extends StatefulWidget {
   @override
@@ -9,8 +10,7 @@ class TextBox extends StatefulWidget {
   final TextEditingController controller;
   final Function func;
 
-
-  const TextBox({
+   TextBox({
     this.controller,
     this.hint,
     this.icon,
@@ -19,55 +19,84 @@ class TextBox extends StatefulWidget {
 
   _TextBoxState createState() => _TextBoxState();
 
+  bool isValidated = false;
+  var _formKey = GlobalKey<FormState>();
+
+  //getting the information
   String getInfo()
   {
     return controller.text;
   }
+
+  //validating
+  validator()
+  {
+    return _formKey.currentState.validate();
+  }
+
+  //returning validation value
+  bool validation()
+  {
+    return isValidated;
+  }
+
+
 }
 
 class _TextBoxState extends State<TextBox> {
 
   @override
   Widget build(BuildContext context) {
-    MediaQueryData queryData;
-    queryData = MediaQuery.of(context);
-    dynamic result;
 
-    return TextField(
-      controller: widget.controller,
-      decoration: InputDecoration(
-        hintText: widget.hint,
-        enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.orange[500]),
-          borderRadius: BorderRadius.all(Radius.circular(30)),
-        ),
+    return Form(
+      key: widget._formKey,
+      child: TextFormField(
+        controller: widget.controller,
+        decoration: InputDecoration(
+          hintText: widget.hint,
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.orange[500]),
+            borderRadius: BorderRadius.all(Radius.circular(30)),
+          ),
 
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.orange[500]),
-          borderRadius: BorderRadius.all(Radius.circular(30)),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.orange[500]),
+            borderRadius: BorderRadius.all(Radius.circular(30)),
+          ),
+
+          errorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red[500]),
+            borderRadius: BorderRadius.all(Radius.circular(30)),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red[500]),
+            borderRadius: BorderRadius.all(Radius.circular(30)),
+          ),
+          suffixIcon: Icon(
+            widget.icon,
+            color: Colors.orange[500],
+          ),
         ),
-        suffixIcon: Icon(
-          widget.icon,
-          color: Colors.orange[500],
-        ),
+        keyboardType: widget.type,
+        maxLines: 1,
+
+        validator: (text)
+        {
+          dynamic result = widget.func(text);
+          if(result != null)
+            {
+              widget.isValidated = false;
+              return result;
+            }
+         widget.isValidated = true;
+          return null;
+
+        },
+        onChanged: (text)
+        {
+          widget.validator();
+        },
       ),
-      keyboardType: widget.type,
-      maxLines: 1,
-
-      onChanged: (text)
-      {
-        result = widget.func(text);
-        if(result != null)
-          {
-            PopUp(data: queryData, icon: Icons.error_outline,
-                title: 'ERROR', message: result,
-                context: context);
-            setState(() {
-              widget.controller.text = "";
-            });
-          }
-
-      },
     );
 
   }

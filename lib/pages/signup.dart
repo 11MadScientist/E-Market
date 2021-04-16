@@ -6,8 +6,8 @@ import 'package:e_market/designs/textbox.dart';
 import 'package:http/http.dart' as http;
 import 'package:e_market/services/api_gateway.dart';
 import 'package:e_market/utils/env_endpoints.dart';
-import 'package:e_market/traps/signup_trap.dart';
-
+import 'package:e_market/traps/profile_trap.dart';
+import 'package:e_market/designs/popup.dart';
 class SignUp extends StatefulWidget {
   @override
   _SignUpState createState() => _SignUpState();
@@ -30,6 +30,9 @@ final APIGateway apiGateway = APIGateway();
 
  bool isFirstPage = true;
  String buttonText = "NEXT";
+
+
+
 //first batch
   //name textboxes
   TextBox fnameBox;
@@ -127,17 +130,64 @@ final APIGateway apiGateway = APIGateway();
                               {
                                 setState(()
                                 {
+                                  //checking if an error exists in validation
                                   if(isFirstPage)
                                     {
-                                      buttonText = "FINISH";
+                                      fnameBox.validator();
+                                      lnameBox.validator();
+                                      passBox.validator();
+                                      confPassBox.validator();
+                                      print("fname: ${!fnameBox.validation()}");
+                                      print("lname: ${!lnameBox.validation()}");
+                                      print("pass: ${!passBox.validation()}");
+                                      print("conf: ${!confPassBox.validation()}");
+
+                                      if(!fnameBox.validation() ||
+                                          !lnameBox.validation()||
+                                          !passBox.validation()||
+                                          !confPassBox.validation())
+                                        {
+                                        PopUp(
+                                            data: queryData,
+                                            icon: Icons.error_outline,
+                                            title: 'ERROR', message: 'SignUp Error',
+                                            context: context);
+                                        return;
+                                        }
+
                                       fname = fnameBox.getInfo();
                                       lname = lnameBox.getInfo();
                                       pass = passBox.getInfo();
                                       confpass = confPassBox.getInfo();
+                                      if(pass != confpass)
+                                      {
+                                        PopUp(
+                                            data: queryData,
+                                            icon: Icons.error_outline,
+                                            title: 'ERROR', message: 'Password '
+                                            'and Confirm Password do not match',
+                                            context: context);
+                                        return;
+                                      }
                                       isFirstPage = false;
+                                      buttonText = "FINISH";
                                     }
                                   else if(!isFirstPage)
                                     {
+                                      emailBox.validator();
+                                      phoneNumBox.validator();
+
+                                      if(!emailBox.validation() ||
+                                          !phoneNumBox.validation())
+                                      {
+                                        PopUp(
+                                            data: queryData,
+                                            icon: Icons.error_outline,
+                                            title: 'ERROR', message: 'SignUp Error',
+                                            context: context);
+                                        return;
+                                      }
+
                                       email = emailBox.getInfo();
                                       phoneNumber = phoneNumBox.getInfo();
                                       detailedAddress = detailedAddressBox.getInfo();
@@ -228,7 +278,7 @@ final APIGateway apiGateway = APIGateway();
 
   Widget boxes()
   {
-    SignupTrap trap = SignupTrap();
+    ProfileTrap trap = ProfileTrap();
     if(isFirstPage)
       {
         return
@@ -252,11 +302,13 @@ final APIGateway apiGateway = APIGateway();
                 SizedBox(height: 20,),
                 passBox = new PassField(
                   hint: "Password",
-                  controller: _passwordController,),
+                  controller: _passwordController,
+                  func: trap.PassTrap,),
                 SizedBox(height: 20,),
                 confPassBox = new PassField(
                   hint: "Confirm Password",
                   controller: _confpasswordController,
+                  func: trap.PassTrap,
                 ),
               ],
             );
@@ -271,6 +323,7 @@ final APIGateway apiGateway = APIGateway();
                 icon: Icons.email_outlined,
                 type: TextInputType.emailAddress,
                 controller: _emailController,
+                func: trap.emailTrap,
               ),
               SizedBox(height: 20,),
               phoneNumBox = new TextBox(
@@ -278,6 +331,7 @@ final APIGateway apiGateway = APIGateway();
                 icon: Icons.phone,
                 type: TextInputType.number,
                 controller: _phoneNumberController,
+                func: trap.phoneNumberTrap,
               ),
               SizedBox(height: 20,),
               detailedAddressBox = new TextBox(
@@ -285,6 +339,7 @@ final APIGateway apiGateway = APIGateway();
                 icon: Icons.location_city,
                 type: TextInputType.text,
                 controller: _detailedAddressController,
+                func: trap.defaultTrap,
               ),
               SizedBox(height: 20,),
               generalAddressBox = new TextBox(
@@ -292,6 +347,7 @@ final APIGateway apiGateway = APIGateway();
                 icon: Icons.location_on,
                 type: TextInputType.text,
                 controller: _generalAddressController,
+                func: trap.defaultTrap,
               ),
             ],
           );
