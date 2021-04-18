@@ -3,35 +3,32 @@ import 'package:e_market/model/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:e_market/designs/myclipper.dart';
 import 'package:e_market/designs/textbox.dart';
-import 'package:http/http.dart' as http;
 import 'package:e_market/services/api_gateway.dart';
 import 'package:e_market/utils/env_endpoints.dart';
 import 'package:e_market/traps/profile_trap.dart';
 import 'package:e_market/designs/popup.dart';
+
 class SignUp extends StatefulWidget {
   @override
   _SignUpState createState() => _SignUpState();
 }
 
-Future<Profile> createUser(Map data) async
-{
-  final String api = "http://emarket.hustle/api/userinfo";
-  final response = await http.post(api,body:data);
-
-  if(response.statusCode == 201)
-    print("success");
-  else
-    print("failure");
-}
-
 class _SignUpState extends State<SignUp>{
 final EnvEndPoints envEndPoints = EnvEndPoints();
 final APIGateway apiGateway = APIGateway();
+Future<Profile> _userProfile;
+
+void _createProfile(Map data) async
+{
+  setState(() {
+    _userProfile = apiGateway.asyncPost(data);
+  });
+
+}
 
  bool isFirstPage = true;
  String buttonText = "NEXT";
-
-
+ Map data;
 
 //first batch
   //name textboxes
@@ -53,6 +50,7 @@ final APIGateway apiGateway = APIGateway();
 
  //second batch
   //email
+
   TextBox emailBox;
   TextEditingController _emailController = new TextEditingController();
 
@@ -73,8 +71,11 @@ final APIGateway apiGateway = APIGateway();
   String detailedAddress;
   String generalAddress;
 
-
-
+  //Focusnodes
+  final FocusNode node0 = FocusNode();
+  final FocusNode node1 = FocusNode();
+  final FocusNode node2 = FocusNode();
+  final FocusNode node3 = FocusNode();
 
   @override
   Widget build(BuildContext context) {
@@ -82,199 +83,201 @@ final APIGateway apiGateway = APIGateway();
     queryData = MediaQuery.of(context);
 
     return Scaffold(
-      body: Stack(
-        children:[
-          SingleChildScrollView(
-            child: SizedBox(
-              height: queryData.size.height,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ClipPath(
-                    clipper: MyClipper(),
-                    child: Container(
-                      height: queryData.size.height/5,
-                      decoration: BoxDecoration(
-                        color: Colors.orange[500],
-                      ),
-                      child: Center(
-                        child: Text("e-Merkado",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 35
-                          ),),
+      body: GestureDetector(
+        onTap:()=> FocusScope.of(context).requestFocus(FocusNode()),
+        child: Stack(
+          children:[
+            SingleChildScrollView(
+              child: SizedBox(
+                height: queryData.size.height,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ClipPath(
+                      clipper: MyClipper(),
+                      child: Container(
+                        height: queryData.size.height/5,
+                        decoration: BoxDecoration(
+                          color: Colors.orange[500],
+                        ),
+                        child: Center(
+                          child: Text("e-Merkado",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 35
+                            ),),
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(left:40.0, right: 40.0, top: 25),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "SignUp",
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
+                    Padding(
+                      padding: EdgeInsets.only(left:40.0, right: 40.0, top: 25),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "SignUp",
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                        SizedBox(height: 20,),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            boxes(),
-                            SizedBox(height: 20,),
-                            TextButton(
-                              onPressed: ()
-                              {
-                                setState(()
+                          SizedBox(height: 20,),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              boxes(),
+                              SizedBox(height: 20,),
+                              TextButton(
+                                onPressed: ()async
                                 {
-                                  //checking if an error exists in validation
-                                  if(isFirstPage)
-                                    {
-                                      fnameBox.validator();
-                                      lnameBox.validator();
-                                      passBox.validator();
-                                      confPassBox.validator();
-                                      print("fname: ${!fnameBox.validation()}");
-                                      print("lname: ${!lnameBox.validation()}");
-                                      print("pass: ${!passBox.validation()}");
-                                      print("conf: ${!confPassBox.validation()}");
+                                //checking if an error exists in validation
+                                if(isFirstPage)
+                                  {
+                                    await fnameBox.validator();
+                                    await lnameBox.validator();
+                                    await passBox.validator();
+                                    await confPassBox.validator();
 
-                                      if(!fnameBox.validation() ||
-                                          !lnameBox.validation()||
-                                          !passBox.validation()||
-                                          !confPassBox.validation())
-                                        {
-                                        PopUp(
-                                            data: queryData,
-                                            icon: Icons.error_outline,
-                                            title: 'ERROR', message: 'SignUp Error',
-                                            context: context);
-                                        return;
-                                        }
-
-                                      fname = fnameBox.getInfo();
-                                      lname = lnameBox.getInfo();
-                                      pass = passBox.getInfo();
-                                      confpass = confPassBox.getInfo();
-                                      if(pass != confpass)
+                                    if(!fnameBox.validation() ||
+                                        !lnameBox.validation()||
+                                        !passBox.validation()||
+                                        !confPassBox.validation())
                                       {
-                                        PopUp(
-                                            data: queryData,
-                                            icon: Icons.error_outline,
-                                            title: 'ERROR', message: 'Password '
-                                            'and Confirm Password do not match',
-                                            context: context);
                                         return;
                                       }
+
+                                   setState(() {
+                                     fname = fnameBox.getInfo();
+                                     lname = lnameBox.getInfo();
+                                     pass = passBox.getInfo();
+                                     confpass = confPassBox.getInfo();
+                                   });
+                                    if(pass != confpass)
+                                    {
+                                      PopUp(
+                                          data: queryData,
+                                          icon: Icons.error_outline,
+                                          title: 'ERROR', message: 'Password '
+                                          'and Confirm Password do not match',
+                                          context: context);
+                                      return;
+                                    }
+                                    setState(() {
                                       isFirstPage = false;
                                       buttonText = "FINISH";
-                                    }
-                                  else if(!isFirstPage)
+                                    });
+
+                                  }
+                                else if(!isFirstPage)
+                                  {
+                                    print("hello");
+                                    await emailBox.validator();
+                                    await emailBox.verify();
+                                    await phoneNumBox.validator();
+                                    await detailedAddressBox.validator();
+                                    await generalAddressBox.validator();
+                                    print(emailBox.validation());
+
+                                    if(!emailBox.validation() ||
+                                        !phoneNumBox.validation() ||
+                                        !detailedAddressBox.validation() ||
+                                        !generalAddressBox.validation())
                                     {
-                                      emailBox.validator();
-                                      phoneNumBox.validator();
+                                      print("hi");
 
-                                      if(!emailBox.validation() ||
-                                          !phoneNumBox.validation())
-                                      {
-                                        PopUp(
-                                            data: queryData,
-                                            icon: Icons.error_outline,
-                                            title: 'ERROR', message: 'SignUp Error',
-                                            context: context);
-                                        return;
-                                      }
-
-                                      email = emailBox.getInfo();
-                                      phoneNumber = phoneNumBox.getInfo();
-                                      detailedAddress = detailedAddressBox.getInfo();
-                                      generalAddress = generalAddressBox.getInfo();
-
-                                      Map data ={
-                                        "firstname"  :fname,
-                                        "lastname"   :lname,
-                                        "password"   :pass,
-                                        "email"      :email,
-                                        "phonenumber":phoneNumber,
-                                        "address"    :detailedAddress + " " + generalAddress,
-                                        "usertype"   :"Buyer",
-
-                                      } ;
-
-                                     apiGateway.asyncPost(data);
+                                      return;
                                     }
 
-                                });
-                              },
-                              style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty
-                                    .all(Colors.orange[500]),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>
-                                  (RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(200),
-                                )),
-                                padding: MaterialStateProperty.all(
-                                    EdgeInsets.symmetric(vertical: 13, horizontal: 0)),
-                              ),
+                                   setState(() {
+                                     email = emailBox.getInfo();
+                                     phoneNumber = phoneNumBox.getInfo();
+                                     detailedAddress = detailedAddressBox.getInfo();
+                                     generalAddress = generalAddressBox.getInfo();
 
-                              child: Text(
-                                buttonText,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25,
+                                     data ={
+                                       "firstname"  :fname,
+                                       "lastname"   :lname,
+                                       "password"   :pass,
+                                       "email"      :email,
+                                       "phonenumber":phoneNumber,
+                                       "address"    :detailedAddress + " " + generalAddress,
+                                       "usertype"   :"Buyer",
+
+                                     } ;
+                                   });
+
+                                    _createProfile(data);
+                                  }
+                                },
+                                style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty
+                                      .all(Colors.orange[500]),
+                                  shape: MaterialStateProperty.all<RoundedRectangleBorder>
+                                    (RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(200),
+                                  )),
+                                  padding: MaterialStateProperty.all(
+                                      EdgeInsets.symmetric(vertical: 13, horizontal: 0)),
+                                ),
+
+                                child: Text(
+                                  buttonText,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 25,
+                                  ),
                                 ),
                               ),
-                            ),
-                            SizedBox(height: 20,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  "Have an existing account?",
-                                  style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 14,
-                                  ),),
-                                SizedBox(width: 4,),
-                                GestureDetector(
-                                  onTap: ()
-                                  {
-                                    Navigator.pushReplacementNamed(context, '/login');
-                                  },
-                                  child: Text(
-                                    "Go to Login!",
+                              SizedBox(height: 20,),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "Have an existing account?",
                                     style: TextStyle(
-
                                       fontWeight: FontWeight.bold,
                                       fontSize: 14,
-                                      decoration: TextDecoration.underline,
-                                      decorationColor: Colors.orange[500],
-                                      decorationThickness: 2,
-                                      color: Colors.orange[500],
-
                                     ),),
-                                ),
-                              ],
-                            ),
+                                  SizedBox(width: 4,),
+                                  GestureDetector(
+                                    onTap: ()
+                                    {
+                                      Navigator.pushReplacementNamed(context, '/login');
+                                    },
+                                    child: Text(
+                                      "Go to Login!",
+                                      style: TextStyle(
 
-                          ],
-                        )
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 14,
+                                        decoration: TextDecoration.underline,
+                                        decorationColor: Colors.orange[500],
+                                        decorationThickness: 2,
+                                        color: Colors.orange[500],
 
-                      ],
+                                      ),),
+                                  ),
+                                ],
+                              ),
+
+                            ],
+                          )
+
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
-          ),
-        ]
+          ]
+        ),
       ),
     );
   }
+
 
   Widget boxes()
   {
@@ -289,7 +292,7 @@ final APIGateway apiGateway = APIGateway();
                   icon: Icons.account_circle,
                   type: TextInputType.text,
                   controller: f_nameController,
-                  func: trap.NameTrap,
+                  func_a: trap.NameTrap,
                 ),
                 SizedBox(height: 20,),
                 lnameBox = new TextBox(
@@ -297,7 +300,7 @@ final APIGateway apiGateway = APIGateway();
                   icon: Icons.account_circle,
                   type: TextInputType.text,
                   controller: l_nameController,
-                  func: trap.NameTrap,
+                  func_a: trap.NameTrap,
                 ),
                 SizedBox(height: 20,),
                 passBox = new PassField(
@@ -323,7 +326,9 @@ final APIGateway apiGateway = APIGateway();
                 icon: Icons.email_outlined,
                 type: TextInputType.emailAddress,
                 controller: _emailController,
-                func: trap.emailTrap,
+                node: node0,
+                func_a: trap.emailTrap,
+                func_b: trap.emailCheck,
               ),
               SizedBox(height: 20,),
               phoneNumBox = new TextBox(
@@ -331,7 +336,7 @@ final APIGateway apiGateway = APIGateway();
                 icon: Icons.phone,
                 type: TextInputType.number,
                 controller: _phoneNumberController,
-                func: trap.phoneNumberTrap,
+                func_a: trap.phoneNumberTrap,
               ),
               SizedBox(height: 20,),
               detailedAddressBox = new TextBox(
@@ -339,7 +344,7 @@ final APIGateway apiGateway = APIGateway();
                 icon: Icons.location_city,
                 type: TextInputType.text,
                 controller: _detailedAddressController,
-                func: trap.defaultTrap,
+                func_a: trap.defaultTrap,
               ),
               SizedBox(height: 20,),
               generalAddressBox = new TextBox(
@@ -347,7 +352,7 @@ final APIGateway apiGateway = APIGateway();
                 icon: Icons.location_on,
                 type: TextInputType.text,
                 controller: _generalAddressController,
-                func: trap.defaultTrap,
+                func_a: trap.defaultTrap,
               ),
             ],
           );

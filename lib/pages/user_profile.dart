@@ -15,7 +15,7 @@ class _UserProfileState extends State<UserProfile> {
 
   void _session() async
   {
-    setState(() {
+    setState(()async {
       _userProfile = apiGateway.asyncGet("modesto.pouros@gmail.com");
     });
   }
@@ -29,6 +29,7 @@ class _UserProfileState extends State<UserProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.orange,
       appBar: AppBar(
         title: Text("Profile"),
       ),
@@ -54,7 +55,6 @@ class _UserProfileState extends State<UserProfile> {
             else if(snapshot.hasData)
               {
                 Profile profile = snapshot.data;
-                print(profile.lastname.toString());
                 return container(context, profile);
               }
             else

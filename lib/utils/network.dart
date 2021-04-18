@@ -13,7 +13,6 @@ class Network
 
     if (response.statusCode == 200)
       {
-        print("network: ${response.body}");
         return jsonDecode(response.body);
       }
     else
@@ -27,11 +26,11 @@ class Network
 
     if (response.statusCode == 201)
       {
-        return "Success";
+        return jsonDecode(response.body);
       }
     else
       {
-        return "Failure";
+        return null;
       }
   }
 }

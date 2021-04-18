@@ -1,7 +1,18 @@
 import 'package:e_market/traps/trap.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:validators/validators.dart';
+import 'package:e_market/services/api_gateway.dart';
+import 'package:e_market/utils/env_endpoints.dart';
+import 'package:e_market/model/profile.dart';
+
 class ProfileTrap extends Trap
 {
+  final EnvEndPoints envEndPoints = EnvEndPoints();
+  final APIGateway apiGateway = APIGateway();
+  Profile profile;
+
+
+
   NameTrap(String name)
   {
     if(name == "")
@@ -53,8 +64,39 @@ class ProfileTrap extends Trap
       }
     return error();
   }
+  Future<String> emailDuplication(email)async
+  {
+    profile = await apiGateway.asyncGet(email);
+    if(profile != null)
+    {
+      return profile.email;
+    }
+    else
+      return null;
+  }
 
-  emailTrap(String email)
+
+  emailCheck(email)async
+  {
+    await emailDuplication(email).then((result) {
+      if(result != null)
+        {
+          message = ("Email '$result' is already taken");
+        }
+      else
+        {
+          message = null;
+        }
+    });
+    if(message == null)
+      {
+        return null;
+      }
+    return error();
+
+  }
+
+  emailTrap(email)
   {
     RegExp emailCheck = new RegExp(r"^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]"
     r"|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|"
@@ -68,22 +110,21 @@ class ProfileTrap extends Trap
     r"[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|"
     r"[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])"
     r"([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))$");
-    
     if(!emailCheck.hasMatch(email))
       {
         message = ("Invalid Email");
+        return error();
       }
     else
-      return null;
-
-    return error();
+      {
+        return null;
+      }
   }
 
   phoneNumberTrap(String phone)
   {
     if(!isNumeric(phone) || phone.length < 11 || phone.length > 11)
       {
-        print("hello");
         message = ("Invalid Phone Format");
       }
     else
@@ -95,6 +136,12 @@ class ProfileTrap extends Trap
 
   defaultTrap(String def)
   {
-     return null;
+     if(def == "")
+       {
+         message = ("Required to populate Field");
+       }
+     else
+       {return null;}
+     return error();
   }
 }

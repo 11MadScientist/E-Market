@@ -4,6 +4,7 @@ import 'package:e_market/designs/myclipper.dart';
 import 'package:e_market/designs/bottomclipper.dart';
 import 'package:e_market/designs/textbox.dart';
 import 'package:e_market/designs/popup.dart';
+import 'package:e_market/traps/profile_trap.dart';
 
 import 'dart:async';
 import 'dart:convert';

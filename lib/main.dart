@@ -24,7 +24,7 @@ void main() => runApp(MaterialApp(
             bodyColor: Colors.blue[900],
             displayColor: Colors.blue[900],
           )),
-      initialRoute: '/',
+      initialRoute: '/signup',
       routes: {
         '/': (context) => Landing(),
         '/login': (context) => Login(),
@@ -35,6 +35,7 @@ void main() => runApp(MaterialApp(
         '/item_desc': (context) => ItemDescription(),
       },
     ));
+
 
 // void main()
 // {
