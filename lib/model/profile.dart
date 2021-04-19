@@ -5,6 +5,7 @@ class Profile
   final int id;
   final String firstname;
   final String lastname;
+  final String password;
   final String email;
   final String phonenumber;
   final String address;
@@ -15,6 +16,7 @@ class Profile
     @required this.id,
     @required this.firstname,
     @required this.lastname,
+    @required this.password,
     @required this.email,
     @required this.phonenumber,
     @required this.address,
@@ -27,6 +29,7 @@ class Profile
       id         :json['data']['id'] as int,
       firstname  :json['data']['firstname'] as String,
       lastname   :json['data']['lastname'] as String,
+      password   :json['data']['password'] as String,
       email      :json['data']['email'] as String,
       phonenumber:json['data']['phonenumber'],
       address    :json['data']['address'],

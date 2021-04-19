@@ -10,6 +10,7 @@ class ProfileTrap extends Trap
   final EnvEndPoints envEndPoints = EnvEndPoints();
   final APIGateway apiGateway = APIGateway();
   Profile profile;
+  String password;
 
 
 
@@ -69,29 +70,65 @@ class ProfileTrap extends Trap
     profile = await apiGateway.asyncGet(email);
     if(profile != null)
     {
-      return profile.email;
+      return profile.password;
     }
     else
       return null;
   }
+
+  emailExist(email)async
+  {
+    print("hello");
+    await emailDuplication(email).then((result) {
+      print("result: $result");
+      if(result != null)
+      {
+        message = null;
+        password = result;
+      }
+      else
+      {
+        message = ("Email '$email' does not exist");
+      }
+    });
+    if(message == null)
+    {
+      return null;
+    }
+    return error();
+  }
+
+  bool passwordCheck(pass)
+  {
+    print("password: $password");
+    if(pass == password)
+      {
+        return true;
+      }
+    else
+      return false;
+
+  }
+
+
 
 
   emailCheck(email)async
   {
     await emailDuplication(email).then((result) {
       if(result != null)
-        {
-          message = ("Email '$result' is already taken");
-        }
+      {
+        message = ("Email '$result' is already taken");
+      }
       else
-        {
-          message = null;
-        }
+      {
+        message = null;
+      }
     });
     if(message == null)
-      {
-        return null;
-      }
+    {
+      return null;
+    }
     return error();
 
   }
