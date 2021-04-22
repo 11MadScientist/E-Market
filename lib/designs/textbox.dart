@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 
 class TextBox extends StatefulWidget {
@@ -65,7 +63,6 @@ class TextBox extends StatefulWidget {
 class _TextBoxState extends State<TextBox> {
 
 
-
   @override
   void initState() {
     super.initState();
@@ -73,6 +70,7 @@ class _TextBoxState extends State<TextBox> {
     {
       widget.node.addListener(()async {
         {
+          print("gg");
           if(widget.node.hasFocus == false
               && widget.validation() == true
               && widget.func_b != null)

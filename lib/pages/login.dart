@@ -112,6 +112,7 @@ class _LoginState extends State<Login> {
                                   {
                                     popup = new PopUp(data: queryData,
                                         icon: Icons.error,
+                                        coloring: Colors.red,
                                         title: 'ERROR',
                                         message: 'Incorrect Email/Password',
                                         context: context);

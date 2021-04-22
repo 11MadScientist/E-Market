@@ -6,8 +6,11 @@ class PopUp{
   final String message;
   final IconData icon;
   final BuildContext context;
+  final String route;
+  final Color coloring;
 
-  PopUp({this.data, this.title, this.message, this.icon, this.context})
+  PopUp({this.data, this.title, this.message,
+    this.icon, this.context, this.route, this.coloring})
   {
     displayDialog(data);
   }
@@ -36,7 +39,7 @@ class PopUp{
                   children: <Widget>[
                     Icon(
                       icon,
-                      color: Colors.red,
+                      color: coloring,
                       size: data.size.width * .15,
                     ),
                     // Expanded(child: SizedBox(width: data.size.width * .005,)),
@@ -55,7 +58,13 @@ class PopUp{
               actions: <Widget>[
                 TextButton(
                     onPressed: () {
-                      Navigator.of(context).pop();
+                      if(route != null)
+                        {
+
+                          Navigator.pushReplacementNamed(context, route);
+                        }
+                      else
+                        Navigator.of(context).pop();
                     },
                     child: Text(
                       'Close',

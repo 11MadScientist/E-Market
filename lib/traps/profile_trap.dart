@@ -1,9 +1,8 @@
 import 'package:e_market/traps/trap.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:validators/validators.dart';
 import 'package:e_market/services/api_gateway.dart';
 import 'package:e_market/utils/env_endpoints.dart';
 import 'package:e_market/model/profile.dart';
+import 'package:validators/validators.dart';
 
 class ProfileTrap extends Trap
 {
@@ -16,11 +15,13 @@ class ProfileTrap extends Trap
 
   NameTrap(String name)
   {
+    RegExp nameExp = RegExp(r'(?=.*[0-9])');
+
     if(name == "")
     {
       message = ("Field required to be filled up!");
     }
-    else if(!isAlpha(name) )
+    else if(nameExp.hasMatch(name))
       {
         message = ("Name consists of letters only!");
       }
@@ -118,7 +119,7 @@ class ProfileTrap extends Trap
     await emailDuplication(email).then((result) {
       if(result != null)
       {
-        message = ("Email '$result' is already taken");
+        message = ("Email '$email' is already taken");
       }
       else
       {

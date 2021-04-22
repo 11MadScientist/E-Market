@@ -10,6 +10,8 @@ class Profile
   final String phonenumber;
   final String address;
   final String usertype;
+  final String profilepic;
+  final String created_at;
 
 
   Profile({
@@ -21,6 +23,8 @@ class Profile
     @required this.phonenumber,
     @required this.address,
     @required this.usertype,
+    @required this.profilepic,
+    @required this.created_at,
 });
 
   factory Profile.fromJson(Map<String, dynamic> json)
@@ -34,6 +38,8 @@ class Profile
       phonenumber:json['data']['phonenumber'],
       address    :json['data']['address'],
       usertype   :json['data']['usertype'] as String,
+      profilepic :json['data']['profilepic'] as String,
+      created_at :json['data']['created_at'] as String,
     );
   }
   Map<String, dynamic> toJson() => {
