@@ -25,10 +25,10 @@ void main() => runApp(MaterialApp(
             bodyColor: Colors.blue[900],
             displayColor: Colors.blue[900],
           )),
-      initialRoute: '/',
+      initialRoute: '/login',
       routes: {
-        '/': (context) => Landing(),
         '/login': (context) => Login(),
+        '/landing': (context) => Landing(),
         '/signup': (context) => SignUp(),
         '/signup2':(context) => SignUp2(),
         '/home': (context) => Home(),

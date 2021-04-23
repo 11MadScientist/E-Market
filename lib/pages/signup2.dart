@@ -26,6 +26,7 @@ class _SignUp2State extends State<SignUp2>{
     // TODO: implement initState
     super.initState();
     print(widget.data["pass"]);
+    print(widget.data["userType"]);
   }
 
   Future<Profile> _createProfile(Map data) async
@@ -177,10 +178,11 @@ class _SignUp2State extends State<SignUp2>{
                                         "email"      :email,
                                         "phonenumber":phoneNumber,
                                         "address"    :detailedAddress + " " + generalAddress,
-                                        "usertype"   :"Buyer",
+                                        "usertype"   :widget.data["userType"],
 
                                       } ;
                                     });
+
 
                                     _createProfile(data).then((value)
                                     {
