@@ -2,7 +2,7 @@ import 'package:e_market/model/profile.dart';
 import 'package:e_market/utils/env_endpoints.dart';
 import 'package:e_market/utils/network.dart';
 
-class APIGateway
+class ProfileAPIGateway
 {
   final EnvEndPoints envEndPoints = EnvEndPoints();
 

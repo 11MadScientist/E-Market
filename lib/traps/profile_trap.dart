@@ -1,5 +1,5 @@
 import 'package:e_market/traps/trap.dart';
-import 'package:e_market/services/api_gateway.dart';
+import 'package:e_market/services/profile_api_gateway.dart';
 import 'package:e_market/utils/env_endpoints.dart';
 import 'package:e_market/model/profile.dart';
 import 'package:validators/validators.dart';
@@ -7,7 +7,7 @@ import 'package:validators/validators.dart';
 class ProfileTrap extends Trap
 {
   final EnvEndPoints envEndPoints = EnvEndPoints();
-  final APIGateway apiGateway = APIGateway();
+  final ProfileAPIGateway apiGateway = ProfileAPIGateway();
   Profile profile;
   String password;
 

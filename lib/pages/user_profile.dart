@@ -1,4 +1,4 @@
-import 'package:e_market/services/api_gateway.dart';
+import 'package:e_market/services/profile_api_gateway.dart';
 import 'package:e_market/utils/env_endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:e_market/model/profile.dart';
@@ -10,7 +10,7 @@ class UserProfile extends StatefulWidget {
 
 class _UserProfileState extends State<UserProfile> {
   final EnvEndPoints envEndPoints = EnvEndPoints();
-  final APIGateway apiGateway = APIGateway();
+  final ProfileAPIGateway apiGateway = ProfileAPIGateway();
   Future<Profile> _userProfile;
 
   void _session() async
