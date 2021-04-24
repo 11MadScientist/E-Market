@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:e_market/pages/login.dart';
 import 'package:e_market/pages/signup.dart';
 import 'package:e_market/pages/signup2.dart';
+import 'package:e_market/pages/signup3.dart';
 import 'package:e_market/pages/landing.dart';
 import 'package:e_market/pages/home.dart';
 import 'package:e_market/pages/user_profile.dart';
@@ -25,12 +26,13 @@ void main() => runApp(MaterialApp(
             bodyColor: Colors.blue[900],
             displayColor: Colors.blue[900],
           )),
-      initialRoute: '/login',
+      initialRoute: '/signup3',
       routes: {
         '/login': (context) => Login(),
         '/landing': (context) => Landing(),
         '/signup': (context) => SignUp(),
         '/signup2':(context) => SignUp2(),
+        '/signup3': (context) => SignUp3(),
         '/home': (context) => Home(),
         '/profile': (context) => UserProfile(),
         '/cart': (context) => Cart(),

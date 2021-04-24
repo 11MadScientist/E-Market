@@ -6,6 +6,7 @@ import 'package:e_market/services/api_gateway.dart';
 import 'package:e_market/utils/env_endpoints.dart';
 import 'package:e_market/traps/profile_trap.dart';
 import 'package:e_market/designs/popup.dart';
+import 'package:e_market/pages/signup3.dart';
 
 class SignUp2 extends StatefulWidget {
   @override
@@ -20,11 +21,17 @@ class _SignUp2State extends State<SignUp2>{
   final EnvEndPoints envEndPoints = EnvEndPoints();
   final APIGateway apiGateway = APIGateway();
   Profile _userProfile;
+  bool isBuyer;
+  String btnText;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    widget.data["userType"] == "Buyer" ? {isBuyer = true, btnText = "Finish"} : {isBuyer = false, btnText = "Next"};
+    print(isBuyer);
+    print(btnText);
     print(widget.data["pass"]);
     print(widget.data["userType"]);
   }
@@ -147,58 +154,88 @@ class _SignUp2State extends State<SignUp2>{
                                   onPressed: ()async
                                   {
                                   //checking if an error exists in validation
-                                    print("hello");
-                                    await emailBox.validator();
-                                    await emailBox.verify();
-                                    await phoneNumBox.validator();
-                                    await detailedAddressBox.validator();
-                                    await generalAddressBox.validator();
-                                    print(emailBox.validation());
 
-                                    if(!emailBox.validation() ||
-                                        !phoneNumBox.validation() ||
-                                        !detailedAddressBox.validation() ||
-                                        !generalAddressBox.validation())
+                                    if(isBuyer)
                                     {
-                                      print("hi");
+                                      print("hello");
+                                      await emailBox.validator();
+                                      await emailBox.verify();
+                                      await phoneNumBox.validator();
+                                      await detailedAddressBox.validator();
+                                      await generalAddressBox.validator();
+                                      print(emailBox.validation());
 
-                                      return;
+                                      if(!emailBox.validation() ||
+                                          !phoneNumBox.validation() ||
+                                          !detailedAddressBox.validation() ||
+                                          !generalAddressBox.validation())
+                                      {
+                                        print("hi");
+
+                                        return;
+                                      }
+
+                                      setState(() {
+                                        email = emailBox.getInfo();
+                                        phoneNumber = phoneNumBox.getInfo();
+                                        detailedAddress = detailedAddressBox.getInfo();
+                                        generalAddress = generalAddressBox.getInfo();
+
+                                        data ={
+                                          "firstname"  :widget.data["fname"],
+                                          "lastname"   :widget.data["lname"],
+                                          "password"   :widget.data["pass"],
+                                          "email"      :email,
+                                          "phonenumber":phoneNumber,
+                                          "address"    :detailedAddress + " " + generalAddress,
+                                          "usertype"   :widget.data["userType"],
+
+                                        } ;
+                                      });
+
+
+                                      _createProfile(data).then((value)
+                                      {
+                                        PopUp(
+                                            data: queryData,
+                                            icon: Icons.check_circle,
+                                            title: 'SUCCESS',
+                                            coloring: Colors.green,
+                                            route: "/login",
+                                            message:"${value.firstname} "
+                                                "${value.lastname} using email "
+                                                "${value.email} successfully registered "
+                                                "at ${value.created_at}",
+                                            context: context);
+
+                                      });
+                                    }
+                                    else
+                                    {
+                                      setState(() {
+                                        email = emailBox.getInfo();
+                                        phoneNumber = phoneNumBox.getInfo();
+                                        detailedAddress = detailedAddressBox.getInfo();
+                                        generalAddress = generalAddressBox.getInfo();
+
+                                        data ={
+                                          "firstname"  :widget.data["fname"],
+                                          "lastname"   :widget.data["lname"],
+                                          "password"   :widget.data["pass"],
+                                          "email"      :email,
+                                          "phonenumber":phoneNumber,
+                                          "address"    :detailedAddress + " " + generalAddress,
+                                          "usertype"   :widget.data["userType"],
+
+                                        } ;
+                                      });
+
+                                      Navigator.of(context).push(MaterialPageRoute
+                                        (
+                                        builder:(context) => SignUp3(data:data),
+                                      ));
                                     }
 
-                                    setState(() {
-                                      email = emailBox.getInfo();
-                                      phoneNumber = phoneNumBox.getInfo();
-                                      detailedAddress = detailedAddressBox.getInfo();
-                                      generalAddress = generalAddressBox.getInfo();
-
-                                      data ={
-                                        "firstname"  :widget.data["fname"],
-                                        "lastname"   :widget.data["lname"],
-                                        "password"   :widget.data["pass"],
-                                        "email"      :email,
-                                        "phonenumber":phoneNumber,
-                                        "address"    :detailedAddress + " " + generalAddress,
-                                        "usertype"   :widget.data["userType"],
-
-                                      } ;
-                                    });
-
-
-                                    _createProfile(data).then((value)
-                                    {
-                                      PopUp(
-                                          data: queryData,
-                                          icon: Icons.check_circle,
-                                          title: 'SUCCESS',
-                                          coloring: Colors.green,
-                                          route: "/login",
-                                          message:"${value.firstname} "
-                                              "${value.lastname} using email "
-                                              "${value.email} successfully registered "
-                                              "at ${value.created_at}",
-                                          context: context);
-
-                                    });
                                   },
                                   style: ButtonStyle(
                                     backgroundColor: MaterialStateProperty
@@ -212,7 +249,7 @@ class _SignUp2State extends State<SignUp2>{
                                   ),
 
                                   child: Text(
-                                    "Finish",
+                                    btnText,
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold,
