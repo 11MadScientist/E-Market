@@ -26,10 +26,12 @@ class Network
 
     if (response.statusCode == 201)
       {
+        print(response.statusCode);
         return jsonDecode(response.body);
       }
     else
       {
+        print(response.statusCode);
         return null;
       }
   }

@@ -1,8 +1,10 @@
 import 'package:e_market/model/profile.dart';
+import 'package:e_market/model/store.dart';
 import 'package:flutter/material.dart';
 import 'package:e_market/designs/myclipper.dart';
 import 'package:e_market/designs/textbox.dart';
 import 'package:e_market/services/api_gateway.dart';
+import 'package:e_market/services/store_api_gateway.dart';
 import 'package:e_market/utils/env_endpoints.dart';
 import 'package:e_market/traps/profile_trap.dart';
 import 'package:e_market/designs/popup.dart';
@@ -19,7 +21,10 @@ class _SignUp3State extends State<SignUp3>{
   ProfileTrap trap = ProfileTrap();
   final EnvEndPoints envEndPoints = EnvEndPoints();
   final APIGateway apiGateway = APIGateway();
+  final StoreAPIGateway storeAPIGateway = StoreAPIGateway();
+
   Profile _userProfile;
+  Store _storeInfo;
 
   @override
   void initState() {
@@ -35,7 +40,18 @@ class _SignUp3State extends State<SignUp3>{
     setState(() {
       _userProfile = body;
     });
+      print(_userProfile.id);
     return body;
+  }
+
+  Future <Store> _createStore(Map data) async
+  {
+    Store body = await storeAPIGateway.asyncPost(data);
+    setState(() {
+      _storeInfo = body;
+    });
+      return body;
+
   }
   Map userProfileData;
   Map storeData;
@@ -145,16 +161,21 @@ class _SignUp3State extends State<SignUp3>{
                                         "address"    :widget.data["address"],
                                         "usertype"   :widget.data["usertype"],
                                       };
-
-                                      storeData = {
-                                        "storename": storeName,
-                                        "storeaddress": storeAddress
-                                      };
-
                                     });
-
-                                    _createProfile(userProfileData).then((value)
+                                    _createProfile
+                                    (userProfileData).then((value)
                                     {
+                                      setState(() {
+                                        print(_userProfile.id);
+                                        storeData = {
+                                          "acc_id"        : _userProfile.id.toString(),
+                                          "store_name"    : storeName,
+                                          "store_location": storeAddress,
+                                        };
+                                      });
+
+                                      print(storeData);
+                                      _createStore(storeData);
                                       PopUp(
                                           data: queryData,
                                           icon: Icons.check_circle,
