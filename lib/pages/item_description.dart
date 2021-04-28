@@ -33,33 +33,26 @@ class _ItemDescriptionState extends State<ItemDescription> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 //TRANSPARENT CONTAINER TO SEE THE BG SELECTED PHOTO IN OTHER PHOTOS
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
-                  child: Container(
-                      height: queryData.size.height * .35,
-                      child: Stack(
-                        children: [
-                          //BACK BUTTON (TOP)
-                          Positioned(
+                Container(
+                    height: queryData.size.height * .35,
+                    child: Stack(
+                      children: [
+                        //BACK BUTTON (TOP)
+                        Positioned(
                             top: queryData.size.height * .05,
-                            child: Stack(
-                              children: [
-                                Icon(
-                                  Icons.circle,
-                                  color: Colors.orange,
-                                  size: 50,
-                                ),
-                                IconButton(
-                                    icon: Icon(
-                                  Icons.chevron_left_outlined,
-                                  color: Colors.white,
-                                ))
-                              ],
-                            ),
-                          ),
-                        ],
-                      )),
-                ),
+                            child: RawMaterialButton(
+                              onPressed: () {},
+                              elevation: 2.0,
+                              fillColor: Colors.orange,
+                              child: Icon(
+                                Icons.chevron_left_outlined,
+                                size: 20.0,
+                                color: Colors.white,
+                              ),
+                              shape: CircleBorder(),
+                            )),
+                      ],
+                    )),
                 //CONTENT
                 Stack(
                   children: [
@@ -94,23 +87,18 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                 //FAVORITE ICON
                                 Expanded(
                                   child: Align(
-                                    alignment: Alignment.bottomRight,
-                                    child: Stack(
-                                      children: [
-                                        Icon(
-                                          Icons.circle,
-                                          color: Colors.red,
-                                          size: 50,
+                                      alignment: Alignment.bottomRight,
+                                      child: RawMaterialButton(
+                                        onPressed: () {},
+                                        elevation: 0,
+                                        fillColor: Colors.red,
+                                        child: Icon(
+                                          Icons.favorite,
+                                          size: 20.0,
+                                          color: Colors.white,
                                         ),
-                                        IconButton(
-                                          icon: Icon(
-                                            Icons.favorite,
-                                            color: Colors.white,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                        shape: CircleBorder(),
+                                      )),
                                 ),
                               ],
                             ),
