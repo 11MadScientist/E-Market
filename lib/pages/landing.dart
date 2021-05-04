@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:e_market/pages/signup.dart';
 
 class Landing extends StatefulWidget {
   Landing({Key key}) : super(key: key);
@@ -9,6 +10,7 @@ class Landing extends StatefulWidget {
 }
 
 class _LandingState extends State<Landing> {
+  String userType;
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +102,11 @@ class _LandingState extends State<Landing> {
                             child:  ElevatedButton(
                               onPressed: ()
                               {
-                                Navigator.pushReplacementNamed(context, '/login');
+                                Navigator.of(context).push(MaterialPageRoute
+                                  (
+                                  builder:(context) => SignUp(userType: 'Seller'),
+                                ));
+
                               },
                               child: Text("I'm a Seller", style: TextStyle(
                               fontSize: widthSize * 0.055,
@@ -119,7 +125,10 @@ class _LandingState extends State<Landing> {
                             child:  ElevatedButton(
                               onPressed: ()
                               {
-                                Navigator.pushReplacementNamed(context, '/login');
+                                Navigator.of(context).push(MaterialPageRoute
+                                  (
+                                  builder:(context) => SignUp(userType: 'Buyer'),
+                                ));
                               },
                               child: Text("I'm a Buyer", style: TextStyle(
                               fontSize: widthSize * 0.055,

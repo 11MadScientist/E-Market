@@ -8,11 +8,26 @@ import 'package:e_market/designs/popup.dart';
 
 class SignUp extends StatefulWidget {
   @override
+  final String userType;
+  SignUp({this.userType});
+
   _SignUpState createState() => _SignUpState();
 }
 
 class _SignUpState extends State<SignUp>{
+
+  @override
+  String uType;
+
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(widget.userType);
+    uType = widget.userType;
+  }
 ProfileTrap trap = ProfileTrap();
+
+
 
  Map data;
 
@@ -24,6 +39,7 @@ ProfileTrap trap = ProfileTrap();
   TextEditingController l_nameController = new TextEditingController();
   String fname;
   String lname;
+
 
   //password textboxes
   PassField passBox;
@@ -145,7 +161,8 @@ ProfileTrap trap = ProfileTrap();
                                     Map sendData = {
                                       "fname":fname,
                                       "lname":lname,
-                                      "pass" :pass
+                                      "pass" :pass,
+                                      "userType": uType
                                     };
 
                                     Navigator.of(context).push(MaterialPageRoute
