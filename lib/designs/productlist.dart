@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:e_market/model/Product.dart';
 
 class ProductList extends StatelessWidget {
-  
+  final Product product;
+  ProductList({this.product});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -37,7 +39,7 @@ class ProductList extends StatelessWidget {
                               color: Colors.blue[900],
                             ),
                             Expanded(
-                              child: Text("Tommy Store"),
+                              child: Text(product.storeName),
                             ),
                             Text('1h ago')
                           ],
@@ -55,14 +57,14 @@ class ProductList extends StatelessWidget {
                                   ))),
                         ),
                         Text(
-                          'Fresh Eggplants',
+                          product.prodName,
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          'P80/kl',
+                          product.prodPrice.toString()+" per "+product.prodUnit,
                         ),
                       ],
                     ),

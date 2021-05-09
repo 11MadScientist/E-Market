@@ -192,7 +192,7 @@ class _HomeState extends State<Home> {
                                   itemCount: snapshot.data.length,
                                   itemBuilder: (context, index)
                                   {
-                                    return ProductList();
+                                    return ProductList(product:snapshot.data[index]);
                                   },
                                 ),
                               );

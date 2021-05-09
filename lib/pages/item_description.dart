@@ -71,7 +71,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
                               children: [
                                 //PRODUCT NAME
                                 Text(
-                                  'Eggplant ni Tommy',
+                                  'ggplant ni Tommy',
                                   style: TextStyle(
                                     fontSize: 20,
                                   ),
