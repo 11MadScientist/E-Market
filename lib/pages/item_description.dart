@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:e_market/model/Product.dart';
 
 class ItemDescription extends StatefulWidget {
   @override
+  final Product product;
+
+  ItemDescription({this.product});
+
   _ItemDescriptionState createState() => _ItemDescriptionState();
 }
 
@@ -71,7 +76,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
                               children: [
                                 //PRODUCT NAME
                                 Text(
-                                  'ggplant ni Tommy',
+                                  widget.product.prodName,
                                   style: TextStyle(
                                     fontSize: 20,
                                   ),
@@ -109,7 +114,8 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                 child: Padding(
                                   padding: EdgeInsets.fromLTRB(20, 0, 0, 0),
                                   child: Text(
-                                      'Here in our store, we promote fresh and healthy vegetables for all, to qualify the needs of the customers. Hand picked from our very own farm and supplied directly to you!'),
+                                    widget.product.prodDesc
+                                      ),
                                 ),
                               ),
                             ),
@@ -134,7 +140,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                                 color: Colors.blue[900],
                                               ),
                                             ),
-                                            Text('Tommy Store'),
+                                            Text(widget.product.storeName),
                                           ],
                                         ),
                                         //STOCKS SOLD
@@ -149,7 +155,8 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                                 color: Colors.blue[900],
                                               ),
                                             ),
-                                            Text('10 kl sold'),
+                                            Text( widget.product.prodSales.toString()
+                                                +" "+widget.product.prodUnit+'/s sold'),
                                           ],
                                         ),
                                         //STOCKS AVAILABLE
@@ -164,7 +171,8 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                                 color: Colors.blue[900],
                                               ),
                                             ),
-                                            Text('10 kl available'),
+                                            Text(widget.product.prodAvail.toString()
+                                            +" "+widget.product.prodUnit+"/s available"),
                                           ],
                                         ),
                                       ],
@@ -394,6 +402,10 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                 SizedBox(
                                   width: queryData.size.width * .4,
                                   child: ElevatedButton(
+                                    onPressed: ()
+                                      {
+                                        print("hello");
+                                      },
                                     style: ButtonStyle(
                                       foregroundColor:
                                           MaterialStateProperty.all(
@@ -409,6 +421,10 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                 SizedBox(
                                   width: queryData.size.width * .4,
                                   child: ElevatedButton(
+                                    onPressed: ()
+                                    {
+                                      print("hello");
+                                    },
                                     style: ButtonStyle(
                                       foregroundColor:
                                           MaterialStateProperty.all(

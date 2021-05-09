@@ -1,3 +1,4 @@
+import 'package:e_market/pages/item_description.dart';
 import 'package:flutter/material.dart';
 import 'package:e_market/model/Product.dart';
 
@@ -9,7 +10,10 @@ class ProductList extends StatelessWidget {
     return GestureDetector(
       onTap: ()
         {
-          Navigator.pushNamed(context, '/item_desc');
+          Navigator.of(context).push(MaterialPageRoute
+            (
+            builder:(context) => ItemDescription(product: product),
+          ));
         },
       child: Padding(
 
