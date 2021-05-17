@@ -109,7 +109,7 @@ class _LoginState extends State<Login> {
                             await emailBox.validator();
                             _profile = trap.passwordCheck(passBox.getInfo());
                             if (_profile != false) {
-                              await FlutterSession().set('profile', _profile);
+                              await FlutterSession().set('user_id', _profile.id);
                               setState(() {
                                 Navigator.of(context).push(MaterialPageRoute
                                   (

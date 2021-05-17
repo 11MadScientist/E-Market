@@ -136,7 +136,8 @@ class _ItemDescriptionState extends State<ItemDescription> {
                             Padding(
                               padding: const EdgeInsets.only(bottom: 10),
                               child: Text(
-                                "P100/kl",
+                                "${widget.product.prodPrice} pesos/"
+                                    "${widget.product.prodUnit}",
                                 style: TextStyle(
                                   fontSize: 25,
                                   color: Colors.orange,
@@ -442,36 +443,33 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                       //QUANTITY CONFIRMATION
                                       quantityPopup = new QuantityPopup(
                                         data: queryData,
-                                        imageData:
-                                            "assets/images/eggplant3.jpg",
-                                        price: "P100/kl",
-                                        stock: "50 kl available",
                                         buttonText: "Add to Cart",
                                         context: context,
+                                        product: widget.product,
                                       );
 
-                                        Map data;
-
-                                        setState(() {
-                                          data = {
-                                            "acc_id"  : widget.product.accId.toString(),
-                                            "store_id":widget.product.storeId.toString(),
-                                            "prod_id" :widget.product.prodId.toString(),
-                                            "prod_qty":"10",
-                                          };
-                                        });
-
-                                        _addToCart(data).then((value)
-                                        {
-                                          PopUp(
-                                              data: queryData,
-                                              icon: Icons.check_circle,
-                                              title: 'SUCCESS',
-                                              coloring: Colors.green,
-                                              message:"Item: ${widget.product.prodName} successfully added to cart",
-                                              context: context);
-
-                                        });
+                                        // Map data;
+                                        //
+                                        // setState(() {
+                                        //   data = {
+                                        //     "acc_id"  : widget.product.accId.toString(),
+                                        //     "store_id":widget.product.storeId.toString(),
+                                        //     "prod_id" :widget.product.prodId.toString(),
+                                        //     "prod_qty":"10",
+                                        //   };
+                                        // });
+                                        //
+                                        // _addToCart(data).then((value)
+                                        // {
+                                        //   PopUp(
+                                        //       data: queryData,
+                                        //       icon: Icons.check_circle,
+                                        //       title: 'SUCCESS',
+                                        //       coloring: Colors.green,
+                                        //       message:"Item: ${widget.product.prodName} successfully added to cart",
+                                        //       context: context);
+                                        //
+                                        // });
                                       },
                                     style: ButtonStyle(
                                       foregroundColor:
@@ -492,12 +490,9 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                       //QUANTITY CONFIRMATION
                                       quantityPopup = new QuantityPopup(
                                         data: queryData,
-                                        imageData:
-                                            "assets/images/eggplant3.jpg",
-                                        price: "P100/kl",
-                                        stock: "50 kl available",
                                         buttonText: "Buy Now",
                                         context: context,
+                                        product: widget.product,
                                       );
                                     },
                                     style: ButtonStyle(

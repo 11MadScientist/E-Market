@@ -1,26 +1,55 @@
+import 'dart:convert';
+
+import 'package:e_market/designs/popup.dart';
+import 'package:e_market/model/Cart.dart';
+import 'package:e_market/model/Product.dart';
+import 'package:e_market/model/profile.dart';
+import 'package:e_market/services/cart_api_gateway.dart';
+import 'package:e_market/utils/env_endpoints.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_session/flutter_session.dart';
 
 class QuantityPopup {
+  final EnvEndPoints envEndPoints = EnvEndPoints();
+  final CartAPIGateway apiGateway = CartAPIGateway();
+  @override
+  String user_id;
+
+  Future<Cart> _addToCart(Map data) async
+  {
+    Cart _cart = await apiGateway.asyncPost(data);
+    return _cart;
+  }
+
+  Future<void> _getProfile() async
+  {
+    await FlutterSession().get("user_id").then((value)
+        {
+          print(value);
+          user_id = value.toString();
+        }
+
+    );
+  }
   final MediaQueryData data;
-  final String imageData;
-  final String price;
-  final String stock;
-  final String buttonText;
   final BuildContext context;
+  final Product product;
+  final String buttonText;
+
   int productCounter = 1;
 
   QuantityPopup({
     this.data,
-    this.imageData,
-    this.price,
-    this.stock,
-    this.buttonText,
     this.context,
+    this.buttonText,
+    this.product
+
   }) {
     displayPopup(data);
   }
 
   Future displayPopup(MediaQueryData data) async {
+    print(product.prodPrice);
     return showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -41,7 +70,7 @@ class QuantityPopup {
                             width: data.size.height * .1,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage(imageData),
+                                image: AssetImage("lib/assets/eggplant3.jpg"),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -52,13 +81,13 @@ class QuantityPopup {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "P100/kl",
+                                  "${product.prodPrice}/${product.prodUnit}",
                                   style: TextStyle(
                                     fontSize: data.size.width * .06,
                                     color: Colors.orange,
                                   ),
                                 ),
-                                Text(stock),
+                                Text("${product.prodStock} ${product.prodUnit} available"),
                               ],
                             ),
                           )
@@ -76,7 +105,15 @@ class QuantityPopup {
                                   Icons.remove_circle,
                                 ),
                                 onPressed: () =>
-                                    setState(() => productCounter--)),
+                                    setState(()
+                                    {
+                                      if(productCounter<2)
+                                        {
+                                          return;
+                                        }
+                                      else
+                                        productCounter--;
+                                    })),
                             //QUANTITY
                             Text(
                               productCounter.toString() + ' kl',
@@ -87,7 +124,13 @@ class QuantityPopup {
                                   Icons.add_circle,
                                 ),
                                 onPressed: () =>
-                                    setState(() => productCounter++))
+                                    setState(()
+                                    {
+                                      if(productCounter == product.prodStock)
+                                        {return;}
+                                      else
+                                        productCounter++;
+                                    }))
                           ],
                         ),
                       ),
@@ -112,6 +155,35 @@ class QuantityPopup {
                           SizedBox(
                             width: data.size.width * .4,
                             child: ElevatedButton(
+                              onPressed: ()async
+                              {
+                                //getting the profile using FlutterSession
+                                await _getProfile();
+
+                                //setting the Map to be passed on post
+                                Map _cartInfo;
+
+                                setState(() {
+                                  _cartInfo = {
+                                    "acc_id"  : user_id,
+                                    "store_id":product.storeId.toString(),
+                                    "prod_id" :product.prodId.toString(),
+                                    "prod_qty":productCounter.toString(),
+                                  };
+                                });
+                                print("_cartInfo: ${_cartInfo}");
+
+                                if(buttonText == "Add to Cart")
+                                  {
+                                    _addToCart(_cartInfo).then((value)
+                                    {
+                                      Navigator.of(context).pop();
+                                    });
+
+                                  }
+
+
+                              },
                               style: ButtonStyle(
                                 foregroundColor:
                                     MaterialStateProperty.all(Colors.white),
