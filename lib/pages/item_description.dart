@@ -409,13 +409,14 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                     onPressed: () {
                                       //QUANTITY CONFIRMATION
                                       quantityPopup = new QuantityPopup(
-                                          data: queryData,
-                                          imageData:
-                                              "assets/images/eggplant3.jpg",
-                                          price: "P100/kl",
-                                          stock: "50 kl available",
-                                          buttonText: "Add to Cart",
-                                          context: context);
+                                        data: queryData,
+                                        imageData:
+                                            "assets/images/eggplant3.jpg",
+                                        price: "P100/kl",
+                                        stock: "50 kl available",
+                                        buttonText: "Add to Cart",
+                                        context: context,
+                                      );
                                     },
                                     style: ButtonStyle(
                                       foregroundColor:
@@ -432,6 +433,18 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                 SizedBox(
                                   width: queryData.size.width * .4,
                                   child: ElevatedButton(
+                                    onPressed: () {
+                                      //QUANTITY CONFIRMATION
+                                      quantityPopup = new QuantityPopup(
+                                        data: queryData,
+                                        imageData:
+                                            "assets/images/eggplant3.jpg",
+                                        price: "P100/kl",
+                                        stock: "50 kl available",
+                                        buttonText: "Buy Now",
+                                        context: context,
+                                      );
+                                    },
                                     style: ButtonStyle(
                                       foregroundColor:
                                           MaterialStateProperty.all(
