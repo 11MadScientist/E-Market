@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:e_market/designs/quantitypopup.dart';
 
 class ItemDescription extends StatefulWidget {
   @override
@@ -12,6 +13,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;
+    QuantityPopup quantityPopup;
     queryData = MediaQuery.of(context);
     return Scaffold(
       body: Stack(
@@ -101,6 +103,16 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                       )),
                                 ),
                               ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                "P100/kl",
+                                style: TextStyle(
+                                  fontSize: 25,
+                                  color: Colors.orange,
+                                ),
+                              ),
                             ),
                             //PRODUCT DESCRIPTION
                             Visibility(
@@ -394,6 +406,17 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                 SizedBox(
                                   width: queryData.size.width * .4,
                                   child: ElevatedButton(
+                                    onPressed: () {
+                                      //QUANTITY CONFIRMATION
+                                      quantityPopup = new QuantityPopup(
+                                          data: queryData,
+                                          imageData:
+                                              "assets/images/eggplant3.jpg",
+                                          price: "P100/kl",
+                                          stock: "50 kl available",
+                                          buttonText: "Add to Cart",
+                                          context: context);
+                                    },
                                     style: ButtonStyle(
                                       foregroundColor:
                                           MaterialStateProperty.all(

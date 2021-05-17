@@ -1,73 +1,79 @@
 import 'package:flutter/material.dart';
 
-// popup = new PopUp(data: queryData, icon: Icons.error_outline,
-//                                   title: 'ERROR', message: 'Email/Password is incorrect!', context: context);
-
-class PopUp {
+class QuantityPopup {
   final MediaQueryData data;
-  final String title;
-  final String message;
-  final IconData icon;
+  final String imageData;
+  final String price;
+  final String stock;
+  final String buttonText;
   final BuildContext context;
 
-  PopUp({this.data, this.title, this.message, this.icon, this.context}) {
-    displayDialog(data);
+  QuantityPopup(
+      {this.data,
+      this.imageData,
+      this.price,
+      this.stock,
+      this.buttonText,
+      this.context}) {
+    displayPopup(data);
   }
 
-  Future displayDialog(MediaQueryData data) async {
-    return (showDialog(
+  Future displayPopup(MediaQueryData data) async {
+    return showModalBottomSheet(
         context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            insetPadding: EdgeInsets.symmetric(
-                vertical: data.size.height * .15,
-                horizontal: data.size.width * .10),
-            title: Text(
-              title,
-              style: TextStyle(
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.bold,
-                fontSize: data.size.width * .05,
-              ),
-            ),
-            content: Container(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Icon(
-                    icon,
-                    color: Colors.red,
-                    size: data.size.width * .15,
-                  ),
-                  // Expanded(child: SizedBox(width: data.size.width * .005,)),
-                  Expanded(
-                    child: Text(
-                      message,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: data.size.width * .05,
+        builder: (context) {
+          return Container(
+            height: data.size.height * .3,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Container(
+                        //IMAGE FOR PRODUCT
+                        height: data.size.height * .1,
+                        width: data.size.height * .1,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage(imageData),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "P100/kl",
+                              style: TextStyle(
+                                fontSize: data.size.width * .06,
+                                color: Colors.orange,
+                              ),
+                            ),
+                            Text(stock),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 30),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text("Quantity"),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
             ),
-            actions: <Widget>[
-              TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'Close',
-                    style: TextStyle(
-                      fontFamily: 'Poppins',
-                      fontSize: data.size.width * .04,
-                    ),
-                  ))
-            ],
           );
-        }));
+        });
   }
 }
