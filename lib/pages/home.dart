@@ -210,24 +210,25 @@ class _HomeState extends State<Home> {
             ),
           ),
         ),
-    bottomNavigationBar: CurvedNavigationBar(
-      height: 50,
-      color: Colors.orange[500],
-      backgroundColor: Colors.white,
-      items: <Widget>[
-        Icon(Icons.home, size:20,color: Colors.white),
-        Icon(Icons.shopping_basket, size:20,color: Colors.white),
-        Icon(Icons.home, size:20,color: Colors.white),
-    ],
-      animationDuration: Duration(milliseconds: 250),
-      animationCurve: Curves.linearToEaseOut,
-      index: 1,
-      onTap: (index)
-      {
-        print("$index");
-      },
-
-    ));
+    // bottomNavigationBar: CurvedNavigationBar(
+    //   height: 50,
+    //   color: Colors.orange[500],
+    //   backgroundColor: Colors.white,
+    //   items: <Widget>[
+    //     Icon(Icons.home, size:20,color: Colors.white),
+    //     Icon(Icons.shopping_basket, size:20,color: Colors.white),
+    //     Icon(Icons.home, size:20,color: Colors.white),
+    // ],
+    //   animationDuration: Duration(milliseconds: 250),
+    //   animationCurve: Curves.linearToEaseOut,
+    //   index: 1,
+    //   onTap: (index)
+    //   {
+    //     print("$index");
+    //   },
+    //
+    // )
+    );
 
   }
 }

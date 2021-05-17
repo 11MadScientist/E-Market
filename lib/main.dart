@@ -1,3 +1,5 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:e_market/designs/MyBottomNavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:e_market/pages/login.dart';
 import 'package:e_market/pages/signup.dart';
@@ -25,9 +27,10 @@ void main() => runApp(MaterialApp(
             bodyColor: Colors.blue[900],
             displayColor: Colors.blue[900],
           )),
-      initialRoute: '/home',
+      initialRoute: '/nav',
       routes: {
         '/': (context) => Landing(),
+        '/nav':(context) =>MyBottomNavigationBar(),
         '/login': (context) => Login(),
         '/signup': (context) => SignUp(),
         '/signup2':(context) => SignUp2(),
