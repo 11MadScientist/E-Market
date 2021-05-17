@@ -1,5 +1,6 @@
 import 'package:e_market/designs/bestsellingcard.dart';
 import 'package:e_market/designs/nearbystorescard.dart';
+import 'package:e_market/model/profile.dart';
 import 'package:e_market/services/product_api_gateway.dart';
 import 'package:flutter/material.dart';
 import 'package:e_market/designs/appbar.dart';
@@ -7,16 +8,20 @@ import 'package:e_market/designs/categorycard.dart';
 import 'package:e_market/designs/productlist.dart';
 import 'package:e_market/model/Product.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:flutter_session/flutter_session.dart';
 
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
+  final Profile profile;
+  Home({this.profile});
 }
 
 class _HomeState extends State<Home> {
   final ProductAPIGateway apiGateway = ProductAPIGateway();
   Future<List<Product>> _products;
   bool isBuyer = false;
+
 
   void _session() async
   {

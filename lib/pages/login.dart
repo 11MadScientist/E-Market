@@ -1,10 +1,13 @@
+import 'package:e_market/designs/MyBottomNavigationBar.dart';
 import 'package:e_market/designs/passfield.dart';
+import 'package:e_market/model/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:e_market/designs/myclipper.dart';
 import 'package:e_market/designs/bottomclipper.dart';
 import 'package:e_market/designs/textbox.dart';
 import 'package:e_market/designs/popup.dart';
 import 'package:e_market/traps/profile_trap.dart';
+import 'package:flutter_session/flutter_session.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -12,6 +15,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  dynamic _profile;
+
   TextBox emailBox;
   TextEditingController _emailController = new TextEditingController();
   PassField passBox;
@@ -102,13 +107,14 @@ class _LoginState extends State<Login> {
                         TextButton(
                           onPressed: () async {
                             await emailBox.validator();
-
-                            if (trap.passwordCheck(passBox.getInfo())) {
-                              // popUpDialog(queryData);
-
+                            _profile = trap.passwordCheck(passBox.getInfo());
+                            if (_profile != false) {
+                              await FlutterSession().set('profile', _profile);
                               setState(() {
-                                Navigator.pushReplacementNamed(
-                                    context, '/home');
+                                Navigator.of(context).push(MaterialPageRoute
+                                  (
+                                  builder:(context) => MyBottomNavigationBar(profile: _profile,),
+                                ));
                               });
                             } else {
                               popup = new PopUp(

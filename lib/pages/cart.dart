@@ -1,8 +1,13 @@
 import "package:e_market/designs/appbar.dart";
+import 'package:e_market/model/profile.dart';
 import 'package:flutter/material.dart';
 
 class Cart extends StatefulWidget {
   @override
+  final Profile profile;
+
+  Cart({this.profile});
+
   _CartState createState() => _CartState();
 }
 

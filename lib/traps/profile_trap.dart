@@ -9,7 +9,6 @@ class ProfileTrap extends Trap
   final EnvEndPoints envEndPoints = EnvEndPoints();
   final ProfileAPIGateway apiGateway = ProfileAPIGateway();
   Profile profile;
-  String password;
 
 
 
@@ -66,12 +65,12 @@ class ProfileTrap extends Trap
       }
     return error();
   }
-  Future<String> emailDuplication(email)async
+  Future<Profile> emailDuplication(email)async
   {
     profile = await apiGateway.asyncGet(email);
     if(profile != null)
     {
-      return profile.password;
+      return profile;
     }
     else
       return null;
@@ -79,13 +78,11 @@ class ProfileTrap extends Trap
 
   emailExist(email)async
   {
-    print("hello");
     await emailDuplication(email).then((result) {
-      print("result: $result");
       if(result != null)
       {
         message = null;
-        password = result;
+        profile = result;
       }
       else
       {
@@ -99,12 +96,11 @@ class ProfileTrap extends Trap
     return error();
   }
 
-  bool passwordCheck(pass)
+  passwordCheck(pass)
   {
-    print("password: $password");
-    if(pass == password)
+    if(pass == profile.password)
       {
-        return true;
+        return profile;
       }
     else
       return false;

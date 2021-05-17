@@ -27,7 +27,7 @@ void main() => runApp(MaterialApp(
             bodyColor: Colors.blue[900],
             displayColor: Colors.blue[900],
           )),
-      initialRoute: '/nav',
+      initialRoute: '/login',
       routes: {
         '/': (context) => Landing(),
         '/nav':(context) =>MyBottomNavigationBar(),

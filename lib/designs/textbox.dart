@@ -70,7 +70,6 @@ class _TextBoxState extends State<TextBox> {
     {
       widget.node.addListener(()async {
         {
-          print("gg");
           if(widget.node.hasFocus == false
               && widget.validation() == true
               && widget.func_b != null)

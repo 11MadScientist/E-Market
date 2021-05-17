@@ -1,4 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:e_market/model/profile.dart';
 import 'package:e_market/pages/cart.dart';
 import 'package:e_market/pages/home.dart';
 import 'package:e_market/pages/landing.dart';
@@ -7,14 +8,23 @@ import 'package:flutter/material.dart';
 class MyBottomNavigationBar extends StatefulWidget {
   @override
   _MyBottomNavigationBarState createState() => _MyBottomNavigationBarState();
+  final Profile profile;
+  MyBottomNavigationBar({this.profile});
 }
 
 class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
-  final List<Widget> _routes = [
-    Landing(),
-    Home(),
-    Cart(),
-  ];
+  List<Widget> _routes;
+
+  @override
+  void initState() {
+    super.initState();
+    _routes = [
+      Landing(),
+      Home(profile: widget.profile),
+      Cart(profile: widget.profile),
+    ];
+  }
+
   int _currentIndex = 1;
   @override
   Widget build(BuildContext context) {
