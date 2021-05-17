@@ -18,7 +18,6 @@ class ProductAPIGateway
     }
     catch (e)
     {
-      print("hi");
       print(e);
       return null;
     }

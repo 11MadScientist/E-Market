@@ -1,3 +1,7 @@
+import 'package:e_market/designs/popup.dart';
+import 'package:e_market/model/Cart.dart';
+import 'package:e_market/services/cart_api_gateway.dart';
+import 'package:e_market/utils/env_endpoints.dart';
 import 'package:flutter/material.dart';
 import 'package:e_market/model/Product.dart';
 
@@ -11,6 +15,26 @@ class ItemDescription extends StatefulWidget {
 }
 
 class _ItemDescriptionState extends State<ItemDescription> {
+  final EnvEndPoints envEndPoints = EnvEndPoints();
+  final CartAPIGateway apiGateway = CartAPIGateway();
+  Cart _cart;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  Future<Cart> _addToCart(Map data) async
+  {
+    Cart body = await apiGateway.asyncPost(data);
+    setState(() {
+      _cart =body;
+    });
+    return body;
+  }
+
+
   bool toggleDescription = false;
   var iconDescription =
       Icon(Icons.keyboard_arrow_down, color: Colors.blue[900]);
@@ -404,7 +428,28 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                   child: ElevatedButton(
                                     onPressed: ()
                                       {
-                                        print("hello");
+                                        Map data;
+
+                                        setState(() {
+                                          data = {
+                                            "acc_id"  : widget.product.accId.toString(),
+                                            "store_id":widget.product.storeId.toString(),
+                                            "prod_id" :widget.product.prodId.toString(),
+                                            "prod_qty":"10",
+                                          };
+                                        });
+
+                                        _addToCart(data).then((value)
+                                        {
+                                          PopUp(
+                                              data: queryData,
+                                              icon: Icons.check_circle,
+                                              title: 'SUCCESS',
+                                              coloring: Colors.green,
+                                              message:"Item: ${widget.product.prodName} successfully added to cart",
+                                              context: context);
+
+                                        });
                                       },
                                     style: ButtonStyle(
                                       foregroundColor:
