@@ -82,20 +82,16 @@ class ProductListCard extends StatelessWidget {
         ),
         Positioned(
           left: 170,
-          child: Stack(
-            children: [
-              Icon(
-                Icons.circle,
-                color: Colors.red,
-                size: 50,
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.delete_outline,
-                  color: Colors.white,
-                ),
-              ),
-            ],
+          child: RawMaterialButton(
+            onPressed: () {},
+            elevation: 2.0,
+            fillColor: Colors.red,
+            child: Icon(
+              Icons.delete_outline,
+              size: 20.0,
+              color: Colors.white,
+            ),
+            shape: CircleBorder(),
           ),
         ),
       ],
