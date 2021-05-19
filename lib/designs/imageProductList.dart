@@ -14,6 +14,10 @@ class ImageRow extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.orange,
         borderRadius: BorderRadius.circular(20),
+        image: DecorationImage(
+          image: AssetImage(imageData),
+          fit: BoxFit.cover,
+        ),
       ),
       child: IconButton(
         icon: Icon(

@@ -401,6 +401,9 @@ class _productState extends State<product> {
                                 scrollDirection: Axis.horizontal,
                                 child: Row(
                                   children: [
+                                    ListView(
+                                      children: _imageData,
+                                    ),
                                     Container(
                                       width: queryData.size.width * .35,
                                       height: queryData.size.height * .15,
