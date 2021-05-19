@@ -1,5 +1,6 @@
 import "package:e_market/designs/appbar.dart";
 import 'package:flutter/material.dart';
+import 'package:e_market/designs/productcard.dart';
 
 class Cart extends StatefulWidget {
   @override
@@ -29,188 +30,14 @@ class _CartState extends State<Cart> {
                   scrollDirection: Axis.horizontal,
                   child: Row(children: [
                     //1 PRODUCT
-                    Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 20, 15, 0),
-                          child: Container(
-                            height: 210,
-                            width: 210,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Colors.orange,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: Column(
-                                children: [
-                                  //PRODUCT IMAGE
-                                  Container(
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                  'assets/images/meat.png'),
-                                              fit: BoxFit.cover))),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  //PRODUCT NAME
-                                  Text(
-                                    'Pork Belly',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      //DECREASE QUANTITY
-                                      IconButton(
-                                        icon: Icon(
-                                          Icons.remove_circle,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      //QUANTITY
-                                      Text(
-                                        '1 kl',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      //QUANTITY
-                                      IconButton(
-                                        icon: Icon(
-                                          Icons.add_circle,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      //PRODUCT PRICE
-                                      Text(
-                                        'P200/kl',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          left: 170,
-                          child: Stack(
-                            children: [
-                              Icon(
-                                Icons.circle,
-                                color: Colors.red,
-                                size: 50,
-                              ),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.delete_outline,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 20, 15, 0),
-                          child: Container(
-                            height: 210,
-                            width: 210,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Colors.orange,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: Column(
-                                children: [
-                                  //PRODUCT IMAGE
-                                  Container(
-                                      height: 100,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: AssetImage(
-                                                  'assets/images/meat.png'),
-                                              fit: BoxFit.cover))),
-                                  SizedBox(
-                                    height: 10,
-                                  ),
-                                  //PRODUCT NAME
-                                  Text(
-                                    'Pork Belly',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
-                                    ),
-                                  ),
-                                  Row(
-                                    children: [
-                                      //DECREASE QUANTITY
-                                      IconButton(
-                                        icon: Icon(
-                                          Icons.remove_circle,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      //QUANTITY
-                                      Text(
-                                        '1 kl',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      //QUANTITY
-                                      IconButton(
-                                        icon: Icon(
-                                          Icons.add_circle,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      //PRODUCT PRICE
-                                      Text(
-                                        'P200/kl',
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          left: 170,
-                          child: Stack(
-                            children: [
-                              Icon(
-                                Icons.circle,
-                                color: Colors.red,
-                                size: 50,
-                              ),
-                              IconButton(
-                                icon: Icon(
-                                  Icons.delete_outline,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    ProductListCard(
+                        imageData: 'assets/images/meat.png',
+                        productName: 'Meat',
+                        price: 'P200/kl'),
+                    ProductListCard(
+                        imageData: 'assets/images/meat.png',
+                        productName: 'Chicken',
+                        price: 'P100/kl'),
                   ]),
                 ),
                 //DELIVERY ADDRESS SECTION
