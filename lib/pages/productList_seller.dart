@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import "package:e_market/designs/appbar.dart";
 import "package:horizontal_data_table/horizontal_data_table.dart";
-import 'package:file_picker/file_picker.dart';
-import 'dart:io';
 import 'package:e_market/designs/imageProductList.dart';
 
 class product extends StatefulWidget {
@@ -13,35 +11,12 @@ class product extends StatefulWidget {
 class _productState extends State<product> {
   String _chosenValue;
   String _chosenUnit;
-  int imageCount = 1;
-  String filePath;
-
-  void _openFileExplorer() async {
-    FilePickerResult result = await FilePicker.platform.pickFiles(
-      allowMultiple: true,
-      type: FileType.image,
-    );
-
-    if (result != null) {
-      List<File> files = result.paths.map((path) => File(path)).toList();
-
-      // PRINTING THE RESULTS
-      // PlatformFile file = result.files.first;
-      // print(file.name);
-      // print(file.bytes);
-      // print(file.size);
-      // print(file.extension);
-      // print(file.path);
-    } else {
-      // User canceled the picker
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
-    List<Widget> _imageData =
-        new List.generate(imageCount, (int i) => ImageRow());
+
+    ImageRow imageRow;
     return Scaffold(
       appBar: MyAppBar(
         size: queryData.size.width,
@@ -397,30 +372,10 @@ class _productState extends State<product> {
                                 padding: const EdgeInsets.only(bottom: 10),
                                 child: Text("Photos"),
                               ),
-                              SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  children: [
-                                    ListView(
-                                      children: _imageData,
-                                    ),
-                                    Container(
-                                      width: queryData.size.width * .35,
-                                      height: queryData.size.height * .15,
-                                      decoration: BoxDecoration(
-                                        color: Colors.orange,
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: IconButton(
-                                        onPressed: () => _openFileExplorer(),
-                                        icon: Icon(
-                                          Icons.add_photo_alternate_rounded,
-                                          color: Colors.white,
-                                        ),
-                                        iconSize: 50,
-                                      ),
-                                    ),
-                                  ],
+                              Container(
+                                height: queryData.size.height * .15,
+                                child: imageRow = new ImageRow(
+                                  queryData: queryData,
                                 ),
                               ),
                               //PRODUCT NAME
