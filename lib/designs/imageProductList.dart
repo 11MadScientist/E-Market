@@ -16,9 +16,9 @@ class _ImageRowState extends State<ImageRow> {
   int count = 1;
   MediaQueryData queryData;
 
-  void _addImage() {
+  void _addImage(int length) {
     setState(() {
-      count = count + 1;
+      count = count + length;
     });
   }
 
@@ -32,7 +32,7 @@ class _ImageRowState extends State<ImageRow> {
 
     if (result != null) {
       List<File> files = result.paths.map((path) => File(path)).toList();
-      _addImage();
+      _addImage(files.length);
 
       // PRINTING THE RESULTS
       // PlatformFile file = result.files.first;
