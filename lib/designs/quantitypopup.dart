@@ -116,7 +116,7 @@ class QuantityPopup {
                                     })),
                             //QUANTITY
                             Text(
-                              productCounter.toString() + ' kl',
+                              productCounter.toString() +" ${product.prodUnit}/s",
                             ),
                             //QUANTITY
                             IconButton(
@@ -126,7 +126,7 @@ class QuantityPopup {
                                 onPressed: () =>
                                     setState(()
                                     {
-                                      if(productCounter == product.prodStock)
+                                      if(productCounter == product.prodAvail)
                                         {return;}
                                       else
                                         productCounter++;
