@@ -43,13 +43,12 @@ class QuantityPopup {
     this.context,
     this.buttonText,
     this.product
-
   }) {
     displayPopup(data);
   }
 
   Future displayPopup(MediaQueryData data) async {
-    print(product.prodPrice);
+    print("id: ${product..toString()}");
     return showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -87,7 +86,7 @@ class QuantityPopup {
                                     color: Colors.orange,
                                   ),
                                 ),
-                                Text("${product.prodStock} ${product.prodUnit} available"),
+                                Text("${product.prodAvail} ${product.prodUnit} available"),
                               ],
                             ),
                           )
@@ -167,8 +166,9 @@ class QuantityPopup {
                                   _cartInfo = {
                                     "acc_id"  : user_id,
                                     "store_id":product.storeId.toString(),
-                                    "prod_id" :product.prodId.toString(),
+                                    "prod_id" :product.id.toString(),
                                     "prod_qty":productCounter.toString(),
+                                    "total"   :(product.prodPrice * productCounter).toString(),
                                   };
                                 });
                                 print("_cartInfo: ${_cartInfo}");

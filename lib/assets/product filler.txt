@@ -1,0 +1,1 @@
+INSERT INTO `products`(`store_id`, `category_id`, `category_name`, `prod_name`, `prod_img`, `prod_price`, `prod_unit`, `prod_desc`, `prod_stock`, `prod_sales`, `prod_avail`, `prod_favorite`) VALUES (1,1,"meat","Baboy","meat.png",123.23,"Kl","di masyadong masarap pero pwede na",20,5,15,10)

@@ -1,5 +1,5 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:e_market/designs/MyBottomNavigationBar.dart';
+import 'package:e_market/pages/MyBottomNavigationBar.dart';
 import 'package:flutter/material.dart';
 import 'package:e_market/pages/login.dart';
 import 'package:e_market/pages/signup.dart';
@@ -7,7 +7,7 @@ import 'package:e_market/pages/signup2.dart';
 import 'package:e_market/pages/landing.dart';
 import 'package:e_market/pages/home.dart';
 import 'package:e_market/pages/user_profile.dart';
-import 'package:e_market/pages/cart.dart';
+import 'package:e_market/pages/cartpage.dart';
 import 'package:e_market/pages/item_description.dart';
 
 void main() => runApp(MaterialApp(
@@ -27,7 +27,7 @@ void main() => runApp(MaterialApp(
             bodyColor: Colors.blue[900],
             displayColor: Colors.blue[900],
           )),
-      initialRoute: '/nav',
+      initialRoute: '/login',
       routes: {
         '/': (context) => Landing(),
         '/nav':(context) =>MyBottomNavigationBar(),
@@ -36,7 +36,7 @@ void main() => runApp(MaterialApp(
         '/signup2':(context) => SignUp2(),
         '/home': (context) => Home(),
         '/profile': (context) => UserProfile(),
-        '/cart': (context) => Cart(),
+        '/cart': (context) => CartPage(),
         '/item_desc': (context) => ItemDescription(),
       },
     ));

@@ -190,6 +190,7 @@ class _HomeState extends State<Home> {
                             }
                             else if(snapshot.hasData)
                             {
+
                               return SizedBox(
                                 height: 570,
                                 child: ListView.builder(

@@ -7,6 +7,21 @@ class ProductAPIGateway
   final EnvEndPoints envEndPoints = EnvEndPoints();
   Product product;
 
+  Future<Product> asyncGet(int id) async
+  {
+    try
+    {
+      Network network = Network(envEndPoints.getEndPoints('/api/products/$id'));
+      dynamic body = await network.getData();
+      product = Product.fromJson(body[0]);
+    }
+    catch (e)
+    {
+      return null;
+    }
+    return product;
+  }
+
   Future<List<Product>> asyncListGet() async
   {
     List<Product> products;
@@ -14,7 +29,6 @@ class ProductAPIGateway
     {
       Network network = Network(envEndPoints.getEndPoints('/api/products'));
       products = productFromJson(await network.getListData());
-      print(products);
     }
     catch (e)
     {

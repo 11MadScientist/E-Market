@@ -14,7 +14,6 @@ class Product {
     this.storeId,
     this.categoryId,
     this.categoryName,
-    this.prodId,
     this.prodName,
     this.prodImg,
     this.prodPrice,
@@ -24,9 +23,6 @@ class Product {
     this.prodSales,
     this.prodAvail,
     this.prodFavorite,
-    this.createdAt,
-    this.updatedAt,
-    this.accId,
     this.storeName,
     this.storeLocation,
   });
@@ -35,7 +31,6 @@ class Product {
   int storeId;
   int categoryId;
   String categoryName;
-  int prodId;
   String prodName;
   String prodImg;
   double prodPrice;
@@ -45,9 +40,6 @@ class Product {
   int prodSales;
   int prodAvail;
   int prodFavorite;
-  DateTime createdAt;
-  DateTime updatedAt;
-  int accId;
   String storeName;
   String storeLocation;
 
@@ -56,19 +48,15 @@ class Product {
     storeId: json["store_id"],
     categoryId: json["category_id"],
     categoryName: json["category_name"],
-    prodId: json["prod_id"],
     prodName: json["prod_name"],
     prodImg: json["prod_img"],
-    prodPrice: json["prod_price"].toDouble(),
+    prodPrice: json["prod_price"],
     prodUnit: json["prod_unit"],
     prodDesc: json["prod_desc"],
     prodStock: json["prod_stock"],
     prodSales: json["prod_sales"],
     prodAvail: json["prod_avail"],
     prodFavorite: json["prod_favorite"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-    accId: json["acc_id"],
     storeName: json["store_name"],
     storeLocation: json["store_location"],
   );
@@ -78,7 +66,6 @@ class Product {
     "store_id": storeId,
     "category_id": categoryId,
     "category_name": categoryName,
-    "prod_id": prodId,
     "prod_name": prodName,
     "prod_img": prodImg,
     "prod_price": prodPrice,
@@ -88,9 +75,6 @@ class Product {
     "prod_sales": prodSales,
     "prod_avail": prodAvail,
     "prod_favorite": prodFavorite,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
-    "acc_id": accId,
     "store_name": storeName,
     "store_location": storeLocation,
   };

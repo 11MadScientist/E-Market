@@ -1,6 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:e_market/model/profile.dart';
-import 'package:e_market/pages/cart.dart';
+import 'package:e_market/pages/cartpage.dart';
 import 'package:e_market/pages/home.dart';
 import 'package:e_market/pages/landing.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     _routes = [
       Landing(),
       Home(profile: widget.profile),
-      Cart(profile: widget.profile),
+      CartPage(profile: widget.profile),
     ];
   }
 
@@ -39,7 +39,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
           Icon(Icons.shopping_basket, size:20,color: Colors.white),
           Icon(Icons.shopping_cart_rounded, size:20,color: Colors.white),
         ],
-        animationDuration: Duration(milliseconds: 1350),
+        animationDuration: Duration(milliseconds: 850),
         animationCurve: Curves.linearToEaseOut,
         index: 1,
         onTap: (index)

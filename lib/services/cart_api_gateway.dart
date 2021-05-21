@@ -14,11 +14,10 @@ class CartAPIGateway
     {
       Network network = Network(envEndPoints.getEndPoints('/api/cart'));
       carts = cartFromJson(await network.getListData());
-      print(carts);
     }
     catch (e)
     {
-      print(e);
+      print("api_gateway error: $e");
       return null;
     }
     return carts;
@@ -34,7 +33,7 @@ class CartAPIGateway
     }
     catch(e)
     {
-      print(e);
+      print("cart_api_gateway: $e");
     }
     return cart;
   }

@@ -1,4 +1,3 @@
-import 'package:e_market/designs/MyBottomNavigationBar.dart';
 import 'package:e_market/designs/passfield.dart';
 import 'package:e_market/model/profile.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,8 @@ import 'package:e_market/designs/textbox.dart';
 import 'package:e_market/designs/popup.dart';
 import 'package:e_market/traps/profile_trap.dart';
 import 'package:flutter_session/flutter_session.dart';
+
+import 'MyBottomNavigationBar.dart';
 
 class Login extends StatefulWidget {
   @override

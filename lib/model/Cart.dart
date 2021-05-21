@@ -15,6 +15,7 @@ class Cart {
     this.storeId,
     this.prodId,
     this.prodQty,
+    this.total,
   });
 
   int id;
@@ -22,6 +23,7 @@ class Cart {
   int storeId;
   int prodId;
   int prodQty;
+  double total;
 
   factory Cart.fromJson(Map<String, dynamic> json) => Cart(
     id: json["id"],
@@ -29,6 +31,7 @@ class Cart {
     storeId: json["store_id"],
     prodId: json["prod_id"],
     prodQty: json["prod_qty"],
+    total: json["total"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -37,5 +40,6 @@ class Cart {
     "store_id": storeId,
     "prod_id": prodId,
     "prod_qty": prodQty,
+    "total":total,
   };
 }
