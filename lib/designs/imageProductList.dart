@@ -15,6 +15,7 @@ class _ImageRowState extends State<ImageRow> {
   String imageData;
   int count = 1;
   MediaQueryData queryData;
+  List<Widget> list;
 
   void _addImage(int length) {
     setState(() {
@@ -24,7 +25,7 @@ class _ImageRowState extends State<ImageRow> {
 
   _ImageRowState(this.queryData);
 
-  void _openFileExplorer() async {
+  Future _openFileExplorer() async {
     FilePickerResult result = await FilePicker.platform.pickFiles(
       allowMultiple: true,
       type: FileType.image,
@@ -35,18 +36,45 @@ class _ImageRowState extends State<ImageRow> {
       _addImage(files.length);
 
       // PRINTING THE RESULTS
-      // PlatformFile file = result.files.first;
-      // print(file.name);
+      // FIRST FILE IN THE LIST
+      PlatformFile file = result.files.first;
+      setState(() {
+        imageData = file.name.toString();
+      });
+      return print(file.name.toString());
       // print(file.bytes);
       // print(file.size);
       // print(file.extension);
       // print(file.path);
     } else {
       // User canceled the picker
+      return ("nothing");
     }
   }
 
-  Widget _itemRowButtonHeader(int index) {
+  Widget _itemRowButtonHeaderClone() {
+    return Padding(
+      padding: const EdgeInsets.only(right: 5),
+      child: Container(
+        width: queryData.size.width * .35,
+        height: queryData.size.height * .15,
+        decoration: BoxDecoration(
+          color: Colors.orange,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child: IconButton(
+          onPressed: () => _openFileExplorer(),
+          icon: Icon(
+            Icons.add_photo_alternate_rounded,
+            color: Colors.white,
+          ),
+          iconSize: 50,
+        ),
+      ),
+    );
+  }
+
+  Widget _itemRowButtonHeader(int index, List<Widget> list) {
     if (index < 1) {
       return Padding(
         padding: const EdgeInsets.only(right: 5),
@@ -68,11 +96,11 @@ class _ImageRowState extends State<ImageRow> {
         ),
       );
     } else {
-      return _itemRow();
+      return _itemRow(index, list);
     }
   }
 
-  Widget _itemRow() {
+  Widget _itemRow(int index, List<Widget> list) {
     return Stack(
       children: [
         Padding(
@@ -93,7 +121,12 @@ class _ImageRowState extends State<ImageRow> {
         Positioned(
           left: queryData.size.width * .19,
           child: RawMaterialButton(
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                list.removeAt(index);
+                count = count - 1;
+              });
+            },
             elevation: 2.0,
             fillColor: Colors.red,
             child: Icon(
@@ -115,15 +148,20 @@ class _ImageRowState extends State<ImageRow> {
 
   @override
   Widget build(BuildContext context) {
+    //FAKING THE LIST FOR INSTANTIATING PURPOSES
     List<Widget> _imageData =
-        new List.generate(count, (index) => _itemRowButtonHeader(index));
+        new List.generate(1, (index) => _itemRowButtonHeaderClone());
+
+    //INSTANTIATING IT AGAIN ORIGINALLY FOR MANIPULATION
+    _imageData = new List.generate(
+        count, (index) => _itemRowButtonHeader(index, _imageData));
 
     return ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: _imageData.length,
         itemBuilder: (context, index) {
           // print(count.toString());
-          return _itemRowButtonHeader(index);
+          return _itemRowButtonHeader(index, _imageData);
         });
   }
 }
