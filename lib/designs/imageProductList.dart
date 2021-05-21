@@ -70,7 +70,6 @@ class _ImageRowState extends State<ImageRow> {
     } else {
       return _itemRow();
     }
-    // _itemRowButton(list, index);
   }
 
   Widget _itemRow() {
@@ -105,64 +104,11 @@ class _ImageRowState extends State<ImageRow> {
         scrollDirection: Axis.horizontal,
         itemCount: _imageData.length,
         itemBuilder: (context, index) {
-          print(count.toString());
+          // print(count.toString());
           return _itemRowButtonHeader(index);
         });
-    // return Padding(
-    //   padding: const EdgeInsets.only(right: 5),
-    //   child: Container(
-    //     width: queryData.size.width * .35,
-    //     height: queryData.size.height * .15,
-    //     decoration: BoxDecoration(
-    //       color: Colors.orange,
-    //       borderRadius: BorderRadius.circular(20),
-    //       image: DecorationImage(
-    //         image: AssetImage('assets/images/meat.png'),
-    //         fit: BoxFit.cover,
-    //       ),
-    //     ),
-    //     child: IconButton(
-    //       onPressed: () => _openFileExplorer(),
-    //       icon: Icon(
-    //         Icons.add_photo_alternate_rounded,
-    //         color: Colors.white,
-    //       ),
-    //       iconSize: 50,
-    //     ),
-    //   ),
-    // );
   }
 }
-
-// class ImageRow extends StatelessWidget {
-//   final String imageData;
-//   final MediaQueryData queryData;
-
-//   const ImageRow({this.imageData, this.queryData});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       width: queryData.size.width * .35,
-//       height: queryData.size.height * .15,
-//       decoration: BoxDecoration(
-//         color: Colors.orange,
-//         borderRadius: BorderRadius.circular(20),
-//         image: DecorationImage(
-//           image: AssetImage(imageData),
-//           fit: BoxFit.cover,
-//         ),
-//       ),
-//       child: IconButton(
-//         icon: Icon(
-//           Icons.add_photo_alternate_rounded,
-//           color: Colors.white,
-//         ),
-//         iconSize: 50,
-//       ),
-//     );
-//   }
-// }
 
 // Container(
 //   width: queryData.size.width * .35,
