@@ -18,6 +18,7 @@ class _productState extends State<product> {
 
     ImageRow imageRow;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: MyAppBar(
         size: queryData.size.width,
         screenName: "My Products",
