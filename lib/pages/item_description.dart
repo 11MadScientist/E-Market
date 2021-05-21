@@ -1,5 +1,7 @@
 import 'package:e_market/designs/popup.dart';
 import 'package:e_market/model/Cart.dart';
+import 'package:e_market/model/profile.dart';
+import 'package:e_market/pages/MyBottomNavigationBar.dart';
 import 'package:e_market/services/cart_api_gateway.dart';
 import 'package:e_market/utils/env_endpoints.dart';
 import 'package:flutter/material.dart';
@@ -9,8 +11,10 @@ import 'package:e_market/model/Product.dart';
 class ItemDescription extends StatefulWidget {
   @override
   final Product product;
+  final Cart cart;
+  final Profile profile;
 
-  ItemDescription({this.product});
+  ItemDescription({this.product, this.cart, this.profile});
 
   _ItemDescriptionState createState() => _ItemDescriptionState();
 }
@@ -19,26 +23,23 @@ class _ItemDescriptionState extends State<ItemDescription> {
   final EnvEndPoints envEndPoints = EnvEndPoints();
   final CartAPIGateway apiGateway = CartAPIGateway();
   Cart _cart;
+  String txtButton;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-  }
-
-  Future<Cart> _addToCart(Map data) async
-  {
-    Cart body = await apiGateway.asyncPost(data);
-    setState(() {
-      _cart =body;
-    });
-    return body;
+    if(widget.cart == null)
+      txtButton = "Add to Cart";
+    else
+      txtButton = "Change Quantity";
   }
 
 
   bool toggleDescription = false;
-  var iconDescription =
-      Icon(Icons.keyboard_arrow_down, color: Colors.blue[900]);
+  var iconDescription = Icon(Icons.keyboard_arrow_down, color: Colors.blue[900]);
+
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData;
@@ -52,7 +53,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
             height: queryData.size.height * .4,
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('lib/assets/eggplant3.jpg'),
+                image: AssetImage('lib/assets/${widget.product.prodImg}'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -75,10 +76,26 @@ class _ItemDescriptionState extends State<ItemDescription> {
                               onPressed: () {},
                               elevation: 2.0,
                               fillColor: Colors.orange,
-                              child: Icon(
-                                Icons.chevron_left_outlined,
-                                size: 20.0,
-                                color: Colors.white,
+                              child: IconButton(
+                                icon: Icon(
+                                  Icons.chevron_left_outlined,
+                                  size: 20.0,
+                                  color: Colors.white,
+                                ),
+                                onPressed: ()
+                                {
+                                  print(widget.profile);
+                                  if(widget.profile == null)
+                                    Navigator.of(context).pop();
+                                  else
+                                    Navigator.of(context).pushReplacement(MaterialPageRoute
+                                      (
+                                      builder:(context) => MyBottomNavigationBar(
+                                       profile: widget.profile,
+                                       idx: 2,),
+                                    ));
+
+                                },
                               ),
                               shape: CircleBorder(),
                             )),
@@ -260,7 +277,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                               BorderRadius.circular(15),
                                           image: DecorationImage(
                                             image: AssetImage(
-                                                'lib/assets/eggplant3.jpg'),
+                                                'lib/assets/${widget.product.prodImg}'),
                                             fit: BoxFit.cover,
                                           )),
                                     ),
@@ -276,7 +293,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                               BorderRadius.circular(15),
                                           image: DecorationImage(
                                             image: AssetImage(
-                                                'lib/assets/eggplant3.jpg'),
+                                                'lib/assets/${widget.product.prodImg}'),
                                             fit: BoxFit.cover,
                                           )),
                                     ),
@@ -292,7 +309,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                               BorderRadius.circular(15),
                                           image: DecorationImage(
                                             image: AssetImage(
-                                                'lib/assets/eggplant3.jpg'),
+                                                'lib/assets/${widget.product.prodImg}'),
                                             fit: BoxFit.cover,
                                           )),
                                     ),
@@ -308,7 +325,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                               BorderRadius.circular(15),
                                           image: DecorationImage(
                                             image: AssetImage(
-                                                'lib/assets/eggplant3.jpg'),
+                                                'lib/assets/${widget.product.prodImg}'),
                                             fit: BoxFit.cover,
                                           )),
                                     ),
@@ -441,35 +458,25 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                   child: ElevatedButton(
                                     onPressed: () {
                                       //QUANTITY CONFIRMATION
-                                      quantityPopup = new QuantityPopup(
-                                        data: queryData,
-                                        buttonText: "Add to Cart",
-                                        context: context,
-                                        product: widget.product,
-                                      );
-
-                                        // Map data;
-                                        //
-                                        // setState(() {
-                                        //   data = {
-                                        //     "acc_id"  : widget.product.accId.toString(),
-                                        //     "store_id":widget.product.storeId.toString(),
-                                        //     "prod_id" :widget.product.prodId.toString(),
-                                        //     "prod_qty":"10",
-                                        //   };
-                                        // });
-                                        //
-                                        // _addToCart(data).then((value)
-                                        // {
-                                        //   PopUp(
-                                        //       data: queryData,
-                                        //       icon: Icons.check_circle,
-                                        //       title: 'SUCCESS',
-                                        //       coloring: Colors.green,
-                                        //       message:"Item: ${widget.product.prodName} successfully added to cart",
-                                        //       context: context);
-                                        //
-                                        // });
+                                      if(widget.cart != null)
+                                        {
+                                          quantityPopup = new QuantityPopup(
+                                            data: queryData,
+                                            buttonText: txtButton,
+                                            context: context,
+                                            product: widget.product,
+                                            cart: widget.cart,
+                                          );
+                                        }
+                                      else
+                                        {
+                                          quantityPopup = new QuantityPopup(
+                                            data: queryData,
+                                            buttonText: txtButton,
+                                            context: context,
+                                            product: widget.product,
+                                          );
+                                        }
                                       },
                                     style: ButtonStyle(
                                       foregroundColor:
@@ -479,7 +486,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                           MaterialStateProperty.all(
                                               Colors.orange),
                                     ),
-                                    child: Text('Add to cart'),
+                                    child: Text(txtButton),
                                   ),
                                 ),
                                 //BUY NOW BUTTON

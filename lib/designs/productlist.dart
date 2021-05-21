@@ -56,7 +56,7 @@ class ProductList extends StatelessWidget {
                                       .circular(15),
                                   image: DecorationImage(
                                     image: AssetImage(
-                                        'lib/assets/eggplant3.jpg'),
+                                        'lib/assets/${product.prodImg}'),
                                     fit: BoxFit.cover,
                                   ))),
                         ),

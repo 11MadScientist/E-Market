@@ -36,7 +36,6 @@ class _CartPageState extends State<CartPage> {
           subtotal += value[i].total;
         }
       subtotal = double.parse(subtotal.toStringAsFixed(3));
-      print("subtotal: $subtotal");
     });
   }
 
@@ -93,7 +92,16 @@ class _CartPageState extends State<CartPage> {
                               itemCount: snapshot.data.length,
                               itemBuilder: (context, index)
                               {
-                                return CartListCard(cart:snapshot.data[index]);
+                                return CartListCard(
+                                    profile: widget.profile,
+                                    cart:snapshot.data[index],
+                                    delete: (){
+                                      setState(() {
+                                        subtotal -= snapshot.data[index].total;
+                                        snapshot.data.remove(snapshot.data[index]);
+                                      });
+                                    }
+                                );
                               },
                             ),
                           );

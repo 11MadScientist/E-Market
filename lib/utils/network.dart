@@ -45,4 +45,31 @@ class Network
         return null;
       }
   }
+
+  Future putData(Map data) async
+  {
+    http.Response response = await http.put(url, body: data);
+
+    if (response.statusCode == 200)
+    {
+      return jsonDecode(response.body);
+    }
+    else
+    {
+      return null;
+    }
+  }
+
+  Future deleteData()async
+  {
+    http.Response response = await http.delete(url);
+    if (response.statusCode == 200)
+    {
+      return jsonDecode(response.body);
+    }
+    else
+    {
+      return response.toString();
+    }
+  }
 }

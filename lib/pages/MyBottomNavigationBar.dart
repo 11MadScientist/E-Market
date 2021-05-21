@@ -9,12 +9,13 @@ class MyBottomNavigationBar extends StatefulWidget {
   @override
   _MyBottomNavigationBarState createState() => _MyBottomNavigationBarState();
   final Profile profile;
-  MyBottomNavigationBar({this.profile});
+  final int idx;
+  MyBottomNavigationBar({this.profile, this.idx});
 }
 
 class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   List<Widget> _routes;
-
+  int _currentIndex = 1;
   @override
   void initState() {
     super.initState();
@@ -23,9 +24,16 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
       Home(profile: widget.profile),
       CartPage(profile: widget.profile),
     ];
+
+    if(widget.idx != null)
+      {
+        setState(() {
+          _currentIndex = widget.idx;
+        });
+      }
   }
 
-  int _currentIndex = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,7 +49,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         ],
         animationDuration: Duration(milliseconds: 850),
         animationCurve: Curves.linearToEaseOut,
-        index: 1,
+        index: _currentIndex,
         onTap: (index)
         {
           setState(() {

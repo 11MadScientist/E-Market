@@ -1,9 +1,6 @@
-import 'dart:convert';
-
 import 'package:e_market/designs/popup.dart';
 import 'package:e_market/model/Cart.dart';
 import 'package:e_market/model/Product.dart';
-import 'package:e_market/model/profile.dart';
 import 'package:e_market/services/cart_api_gateway.dart';
 import 'package:e_market/utils/env_endpoints.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +17,16 @@ class QuantityPopup {
     Cart _cart = await apiGateway.asyncPost(data);
     return _cart;
   }
+  Future<Cart> _changeCart(Map data) async
+  {
+    Cart _cart = await apiGateway.asyncPut(data);
+    return _cart;
+  }
 
   Future<void> _getProfile() async
   {
     await FlutterSession().get("user_id").then((value)
         {
-          print(value);
           user_id = value.toString();
         }
 
@@ -34,6 +35,7 @@ class QuantityPopup {
   final MediaQueryData data;
   final BuildContext context;
   final Product product;
+  Cart cart;
   final String buttonText;
 
   int productCounter = 1;
@@ -42,13 +44,15 @@ class QuantityPopup {
     this.data,
     this.context,
     this.buttonText,
-    this.product
+    this.product,
+    this.cart,
   }) {
     displayPopup(data);
   }
 
   Future displayPopup(MediaQueryData data) async {
-    print("id: ${product..toString()}");
+    if(cart != null)
+      {productCounter = cart.prodQty;}
     return showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -69,7 +73,7 @@ class QuantityPopup {
                             width: data.size.height * .1,
                             decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: AssetImage("lib/assets/eggplant3.jpg"),
+                                image: AssetImage("lib/assets/${product.prodImg}"),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -162,27 +166,45 @@ class QuantityPopup {
                                 //setting the Map to be passed on post
                                 Map _cartInfo;
 
-                                setState(() {
-                                  _cartInfo = {
-                                    "acc_id"  : user_id,
-                                    "store_id":product.storeId.toString(),
-                                    "prod_id" :product.id.toString(),
-                                    "prod_qty":productCounter.toString(),
-                                    "total"   :(product.prodPrice * productCounter).toString(),
-                                  };
-                                });
-                                print("_cartInfo: ${_cartInfo}");
 
                                 if(buttonText == "Add to Cart")
                                   {
+                                    setState(() {
+                                      _cartInfo = {
+                                        "acc_id"  : user_id,
+                                        "store_id":product.storeId.toString(),
+                                        "prod_id" :product.id.toString(),
+                                        "prod_qty":productCounter.toString(),
+                                        "total"   :(product.prodPrice * productCounter).toString(),
+                                      };
+                                    });
+                                    // print("_cartInfo: ${_cartInfo}");
+
                                     _addToCart(_cartInfo).then((value)
                                     {
                                       Navigator.of(context).pop();
                                     });
 
                                   }
+                                else if(buttonText == "Change Quantity")
+                                  {
+                                    setState(() {
+                                      _cartInfo = {
+                                        "id"      :cart.id.toString(),
+                                        "acc_id"  :user_id.toString(),
+                                        "store_id":product.storeId.toString(),
+                                        "prod_id" :product.id.toString(),
+                                        "prod_qty":productCounter.toString(),
+                                        "total"   :(product.prodPrice * productCounter).toString(),
+                                      };
+                                    });
+                                    // print("_cartInfo: ${_cartInfo}");
 
-
+                                    _changeCart(_cartInfo).then((value)
+                                    {
+                                      Navigator.of(context).pop();
+                                    });
+                                  }
                               },
                               style: ButtonStyle(
                                 foregroundColor:
