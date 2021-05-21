@@ -73,20 +73,38 @@ class _ImageRowState extends State<ImageRow> {
   }
 
   Widget _itemRow() {
-    return Padding(
-      padding: const EdgeInsets.only(right: 5),
-      child: Container(
-        width: queryData.size.width * .35,
-        height: queryData.size.height * .15,
-        decoration: BoxDecoration(
-          color: Colors.orange,
-          borderRadius: BorderRadius.circular(20),
-          image: DecorationImage(
-            image: AssetImage('assets/images/meat.png'),
-            fit: BoxFit.cover,
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(right: 5),
+          child: Container(
+            width: queryData.size.width * .35,
+            height: queryData.size.height * .15,
+            decoration: BoxDecoration(
+              color: Colors.orange,
+              borderRadius: BorderRadius.circular(20),
+              image: DecorationImage(
+                image: AssetImage('assets/images/meat.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
         ),
-      ),
+        Positioned(
+          left: queryData.size.width * .19,
+          child: RawMaterialButton(
+            onPressed: () {},
+            elevation: 2.0,
+            fillColor: Colors.red,
+            child: Icon(
+              Icons.delete_outline,
+              size: 20.0,
+              color: Colors.white,
+            ),
+            shape: CircleBorder(),
+          ),
+        ),
+      ],
     );
   }
 
