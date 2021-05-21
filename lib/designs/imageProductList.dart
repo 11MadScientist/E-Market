@@ -13,13 +13,15 @@ class ImageRow extends StatefulWidget {
 
 class _ImageRowState extends State<ImageRow> {
   String imageData;
-  int count = 1;
+  int imageListLength;
+  int length = 1;
+  //LIMITER
+  int limitFiles = 1;
   MediaQueryData queryData;
-  List<Widget> list;
 
-  void _addImage(int length) {
+  void _listength(int length) {
     setState(() {
-      count = count + length;
+      this.length += length;
     });
   }
 
@@ -30,25 +32,27 @@ class _ImageRowState extends State<ImageRow> {
       allowMultiple: true,
       type: FileType.image,
     );
+    List<File> files = result.paths.map((path) => File(path)).toList();
+    print("files length: " + files.length.toString());
+    print("count: " + this.length.toString());
+    print("limitFiles: " + limitFiles.toString());
+    print('imageListLength: ' + imageListLength.toString());
 
-    if (result != null) {
-      List<File> files = result.paths.map((path) => File(path)).toList();
-      _addImage(files.length);
-
+    if (files.length < limitFiles + 1 && imageListLength < limitFiles + 1) {
+      _listength(files.length);
       // PRINTING THE RESULTS
       // FIRST FILE IN THE LIST
       PlatformFile file = result.files.first;
       setState(() {
         imageData = file.name.toString();
       });
-      return print(file.name.toString());
       // print(file.bytes);
       // print(file.size);
       // print(file.extension);
       // print(file.path);
     } else {
-      // User canceled the picker
-      return ("nothing");
+      // User exceeds the limit
+      return ("You have exceed the required limit");
     }
   }
 
@@ -124,7 +128,7 @@ class _ImageRowState extends State<ImageRow> {
             onPressed: () {
               setState(() {
                 list.removeAt(index);
-                count = count - 1;
+                this.length -= 1;
               });
             },
             elevation: 2.0,
@@ -141,20 +145,22 @@ class _ImageRowState extends State<ImageRow> {
     );
   }
 
-  // Widget _itemRowButton(List<Widget> list, int index) {
-  //   list.add(_itemRow());
-  //   return list.elementAt(index);
-  // }
-
   @override
   Widget build(BuildContext context) {
+    // print("listLength: " + listLength.toString());
+    // print("count: " + count.toString());
     //FAKING THE LIST FOR INSTANTIATING PURPOSES
     List<Widget> _imageData =
         new List.generate(1, (index) => _itemRowButtonHeaderClone());
 
     //INSTANTIATING IT AGAIN ORIGINALLY FOR MANIPULATION
     _imageData = new List.generate(
-        count, (index) => _itemRowButtonHeader(index, _imageData));
+        this.length, (index) => _itemRowButtonHeader(index, _imageData));
+
+    setState(() {
+      imageListLength = _imageData.length;
+    });
+    print('imageListLength build: ' + imageListLength.toString());
 
     return ListView.builder(
         scrollDirection: Axis.horizontal,
@@ -165,20 +171,3 @@ class _ImageRowState extends State<ImageRow> {
         });
   }
 }
-
-// Container(
-//   width: queryData.size.width * .35,
-//   height: queryData.size.height * .15,
-//   decoration: BoxDecoration(
-//     color: Colors.orange,
-//     borderRadius: BorderRadius.circular(20),
-//   ),
-//   child: IconButton(
-//     onPressed: () => _openFileExplorer(),
-//     icon: Icon(
-//       Icons.add_photo_alternate_rounded,
-//       color: Colors.white,
-//     ),
-//     iconSize: 50,
-//   ),
-// ),
