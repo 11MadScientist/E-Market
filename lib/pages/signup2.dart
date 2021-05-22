@@ -2,7 +2,7 @@ import 'package:e_market/model/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:e_market/designs/myclipper.dart';
 import 'package:e_market/designs/textbox.dart';
-import 'package:e_market/services/api_gateway.dart';
+import 'package:e_market/services/profile_api_gateway.dart';
 import 'package:e_market/utils/env_endpoints.dart';
 import 'package:e_market/traps/profile_trap.dart';
 import 'package:e_market/designs/popup.dart';
@@ -19,7 +19,7 @@ class SignUp2 extends StatefulWidget {
 class _SignUp2State extends State<SignUp2>{
   ProfileTrap trap = ProfileTrap();
   final EnvEndPoints envEndPoints = EnvEndPoints();
-  final APIGateway apiGateway = APIGateway();
+  final ProfileAPIGateway apiGateway = ProfileAPIGateway();
   Profile _userProfile;
   bool isBuyer;
   String btnText;

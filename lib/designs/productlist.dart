@@ -1,12 +1,19 @@
+import 'package:e_market/pages/item_description.dart';
 import 'package:flutter/material.dart';
+import 'package:e_market/model/Product.dart';
 
-class SellerCard extends StatelessWidget {
+class ProductList extends StatelessWidget {
+  final Product product;
+  ProductList({this.product});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: ()
         {
-          Navigator.pushNamed(context, '/item_desc');
+          Navigator.of(context).push(MaterialPageRoute
+            (
+            builder:(context) => ItemDescription(product: product),
+          ));
         },
       child: Padding(
 
@@ -36,7 +43,7 @@ class SellerCard extends StatelessWidget {
                               color: Colors.blue[900],
                             ),
                             Expanded(
-                              child: Text("Tommy Store"),
+                              child: Text(product.storeName),
                             ),
                             Text('1h ago')
                           ],
@@ -49,19 +56,19 @@ class SellerCard extends StatelessWidget {
                                       .circular(15),
                                   image: DecorationImage(
                                     image: AssetImage(
-                                        'lib/assets/eggplant3.jpg'),
+                                        'lib/assets/${product.prodImg}'),
                                     fit: BoxFit.cover,
                                   ))),
                         ),
                         Text(
-                          'Fresh Eggplants',
+                          product.prodName,
                           style: TextStyle(
                             fontSize: 20,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          'P80/kl',
+                          product.prodPrice.toString()+" per "+product.prodUnit,
                         ),
                       ],
                     ),

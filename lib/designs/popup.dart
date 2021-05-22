@@ -58,22 +58,26 @@ class PopUp{
               ),
               actions: <Widget>[
                 TextButton(
-                    onPressed: () {
-                      if(route != null)
-                        {
 
-                          Navigator.pushReplacementNamed(context, route);
-                        }
-                      else
-                        Navigator.of(context).pop();
-                    },
                     child: Text(
                       'Close',
                       style: TextStyle(
                         fontFamily: 'Poppins',
                         fontSize: data.size.width * .04,
                       ),
-                    ))
+                    ),
+                  onPressed: () {
+                    if(route == null)
+                    {
+                      Navigator.of(context).pop();
+
+                    }
+                    else
+                      Navigator.pushReplacementNamed(context, route);
+                  },
+
+                ),
+
               ],
             );
             })

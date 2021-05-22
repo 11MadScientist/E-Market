@@ -1,5 +1,5 @@
 import 'package:e_market/traps/trap.dart';
-import 'package:e_market/services/api_gateway.dart';
+import 'package:e_market/services/profile_api_gateway.dart';
 import 'package:e_market/utils/env_endpoints.dart';
 import 'package:e_market/model/profile.dart';
 import 'package:validators/validators.dart';
@@ -7,9 +7,8 @@ import 'package:validators/validators.dart';
 class ProfileTrap extends Trap
 {
   final EnvEndPoints envEndPoints = EnvEndPoints();
-  final APIGateway apiGateway = APIGateway();
+  final ProfileAPIGateway apiGateway = ProfileAPIGateway();
   Profile profile;
-  String password;
 
 
 
@@ -66,12 +65,12 @@ class ProfileTrap extends Trap
       }
     return error();
   }
-  Future<String> emailDuplication(email)async
+  Future<Profile> emailDuplication(email)async
   {
     profile = await apiGateway.asyncGet(email);
     if(profile != null)
     {
-      return profile.password;
+      return profile;
     }
     else
       return null;
@@ -79,13 +78,11 @@ class ProfileTrap extends Trap
 
   emailExist(email)async
   {
-    print("hello");
     await emailDuplication(email).then((result) {
-      print("result: $result");
       if(result != null)
       {
         message = null;
-        password = result;
+        profile = result;
       }
       else
       {
@@ -99,12 +96,11 @@ class ProfileTrap extends Trap
     return error();
   }
 
-  bool passwordCheck(pass)
+  passwordCheck(pass)
   {
-    print("password: $password");
-    if(pass == password)
+    if(pass == profile.password)
       {
-        return true;
+        return profile;
       }
     else
       return false;

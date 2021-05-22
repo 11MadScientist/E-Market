@@ -6,7 +6,7 @@ import 'package:e_market/pages/signup3.dart';
 import 'package:e_market/pages/landing.dart';
 import 'package:e_market/pages/home.dart';
 import 'package:e_market/pages/user_profile.dart';
-import 'package:e_market/pages/cart.dart';
+import 'package:e_market/pages/cartpage.dart';
 import 'package:e_market/pages/item_description.dart';
 
 void main() => runApp(MaterialApp(
@@ -28,6 +28,7 @@ void main() => runApp(MaterialApp(
           )),
       initialRoute: '/login',
       routes: {
+        '/nav':(context) =>MyBottomNavigationBar(),
         '/login': (context) => Login(),
         '/landing': (context) => Landing(),
         '/signup': (context) => SignUp(),
@@ -35,7 +36,7 @@ void main() => runApp(MaterialApp(
         '/signup3': (context) => SignUp3(),
         '/home': (context) => Home(),
         '/profile': (context) => UserProfile(),
-        '/cart': (context) => Cart(),
+        '/cart': (context) => CartPage(),
         '/item_desc': (context) => ItemDescription(),
       },
     ));
