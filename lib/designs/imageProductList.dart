@@ -12,40 +12,48 @@ class ImageRow extends StatefulWidget {
 }
 
 class _ImageRowState extends State<ImageRow> {
-  String imageData;
+  File _image;
   int imageListLength;
   int length = 1;
   //LIMITER
   int limitFiles = 1;
   MediaQueryData queryData;
 
+  _ImageRowState(this.queryData);
+
+  //LENGTH SETTER FOR LIST FOR BUILD METHOD
   void _listength(int length) {
     setState(() {
       this.length += length;
     });
   }
 
-  _ImageRowState(this.queryData);
-
+  //OPEN FILE EXPLORER
   Future _openFileExplorer() async {
     FilePickerResult result = await FilePicker.platform.pickFiles(
-      allowMultiple: true,
+      // allowMultiple: true,
       type: FileType.image,
     );
     List<File> files = result.paths.map((path) => File(path)).toList();
-    print("files length: " + files.length.toString());
-    print("count: " + this.length.toString());
-    print("limitFiles: " + limitFiles.toString());
-    print('imageListLength: ' + imageListLength.toString());
+    // print("files length: " + files.length.toString());
+    // print("count: " + this.length.toString());
+    // print("limitFiles: " + limitFiles.toString());
+    // print('imageListLength: ' + imageListLength.toString());
 
+    // IF USER PASS THE LIMIT FILES NEEDED
     if (files.length < limitFiles + 1 && imageListLength < limitFiles + 1) {
+      //SETTER FOR LENGTH OF LIST IN THE BUILD METHOD
       _listength(files.length);
+
+      //SET THE IMAGE FOR BACKGROUND IMAGE IN SELECTING THE IMAGE
+      setState(() {
+        _image = File(result.paths[0]);
+      });
+
       // PRINTING THE RESULTS
       // FIRST FILE IN THE LIST
-      PlatformFile file = result.files.first;
-      setState(() {
-        imageData = file.name.toString();
-      });
+      // PlatformFile file = result.files.first;
+
       // print(file.bytes);
       // print(file.size);
       // print(file.extension);
@@ -56,6 +64,7 @@ class _ImageRowState extends State<ImageRow> {
     }
   }
 
+  //FAKE BUTTON HEADER FOR PRODUCT IMAGE ROW
   Widget _itemRowButtonHeaderClone() {
     return Padding(
       padding: const EdgeInsets.only(right: 5),
@@ -78,6 +87,7 @@ class _ImageRowState extends State<ImageRow> {
     );
   }
 
+  //ORIGINAL BUTTON HEADER FOR PRODUCT IMAGE ROW
   Widget _itemRowButtonHeader(int index, List<Widget> list) {
     if (index < 1) {
       return Padding(
@@ -104,6 +114,7 @@ class _ImageRowState extends State<ImageRow> {
     }
   }
 
+  //PRODUCT IMAGE TILE FOR SELECTED IMAGE/PRODUCT
   Widget _itemRow(int index, List<Widget> list) {
     return Stack(
       children: [
@@ -115,13 +126,14 @@ class _ImageRowState extends State<ImageRow> {
             decoration: BoxDecoration(
               color: Colors.orange,
               borderRadius: BorderRadius.circular(20),
-              image: DecorationImage(
-                image: AssetImage('assets/images/meat.png'),
-                fit: BoxFit.cover,
-              ),
+            ),
+            child: Image.file(
+              _image,
+              fit: BoxFit.cover,
             ),
           ),
         ),
+        //DLETE BUTTON
         Positioned(
           left: queryData.size.width * .19,
           child: RawMaterialButton(
@@ -147,8 +159,6 @@ class _ImageRowState extends State<ImageRow> {
 
   @override
   Widget build(BuildContext context) {
-    // print("listLength: " + listLength.toString());
-    // print("count: " + count.toString());
     //FAKING THE LIST FOR INSTANTIATING PURPOSES
     List<Widget> _imageData =
         new List.generate(1, (index) => _itemRowButtonHeaderClone());
