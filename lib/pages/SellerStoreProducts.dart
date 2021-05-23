@@ -5,10 +5,10 @@ import 'package:e_market/designs/imageUploader.dart';
 
 class SellerStoreProduct extends StatefulWidget {
   @override
-  _sellerStoreProductState createState() => _sellerStoreProductState();
+  _SellerStoreProductState createState() => _SellerStoreProductState();
 }
 
-class _sellerStoreProductState extends State<SellerStoreProduct> {
+class _SellerStoreProductState extends State<SellerStoreProduct> {
   String _chosenValue;
   String _chosenUnit;
 
