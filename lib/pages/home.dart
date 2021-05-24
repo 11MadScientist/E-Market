@@ -76,24 +76,25 @@ class _HomeState extends State<Home> {
                           children: [
                             CategoryCard(
                               col: Colors.orange,
-                              category: "meat",
+                              category: "All",
+
                             ),
                             CategoryCard(
                               col: Colors.orange,
-                              category: "meat",
+                              category: "Meat",
+                              img: "meat.png",
                             ),
                             CategoryCard(
                               col: Colors.orange,
-                              category: "meat",
+                              category: "Vegetables",
+                              img: "eggplant3.jpg",
                             ),
                             CategoryCard(
                               col: Colors.orange,
-                              category: "meat",
+                              category: "Spices",
+                              img: "spice.png",
                             ),
-                            CategoryCard(
-                              col: Colors.orange,
-                              category: "meat",
-                            ),
+
                           ],
                         ),
                       ),
@@ -127,6 +128,11 @@ class _HomeState extends State<Home> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     NearbyStoresCard(),
+                                    SizedBox(width: 10,),
+                                    NearbyStoresCard(),
+                                    SizedBox(width: 10,),
+                                    NearbyStoresCard(),
+                                    SizedBox(width: 10,),
                                   ],
                                 ),
                               ),
@@ -150,6 +156,8 @@ class _HomeState extends State<Home> {
                             scrollDirection: Axis.horizontal,
                             child: Row(
                               children: [
+                                BestSellingCard(),
+                                BestSellingCard(),
                                 BestSellingCard(),
                               ],
                             ),

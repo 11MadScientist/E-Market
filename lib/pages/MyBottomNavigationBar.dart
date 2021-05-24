@@ -10,6 +10,7 @@ class MyBottomNavigationBar extends StatefulWidget {
   _MyBottomNavigationBarState createState() => _MyBottomNavigationBarState();
   final Profile profile;
   final int idx;
+
   MyBottomNavigationBar({this.profile, this.idx});
 }
 
@@ -23,6 +24,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
       Landing(),
       Home(profile: widget.profile),
       CartPage(profile: widget.profile),
+
     ];
 
     if(widget.idx != null)
