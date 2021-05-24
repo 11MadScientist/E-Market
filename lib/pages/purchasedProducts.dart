@@ -13,6 +13,7 @@ class _puchasedProduct extends State<Purchased> {
 
     //LIST FOR PURCHASED PRODUCT
     List<String> dataRows = new List.generate(5, (index) => null);
+    String status = 'cancelled';
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -68,7 +69,7 @@ class _puchasedProduct extends State<Purchased> {
                                             "Status",
                                           )),
                                         ],
-                                        rows: getDataRow(dataRows)),
+                                        rows: getDataRow(dataRows, status)),
                                   ),
                                 ),
                               ),
@@ -88,7 +89,7 @@ class _puchasedProduct extends State<Purchased> {
   }
 
   //DATA ROW GENERATOR
-  List<DataRow> getDataRow(List<String> strings) {
+  List<DataRow> getDataRow(List<String> strings, String status) {
     List<DataRow> data = [];
     for (int i = 0; i < strings.length; i++) {
       data.add(DataRow(cells: [
@@ -98,13 +99,13 @@ class _puchasedProduct extends State<Purchased> {
         DataCell(
             Container(
                 decoration: BoxDecoration(
-                  color: getStatusColor('cancelled'),
+                  color: getStatusColor(status),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'cancelled',
+                    status,
                     style: TextStyle(color: Colors.white),
                   ),
                 )),
