@@ -34,7 +34,7 @@ class _puchasedProduct extends State<Purchased> {
                   overlayColor: MaterialStateProperty.all(Colors.orange),
                   tabs: [
                     Tab(
-                      text: "Unpaid",
+                      text: 'Pending',
                     ),
                   ],
                 ),
