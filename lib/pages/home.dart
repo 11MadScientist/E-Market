@@ -22,10 +22,8 @@ class _HomeState extends State<Home> {
   Future<List<Product>> _products;
   bool isBuyer = false;
 
-
-  void _session() async
-  {
-    setState((){
+  void _session() async {
+    setState(() {
       _products = apiGateway.asyncListGet();
     });
   }
@@ -36,213 +34,208 @@ class _HomeState extends State<Home> {
     _session();
   }
 
-
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
     return Scaffold(
-        resizeToAvoidBottomInset: true,
-        appBar: MyAppBar(
-          size: queryData.size.width,
-          screenName: "Home",
-          context: this.context,
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      child: Text(
-                        "Categories",
-                        style: TextStyle(
-                          fontSize: 17,
-                        ),
+      resizeToAvoidBottomInset: true,
+      appBar: MyAppBar(
+        size: queryData.size.width,
+        screenName: "Home",
+        context: this.context,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    child: Text(
+                      "Categories",
+                      style: TextStyle(
+                        fontSize: 17,
                       ),
                     ),
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 15.0),
-                      height: 85,
-                      width: queryData.size.width,
-                      child: Center(
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
+                  ),
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 15.0),
+                    height: 85,
+                    width: queryData.size.width,
+                    child: Center(
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        children: [
+                          CategoryCard(
+                            col: Colors.green[100],
+                            category: "Meat",
+                            img: 'porkCategory.png',
+                          ),
+                          CategoryCard(
+                            col: Colors.grey[200],
+                            category: "Chicken",
+                            img: "chickenCategory.png",
+                          ),
+                          CategoryCard(
+                            col: Colors.green[100],
+                            category: "Vegetables",
+                            img: "vegetableCategory.png",
+                          ),
+                          CategoryCard(
+                            col: Colors.white54,
+                            category: "Spices",
+                            img: "spice.png",
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Visibility(
+                visible: true,
+                child: Column(
+                  children: [
+                    Visibility(
+                      visible: true,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CategoryCard(
-                              col: Colors.orange,
-                              category: "All",
-
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                              child: Text(
+                                "Stores Nearby You",
+                                style: TextStyle(
+                                  fontSize: 17,
+                                ),
+                              ),
                             ),
-                            CategoryCard(
-                              col: Colors.orange,
-                              category: "Meat",
-                              img: "meat.png",
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  NearbyStoresCard(),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  NearbyStoresCard(),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  NearbyStoresCard(),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                ],
+                              ),
                             ),
-                            CategoryCard(
-                              col: Colors.orange,
-                              category: "Vegetables",
-                              img: "eggplant3.jpg",
-                            ),
-                            CategoryCard(
-                              col: Colors.orange,
-                              category: "Spices",
-                              img: "spice.png",
-                            ),
-
                           ],
                         ),
                       ),
                     ),
-                  ],
-                ),
-                Visibility(
-                  visible: true,
-                  child: Column(
-                    children: [
-                      Visibility(
-                        visible: true,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Best Selling Products",
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontFamily: "Poppins",
+                            color: Colors.blue[900],
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                                child: Text(
-                                  "Stores Nearby You",
-                                  style: TextStyle(
-                                    fontSize: 17,
-                                  ),
-                                ),
-                              ),
-                              SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    NearbyStoresCard(),
-                                    SizedBox(width: 10,),
-                                    NearbyStoresCard(),
-                                    SizedBox(width: 10,),
-                                    NearbyStoresCard(),
-                                    SizedBox(width: 10,),
-                                  ],
-                                ),
-                              ),
+                              BestSellingCard(),
+                              BestSellingCard(),
+                              BestSellingCard(),
                             ],
                           ),
                         ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Best Selling Products",
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontFamily: "Poppins",
-                              color: Colors.blue[900],
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                BestSellingCard(),
-                                BestSellingCard(),
-                                BestSellingCard(),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Product List',
-                        style: TextStyle(
-                          fontSize: 17,
-                        ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Product List',
+                      style: TextStyle(
+                        fontSize: 17,
                       ),
-                      FutureBuilder(
-                          future: _products,
-                          builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot)
-                          {
-                            if (snapshot.connectionState == ConnectionState.waiting)
-                            {
-                              return Container(
-                                padding: EdgeInsets.all(400),
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
-                              );
-                            }
-                            else if(snapshot.hasError)
-                            {
-                              final error = snapshot.error;
-                              return Text(error.toString());
-                            }
-                            else if(snapshot.hasData)
-                            {
-
-                              return SizedBox(
-                                height: 570,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: snapshot.data.length,
-                                  itemBuilder: (context, index)
-                                  {
-                                    return ProductList(product:snapshot.data[index]);
-                                  },
-                                ),
-                              );
-
-                            }
-                            else
-                            {
-                              return Text("No Profile Found");
-                            }
-                          }),
-                    ],
-                  ),
+                    ),
+                    FutureBuilder(
+                        future: _products,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<Product>> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Container(
+                              padding: EdgeInsets.all(400),
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            );
+                          } else if (snapshot.hasError) {
+                            final error = snapshot.error;
+                            return Text(error.toString());
+                          } else if (snapshot.hasData) {
+                            return SizedBox(
+                              height: 570,
+                              child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (context, index) {
+                                  return ProductList(
+                                      product: snapshot.data[index]);
+                                },
+                              ),
+                            );
+                          } else {
+                            return Text("No Profile Found");
+                          }
+                        }),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-    // bottomNavigationBar: CurvedNavigationBar(
-    //   height: 50,
-    //   color: Colors.orange[500],
-    //   backgroundColor: Colors.white,
-    //   items: <Widget>[
-    //     Icon(Icons.home, size:20,color: Colors.white),
-    //     Icon(Icons.shopping_basket, size:20,color: Colors.white),
-    //     Icon(Icons.home, size:20,color: Colors.white),
-    // ],
-    //   animationDuration: Duration(milliseconds: 250),
-    //   animationCurve: Curves.linearToEaseOut,
-    //   index: 1,
-    //   onTap: (index)
-    //   {
-    //     print("$index");
-    //   },
-    //
-    // )
+      ),
+      // bottomNavigationBar: CurvedNavigationBar(
+      //   height: 50,
+      //   color: Colors.orange[500],
+      //   backgroundColor: Colors.white,
+      //   items: <Widget>[
+      //     Icon(Icons.home, size:20,color: Colors.white),
+      //     Icon(Icons.shopping_basket, size:20,color: Colors.white),
+      //     Icon(Icons.home, size:20,color: Colors.white),
+      // ],
+      //   animationDuration: Duration(milliseconds: 250),
+      //   animationCurve: Curves.linearToEaseOut,
+      //   index: 1,
+      //   onTap: (index)
+      //   {
+      //     print("$index");
+      //   },
+      //
+      // )
     );
-
   }
 }
