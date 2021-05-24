@@ -98,13 +98,13 @@ class _puchasedProduct extends State<Purchased> {
         DataCell(
             Container(
                 decoration: BoxDecoration(
-                  color: getStatusColor('unpaid'),
+                  color: getStatusColor('cancelled'),
                   borderRadius: BorderRadius.circular(15),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'pending',
+                    'cancelled',
                     style: TextStyle(color: Colors.white),
                   ),
                 )),
@@ -116,9 +116,11 @@ class _puchasedProduct extends State<Purchased> {
 }
 
 Color getStatusColor(String status) {
-  if (status == 'Completed') {
+  if (status == 'completed') {
     return Colors.green[300];
-  } else {
+  } else if (status == 'pending') {
     return Colors.amber[300];
+  } else {
+    return Colors.red;
   }
 }
