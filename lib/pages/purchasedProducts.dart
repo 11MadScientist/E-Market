@@ -1,25 +1,51 @@
+import 'package:e_market/designs/purchaselist.dart';
+import 'package:e_market/model/Order.dart';
+import 'package:e_market/model/profile.dart';
+import 'package:e_market/services/order_api_gateway.dart';
 import 'package:flutter/material.dart';
 import "package:e_market/designs/appbar.dart";
 
 class Purchased extends StatefulWidget {
+  final Profile profile;
+
+  Purchased({this.profile});
   @override
   _puchasedProduct createState() => _puchasedProduct();
 }
 
 class _puchasedProduct extends State<Purchased> {
+  final OrderAPIGateway orderAPIGateway = OrderAPIGateway();
+  Future<List<Order>> orders;
+  List<String> dataRows;
+
+  void _session()async
+  {
+    print("id: ${widget.profile.id}");
+    orders = orderAPIGateway.asyncListGetSeller(widget.profile.id);
+    setState(() {
+      dataRows = new List.generate(5, (index) => null);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _session();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
 
     //LIST FOR PURCHASED PRODUCT
-    List<String> dataRows = new List.generate(5, (index) => null);
-    String status = 'cancelled';
+    _session();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: MyAppBar(
         size: queryData.size.width,
-        screenName: "Purchase",
+        screenName: "PurchasePage",
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -56,20 +82,74 @@ class _puchasedProduct extends State<Purchased> {
                                 child: SingleChildScrollView(
                                   child: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
-                                    child: DataTable(
-                                        columnSpacing:
-                                            queryData.size.width * .1,
-                                        columns: [
-                                          DataColumn(
-                                              label: Text("Transaction ID")),
-                                          DataColumn(
-                                              label: Text("Order Total")),
-                                          DataColumn(
-                                              label: Text(
-                                            "Status",
-                                          )),
-                                        ],
-                                        rows: getDataRow(dataRows, status)),
+                                    child: Padding(
+                                      padding: EdgeInsets.all(10),
+                                      child: Column(
+                                        children: [
+                                          Container(
+                                          width: queryData.size.width * .85,
+                                          child:Column(
+                                            children: [
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                children: [
+                                                  Text("TRANSACTION ID"),
+                                                  Text("ORDER TOTAL"),
+                                                  Text("STATUS"),
+
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+
+
+                                        ),
+                                          Container(
+                                            width: queryData.size.width * .85,
+                                            height: queryData.size.height*.85,
+                                            child:
+                                            FutureBuilder(
+                                                future: orders,
+                                                builder: (BuildContext context, AsyncSnapshot<List<Order>> snapshot)
+                                                {
+                                                  if (snapshot.connectionState == ConnectionState.waiting)
+                                                  {
+                                                    return Container(
+                                                      padding: EdgeInsets.all(400),
+                                                      child: Center(
+                                                        child: CircularProgressIndicator(),
+                                                      ),
+                                                    );
+                                                  }
+                                                  else if(snapshot.hasError)
+                                                  {
+                                                    final error = snapshot.error;
+                                                    return Text(error.toString());
+                                                  }
+                                                  else if(snapshot.hasData)
+                                                  {
+                                                    print(snapshot.data.length);
+                                                    return ListView.builder(
+                                                      scrollDirection: Axis.vertical,
+                                                      itemCount: snapshot.data.length,
+                                                      itemBuilder: (context, index)
+                                                      {
+                                                        return PurchaseList(order:snapshot.data[index]);
+                                                      },
+                                                    );
+                                                  }
+                                                  else
+                                                  {
+                                                    return Text("No Data Retrieved");
+                                                  }
+                                                }),
+
+
+                                          ),
+                                        ]
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),

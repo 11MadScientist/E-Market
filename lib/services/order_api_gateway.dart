@@ -28,7 +28,7 @@ class OrderAPIGateway
     List<Order> orders;
     try
     {
-      Network network = Network(envEndPoints.getEndPoints('/api/userorder/$store_id'));
+      Network network = Network(envEndPoints.getEndPoints('/api/sellerorder/$store_id'));
       orders = orderFromJson(await network.getListData());
     }
     catch (e)

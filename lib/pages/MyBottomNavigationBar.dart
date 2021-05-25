@@ -3,6 +3,7 @@ import 'package:e_market/model/profile.dart';
 import 'package:e_market/pages/cartpage.dart';
 import 'package:e_market/pages/home.dart';
 import 'package:e_market/pages/landing.dart';
+import 'package:e_market/pages/purchasedProducts.dart';
 import 'package:flutter/material.dart';
 
 class MyBottomNavigationBar extends StatefulWidget {
@@ -22,7 +23,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     if(widget.profile.usertype == "Seller")
       {
         _routes = [
-          Landing(),
+          Purchased(profile: widget.profile),
           Home(profile: widget.profile),
           CartPage(profile: widget.profile),
         ];
