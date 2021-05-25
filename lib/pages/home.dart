@@ -72,7 +72,7 @@ class _HomeState extends State<Home> {
                         shrinkWrap: true,
                         children: [
                           CategoryCard(
-                            col: Colors.grey[100],
+                            col: Colors.grey[200],
                             category: "All",
                             img: 'allCategory.png',
                           ),
