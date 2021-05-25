@@ -105,47 +105,12 @@ class _LoginState extends State<Login> {
                         SizedBox(
                           height: 20,
                         ),
-                        TextButton(
-                          onPressed: () async {
-                            await emailBox.validator();
-                            _profile = trap.passwordCheck(passBox.getInfo());
-                            if (_profile != false) {
-                              await FlutterSession().set('user_id', _profile.id);
-                              setState(() {
-                                Navigator.of(context).push(MaterialPageRoute
-                                  (
-                                  builder:(context) => MyBottomNavigationBar(profile: _profile,),
-                                ));
-                              });
-                            } else {
-                              popup = new PopUp(
-                                  data: queryData,
-                                  icon: Icons.error,
-                                  coloring: Colors.red,
-                                  title: 'ERROR',
-                                  message: 'Incorrect Email/Password',
-                                  context: context);
-                              return;
-                            }
-                          },
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.orange[500]),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(200),
-                            )),
-                            padding: MaterialStateProperty.all(
-                                EdgeInsets.symmetric(
-                                    vertical: 13, horizontal: 0)),
-                          ),
-                          child: Text(
-                            "LOGIN",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
+                        Text(
+                          "LOGIN",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20,
                           ),
                         ),
                       ],

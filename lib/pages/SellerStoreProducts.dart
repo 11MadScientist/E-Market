@@ -1,16 +1,76 @@
+import 'package:e_market/model/store.dart';
+import 'package:e_market/services/product_api_gateway.dart';
 import 'package:flutter/material.dart';
 import "package:e_market/designs/appbar.dart";
 import "package:horizontal_data_table/horizontal_data_table.dart";
 import 'package:e_market/designs/imageUploader.dart';
+import 'package:e_market/services/store_api_gateway.dart';
+import 'package:e_market/model/Product.dart';
 
 class SellerStoreProduct extends StatefulWidget {
   @override
+
+  String profileid;
+   SellerStoreProduct({this.profileid});
+
+
   _SellerStoreProductState createState() => _SellerStoreProductState();
 }
 
 class _SellerStoreProductState extends State<SellerStoreProduct> {
+
+  Store _storedata;
   String _chosenValue;
   String _chosenUnit;
+
+  //Add Product
+  final _prodNameController = TextEditingController();
+  String prodName = "";
+
+  final _prodDescController = TextEditingController();
+  String prodDesc = "";
+
+  final _prodPriceController = TextEditingController();
+  String prodPrice = "";
+
+  final _prodStockController = TextEditingController();
+  String prodStock = "";
+
+  //latest id of certain category
+  String categoryid = "";
+  String storeid = "";
+
+  final StoreAPIGateway storeAPIGateway = StoreAPIGateway();
+  final ProductAPIGateway productAPIGateway = ProductAPIGateway();
+
+  Map productsData;
+  Product _productInfo;
+
+  Future<Store> _getStore(int testID) async
+  {
+    Store body = await storeAPIGateway.asyncGet(testID);
+
+    setState(() {
+    storeid = body.id.toString();
+    });
+
+    print(storeid);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _getStore(13);
+  }
+
+  Future <Product> _createProduct(Map data) async
+  {
+    Product body = await productAPIGateway.asyncPost(data);
+    setState(() {
+      _productInfo = body;
+    });
+    return body;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -393,6 +453,13 @@ class _SellerStoreProductState extends State<SellerStoreProduct> {
                                       child: SizedBox(
                                         height: 30,
                                         child: TextField(
+                                          controller: _prodNameController,
+                                          onChanged: (val){
+                                            setState(() {
+                                              prodName = _prodNameController.text;
+                                            });
+                                            print(prodName);
+                                          },
                                           decoration: InputDecoration(
                                             enabledBorder: OutlineInputBorder(
                                               borderRadius:
@@ -479,6 +546,13 @@ class _SellerStoreProductState extends State<SellerStoreProduct> {
                                       child: Container(
                                         height: 100,
                                         child: TextField(
+                                          controller: _prodDescController,
+                                          onChanged: (val){
+                                            setState(() {
+                                              prodDesc = _prodDescController.text;
+                                            });
+                                            print(prodDesc);
+                                          },
                                           maxLines: 5,
                                           decoration: InputDecoration(
                                             enabledBorder: OutlineInputBorder(
@@ -508,6 +582,13 @@ class _SellerStoreProductState extends State<SellerStoreProduct> {
                                       child: Container(
                                         height: 30,
                                         child: TextField(
+                                          controller: _prodPriceController,
+                                          onChanged: (val){
+                                            setState(() {
+                                              prodPrice = _prodPriceController.text;
+                                            });
+                                            print(prodPrice);
+                                          },
                                           decoration: InputDecoration(
                                             enabledBorder: OutlineInputBorder(
                                               borderRadius:
@@ -580,6 +661,13 @@ class _SellerStoreProductState extends State<SellerStoreProduct> {
                                       child: SizedBox(
                                         height: 30,
                                         child: TextField(
+                                          controller: _prodStockController,
+                                          onChanged: (val){
+                                            setState(() {
+                                              prodStock = _prodStockController.text;
+                                            });
+                                            print(prodStock);
+                                          },
                                           decoration: InputDecoration(
                                             enabledBorder: OutlineInputBorder(
                                               borderRadius:
@@ -599,6 +687,47 @@ class _SellerStoreProductState extends State<SellerStoreProduct> {
                                 width: double.infinity,
                                 height: 50,
                                 child: ElevatedButton(
+                                  onPressed: (){
+                                    setState(() {
+                                      print(prodName);
+                                      print(_chosenValue);
+                                      print(prodDesc);
+                                      print(prodPrice);
+                                      print(_chosenUnit);
+                                      print(prodStock);
+                                      
+                                      if(_chosenValue.compareTo("Meat") == 0)
+                                        categoryid = "1";
+                                      else if(_chosenValue.compareTo("Chicken") == 0)
+                                        categoryid = "2";
+                                      else if(_chosenValue.compareTo("Spices") == 0)
+                                        categoryid = "3";
+                                      else if(_chosenValue.compareTo("Vegetable") == 0)
+                                        categoryid = "4";
+                                      else if(_chosenValue.compareTo("Other") == 0)
+                                        categoryid = "5";
+
+
+                                      productsData = {
+                                        "store_id"        :storeid,
+                                        "category_id"     :categoryid,
+                                        "category_name"   :_chosenValue,
+                                        "prod_name"       :prodName,
+                                        "prod_img"        :"meat.png",
+                                        "prod_price"      :prodPrice,
+                                        "prod_unit"       :_chosenUnit,
+                                        "prod_desc"       :prodDesc,
+                                        "prod_stock"      :prodStock,
+                                        "prod_sales"      :"0",
+                                        "prod_avail"      :"20",
+                                        "prod_favorite"   :"5",
+                                      };
+                                    });
+
+                                    print(productsData);
+                                    _createProduct(productsData);
+
+                                  },
                                   style: ButtonStyle(
                                     shape: MaterialStateProperty.all(
                                         RoundedRectangleBorder(
