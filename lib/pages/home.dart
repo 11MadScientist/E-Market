@@ -72,7 +72,12 @@ class _HomeState extends State<Home> {
                         shrinkWrap: true,
                         children: [
                           CategoryCard(
-                            col: Colors.green[100],
+                            col: Colors.grey[100],
+                            category: "All",
+                            img: 'allCategory.png',
+                          ),
+                          CategoryCard(
+                            col: Colors.grey[200],
                             category: "Meat",
                             img: 'porkCategory.png',
                           ),
@@ -82,7 +87,12 @@ class _HomeState extends State<Home> {
                             img: "chickenCategory.png",
                           ),
                           CategoryCard(
-                            col: Colors.green[100],
+                            col: Colors.grey[200],
+                            category: "Fish",
+                            img: 'fishCategory.png',
+                          ),
+                          CategoryCard(
+                            col: Colors.grey[200],
                             category: "Vegetables",
                             img: "vegetableCategory.png",
                           ),
