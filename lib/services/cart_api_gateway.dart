@@ -7,12 +7,12 @@ class CartAPIGateway
   final EnvEndPoints envEndPoints = EnvEndPoints();
   Cart cart;
 
-  Future<List<Cart>> asyncListGet() async
+  Future<List<Cart>> asyncListGet(int acc_id) async
   {
     List<Cart> carts;
     try
     {
-      Network network = Network(envEndPoints.getEndPoints('/api/cart'));
+      Network network = Network(envEndPoints.getEndPoints('/api/cart/$acc_id'));
       carts = cartFromJson(await network.getListData());
     }
     catch (e)
@@ -52,20 +52,20 @@ class CartAPIGateway
     return cart;
   }
 
-  Future<Cart> asyncDelete(int id)async
+  Future<dynamic> asyncDelete(int id)async
   {
     try
         {
           Network network = Network(envEndPoints.getEndPoints('/api/cart/$id'));
           dynamic body =await network.deleteData();
-          cart = Cart.fromJson(body);
+          return body;
 
         }
         catch(e)
     {
       print("asyncDeldete:$e");
     }
-    return cart;
+
   }
 }
 

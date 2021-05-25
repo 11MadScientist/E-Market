@@ -38,7 +38,6 @@ class Network
 
     if (response.statusCode == 201)
       {
-        print(response.statusCode);
         return jsonDecode(response.body);
       }
     else
@@ -67,7 +66,7 @@ class Network
     http.Response response = await http.delete(url);
     if (response.statusCode == 200)
     {
-      return jsonDecode(response.body);
+      return response.body;
     }
     else
     {

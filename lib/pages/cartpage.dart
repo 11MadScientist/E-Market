@@ -1,9 +1,16 @@
 import "package:e_market/designs/appbar.dart";
+import 'package:e_market/designs/popup.dart';
+import 'package:e_market/model/MyTransactions.dart';
+import 'package:e_market/model/Order.dart';
 import 'package:e_market/model/profile.dart';
 import 'package:e_market/services/cart_api_gateway.dart';
+import 'package:e_market/services/mytransactions_api_gateway.dart';
+import 'package:e_market/services/order_api_gateway.dart';
 import 'package:flutter/material.dart';
 import 'package:e_market/designs/cartlistcard.dart';
 import 'package:e_market/model/Cart.dart';
+
+import 'MyBottomNavigationBar.dart';
 
 class CartPage extends StatefulWidget {
   @override
@@ -19,15 +26,38 @@ class _CartPageState extends State<CartPage> {
   double subtotal = 0;
   final double deliveryfee = 50.00;
 
-  final CartAPIGateway apiGateway = CartAPIGateway();
+  final CartAPIGateway cartApiGateway = CartAPIGateway();
+  final OrderAPIGateway orderApiGateway = OrderAPIGateway();
+  final MyTransactionsAPIGateway transactionsAPIGateway = MyTransactionsAPIGateway();
+
   Future<List<Cart>> _cart;
+  Future<dynamic> transaction;
+  Future<Order> order;
   bool isBuyer = false;
+
+  Future<dynamic> postTransaction(Map data)async
+  {
+    setState(() {
+      transaction = transactionsAPIGateway.asyncPost(data);
+    });
+    return transaction;
+  }
+
+  Future<void> postOrders(Map data)
+  {
+    order = orderApiGateway.asyncPost(data);
+  }
+  Future<dynamic> delCart()
+  {
+    dynamic body = cartApiGateway.asyncDelete(widget.profile.id);
+    return body;
+  }
 
 
   void _session() async
   {
     setState((){
-      _cart = apiGateway.asyncListGet();
+      _cart = cartApiGateway.asyncListGet(widget.profile.id);
     });
     _cart.then((value)
     {
@@ -403,23 +433,117 @@ class _CartPageState extends State<CartPage> {
                 Container(
                   height: 50,
                   width: double.infinity,
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all(Colors.white),
-                      backgroundColor: MaterialStateProperty.all(Colors.orange),
-                      shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      )),
-                      elevation: MaterialStateProperty.all(0),
-                    ),
-                    child: Text(
-                      "Checkout",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                    ),
-                  ),
+                  child: FutureBuilder(
+                      future: _cart,
+                      builder: (BuildContext context, AsyncSnapshot<List<Cart>> snapshot)
+                      {
+                        if (snapshot.connectionState == ConnectionState.waiting)
+                        {
+                          return Container(
+                            padding: EdgeInsets.all(400),
+                            child: Center(
+                              child: CircularProgressIndicator(),
+                            ),
+                          );
+                        }
+                        else if(snapshot.hasError)
+                        {
+                          final error = snapshot.error;
+                          return Text(error.toString());
+                        }
+                        else if(snapshot.hasData)
+                        {
+                          return ElevatedButton(
+                            onPressed: () async
+                            {
+                              String payment_mode;
+                              int transaction_id;
+
+                              if(isSelected[0])
+                                payment_mode = "Cash on Delivery";
+                              else if(isSelected[1])
+                                payment_mode = "Credit Card";
+                              else if(isSelected[2])
+                                payment_mode = "Online Payment";
+                              else
+                                {
+                                  PopUp(
+                                      data: queryData,
+                                      icon: Icons.error,
+                                      title: 'Error',
+                                      coloring: Colors.red,
+                                      message:"Mode of Payment is required",
+                                      context: context);
+                                  return;
+                                }
+
+                              Map datum = {
+                                "acc_id":widget.profile.id.toString(),
+                                "grand_total": (subtotal + deliveryfee).toStringAsFixed(2),
+                                "payment_mode":payment_mode,
+                                "transaction_status": "pending",
+                              };
+                              print("datum $datum");
+
+                              await postTransaction(datum).then((value)
+                              {
+                                transaction_id = value["id"];
+                              });
+                              for(int i = 0; i<snapshot.data.length; i++)
+                                {
+                                  Map orderData = {
+                                    "acc_id":widget.profile.id.toString(),
+                                    "store_id":snapshot.data[i].storeId.toString(),
+                                    "prod_id":snapshot.data[i].prodId.toString(),
+                                    "quantity":snapshot.data[i].prodQty.toString(),
+                                    "prod_price":snapshot.data[i].prodPrice.toString(),
+                                    "transaction_id":transaction_id.toString(),
+                                    "total": (snapshot.data[i].prodQty *snapshot.data[i].prodPrice).toStringAsFixed(2),
+                                    "order_status":"pending",
+                                  };
+                                  print("orderdata: $orderData");
+                                  await postOrders(orderData);
+                                }
+                              await delCart().then((value)
+                              {
+                                PopUp(
+                                    data: queryData,
+                                    icon: Icons.check_circle,
+                                    title: 'Success',
+                                    coloring: Colors.green,
+                                    message:"Transaction Successful",
+                                    context: context);
+                              });
+                              Navigator.of(context).pushReplacement(MaterialPageRoute
+                                (
+                                builder:(context) => MyBottomNavigationBar(
+                                  profile: widget.profile,
+                                  idx: 1,),
+                              ));
+
+
+
+                            },
+                            style: ButtonStyle(
+                              foregroundColor: MaterialStateProperty.all(Colors.white),
+                              backgroundColor: MaterialStateProperty.all(Colors.orange),
+                              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15),
+                              )),
+                              elevation: MaterialStateProperty.all(0),
+                            ),
+                            child: Text(
+                              "Checkout",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                              ),
+                            ),
+                          );
+                        }
+                        return Text("No Profile Found");
+
+                      }),
                 ),
               ],
             ),
