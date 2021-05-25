@@ -25,9 +25,20 @@ class _HomeState extends State<Home> {
 
   void _session() async
   {
-    setState((){
-      _products = apiGateway.asyncListGet();
-    });
+    if(widget.profile.usertype == "Seller")
+      {
+        setState((){
+          isBuyer = false;
+          _products = apiGateway.storeProductsGet(widget.profile.id);
+        });
+      }
+    else
+      {
+        setState((){
+          isBuyer = true;
+          _products = apiGateway.asyncListGet();
+        });
+      }
   }
 
   @override
@@ -53,55 +64,58 @@ class _HomeState extends State<Home> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      child: Text(
-                        "Categories",
-                        style: TextStyle(
-                          fontSize: 17,
+                Visibility(
+                  visible: isBuyer,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        child: Text(
+                          "Categories",
+                          style: TextStyle(
+                            fontSize: 17,
+                          ),
                         ),
                       ),
-                    ),
-                    Container(
-                      margin: EdgeInsets.symmetric(vertical: 15.0),
-                      height: 85,
-                      width: queryData.size.width,
-                      child: Center(
-                        child: ListView(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          children: [
-                            CategoryCard(
-                              col: Colors.orange,
-                              category: "meat",
-                            ),
-                            CategoryCard(
-                              col: Colors.orange,
-                              category: "meat",
-                            ),
-                            CategoryCard(
-                              col: Colors.orange,
-                              category: "meat",
-                            ),
-                            CategoryCard(
-                              col: Colors.orange,
-                              category: "meat",
-                            ),
-                            CategoryCard(
-                              col: Colors.orange,
-                              category: "meat",
-                            ),
-                          ],
+                      Container(
+                        margin: EdgeInsets.symmetric(vertical: 15.0),
+                        height: 85,
+                        width: queryData.size.width,
+                        child: Center(
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            shrinkWrap: true,
+                            children: [
+                              CategoryCard(
+                                col: Colors.orange,
+                                category: "meat",
+                              ),
+                              CategoryCard(
+                                col: Colors.orange,
+                                category: "meat",
+                              ),
+                              CategoryCard(
+                                col: Colors.orange,
+                                category: "meat",
+                              ),
+                              CategoryCard(
+                                col: Colors.orange,
+                                category: "meat",
+                              ),
+                              CategoryCard(
+                                col: Colors.orange,
+                                category: "meat",
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 Visibility(
-                  visible: true,
+                  visible: isBuyer,
                   child: Column(
                     children: [
                       Visibility(
@@ -190,7 +204,16 @@ class _HomeState extends State<Home> {
                             }
                             else if(snapshot.hasData)
                             {
-
+                              if(snapshot.data.length == 0)
+                              {
+                                return Container(
+                                  color: Colors.red,
+                                  padding: EdgeInsets.all(400),
+                                  child: Center(
+                                    child: CircularProgressIndicator(),
+                                ),
+                              );
+                              }
                               return SizedBox(
                                 height: 570,
                                 child: ListView.builder(
@@ -206,7 +229,7 @@ class _HomeState extends State<Home> {
                             }
                             else
                             {
-                              return Text("No Profile Found");
+                              return Text("No Data Retrieved");
                             }
                           }),
                     ],

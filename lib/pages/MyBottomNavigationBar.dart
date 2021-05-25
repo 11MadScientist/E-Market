@@ -19,11 +19,22 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
   @override
   void initState() {
     super.initState();
-    _routes = [
-      Landing(),
-      Home(profile: widget.profile),
-      CartPage(profile: widget.profile),
-    ];
+    if(widget.profile.usertype == "Seller")
+      {
+        _routes = [
+          Landing(),
+          Home(profile: widget.profile),
+          CartPage(profile: widget.profile),
+        ];
+      }
+    else
+      {
+        _routes = [
+          Landing(),
+          Home(profile: widget.profile),
+          CartPage(profile: widget.profile),
+        ];
+      }
 
     if(widget.idx != null)
       {
@@ -36,28 +47,57 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _routes[_currentIndex],
-      bottomNavigationBar: CurvedNavigationBar(
-        height: 50,
-        color: Colors.orange[500],
-        backgroundColor: Colors.white,
-        items: <Widget>[
-          Icon(Icons.delivery_dining, size:20,color: Colors.white),
-          Icon(Icons.shopping_basket, size:20,color: Colors.white),
-          Icon(Icons.shopping_cart_rounded, size:20,color: Colors.white),
-        ],
-        animationDuration: Duration(milliseconds: 850),
-        animationCurve: Curves.linearToEaseOut,
-        index: _currentIndex,
-        onTap: (index)
-        {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
+    if(widget.profile.usertype == "Seller")
+      {
+        return Scaffold(
+          body: _routes[_currentIndex],
+          bottomNavigationBar: CurvedNavigationBar(
+            height: 50,
+            color: Colors.orange[500],
+            backgroundColor: Colors.white,
+            items: <Widget>[
+              Icon(Icons.view_list_outlined, size:20,color: Colors.white),
+              Icon(Icons.shopping_basket, size:20,color: Colors.white),
+              Icon(Icons.playlist_add_sharp, size:20,color: Colors.white),
+            ],
+            animationDuration: Duration(milliseconds: 850),
+            animationCurve: Curves.linearToEaseOut,
+            index: _currentIndex,
+            onTap: (index)
+            {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
 
-      ),
-    );
+          ),
+        );
+      }
+    else
+      {
+        return Scaffold(
+          body: _routes[_currentIndex],
+          bottomNavigationBar: CurvedNavigationBar(
+            height: 50,
+            color: Colors.orange[500],
+            backgroundColor: Colors.white,
+            items: <Widget>[
+              Icon(Icons.delivery_dining, size:20,color: Colors.white),
+              Icon(Icons.shopping_basket, size:20,color: Colors.white),
+              Icon(Icons.shopping_cart_rounded, size:20,color: Colors.white),
+            ],
+            animationDuration: Duration(milliseconds: 850),
+            animationCurve: Curves.linearToEaseOut,
+            index: _currentIndex,
+            onTap: (index)
+            {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+
+          ),
+        );
+      }
   }
 }
