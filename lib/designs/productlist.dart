@@ -1,10 +1,12 @@
+import 'package:e_market/model/profile.dart';
 import 'package:e_market/pages/item_description.dart';
 import 'package:flutter/material.dart';
 import 'package:e_market/model/Product.dart';
 
 class ProductList extends StatelessWidget {
   final Product product;
-  ProductList({this.product});
+  final Profile profile;
+  ProductList({this.product, this.profile});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -12,7 +14,8 @@ class ProductList extends StatelessWidget {
         {
           Navigator.of(context).push(MaterialPageRoute
             (
-            builder:(context) => ItemDescription(product: product),
+            builder:(context) => ItemDescription(product: product,
+            profile: profile,),
           ));
         },
       child: Padding(

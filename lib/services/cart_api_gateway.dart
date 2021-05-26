@@ -51,6 +51,21 @@ class CartAPIGateway
     }
     return cart;
   }
+  Future<dynamic> asyncRemoveCart(int id)async
+  {
+    try
+    {
+      Network network = Network(envEndPoints.getEndPoints('/api/removeCart/$id'));
+      dynamic body =await network.deleteData();
+      return body;
+
+    }
+    catch(e)
+    {
+      print("asyncDeldete:$e");
+    }
+
+  }
 
   Future<dynamic> asyncDelete(int id)async
   {
