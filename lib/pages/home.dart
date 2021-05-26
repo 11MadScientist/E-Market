@@ -9,7 +9,6 @@ import 'package:e_market/designs/productlist.dart';
 import 'package:e_market/model/Product.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter_session/flutter_session.dart';
-import 'package:e_market/designs/noproductfount.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -42,6 +41,7 @@ class _HomeState extends State<Home> {
     super.initState();
     _session();
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -83,24 +83,34 @@ class _HomeState extends State<Home> {
                           shrinkWrap: true,
                           children: [
                             CategoryCard(
-                              col: Colors.orange,
-                              category: "meat",
+                              col: Colors.grey[200],
+                              category: "All",
+                              img: 'allCategory.png',
                             ),
                             CategoryCard(
-                              col: Colors.orange,
-                              category: "meat",
+                              col: Colors.grey[200],
+                              category: "Meat",
+                              img: 'porkCategory.png',
                             ),
                             CategoryCard(
-                              col: Colors.orange,
-                              category: "meat",
+                              col: Colors.grey[200],
+                              category: "Chicken",
+                              img: "chickenCategory.png",
                             ),
                             CategoryCard(
-                              col: Colors.orange,
-                              category: "meat",
+                              col: Colors.grey[200],
+                              category: "Fish",
+                              img: 'fishCategory.png',
                             ),
                             CategoryCard(
-                              col: Colors.orange,
-                              category: "meat",
+                              col: Colors.grey[200],
+                              category: "Vegetables",
+                              img: "vegetableCategory.png",
+                            ),
+                            CategoryCard(
+                              col: Colors.white54,
+                              category: "Spices",
+                              img: "spice.png",
                             ),
                           ],
                         ),
@@ -136,6 +146,17 @@ class _HomeState extends State<Home> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   NearbyStoresCard(),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  NearbyStoresCard(),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  NearbyStoresCard(),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
                                 ],
                               ),
                             ),
@@ -159,6 +180,8 @@ class _HomeState extends State<Home> {
                           scrollDirection: Axis.horizontal,
                           child: Row(
                             children: [
+                              BestSellingCard(),
+                              BestSellingCard(),
                               BestSellingCard(),
                             ],
                           ),
@@ -201,28 +224,16 @@ class _HomeState extends State<Home> {
                               );
                             }
                             return SizedBox(
-                              height: 570,
-                              child: ListView.builder(
+                                height: 570,
+                                child: ListView.builder(
                                 scrollDirection: Axis.vertical,
                                 itemCount: snapshot.data.length,
                                 itemBuilder: (context, index) {
-                                  return ProductList(
-                                      product: snapshot.data[index]);
-                                },
-                              ),
-                            );
+                              return ProductList(
+                                  product: snapshot.data[index]);
+                            },
                           } else {
-                            // return Text("No Data Retrieved");
-                            // return Container(
-                            //   color: Colors.red,
-                            //   // padding: EdgeInsets.all(400),
-                            //   child: Center(
-                            //     child: Text('ok'),
-                            //   ),
-                            // );
-                            return NoProduct(
-                              data: queryData,
-                            );
+                            return Text("No Profile Found");
                           }
                         }),
                   ],
@@ -251,5 +262,6 @@ class _HomeState extends State<Home> {
       //
       // )
     );
+
   }
 }
