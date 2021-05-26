@@ -1,5 +1,6 @@
 import 'package:e_market/designs/bestsellingcard.dart';
 import 'package:e_market/designs/nearbystorescard.dart';
+import 'package:e_market/designs/noproductfount.dart';
 import 'package:e_market/model/profile.dart';
 import 'package:e_market/services/product_api_gateway.dart';
 import 'package:flutter/material.dart';
@@ -217,21 +218,24 @@ class _HomeState extends State<Home> {
                           } else if (snapshot.hasError) {
                             final error = snapshot.error;
                             return Text(error.toString());
-                          } else if (snapshot.hasData) {
+                          }
+                          else if (snapshot.hasData) {
                             if (snapshot.data.length == 0) {
                               return NoProduct(
                                 data: queryData,
                               );
                             }
                             return SizedBox(
-                                height: 570,
-                                child: ListView.builder(
+                              height: 570,
+                              child: ListView.builder(
                                 scrollDirection: Axis.vertical,
                                 itemCount: snapshot.data.length,
                                 itemBuilder: (context, index) {
-                              return ProductList(
-                                  product: snapshot.data[index]);
-                            },
+                                  return ProductList(
+                                      product: snapshot.data[index]);
+                                },
+                              ),
+                            );
                           } else {
                             return Text("No Profile Found");
                           }
