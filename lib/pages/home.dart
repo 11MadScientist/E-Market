@@ -1,5 +1,6 @@
 import 'package:e_market/designs/bestsellingcard.dart';
 import 'package:e_market/designs/nearbystorescard.dart';
+import 'package:e_market/designs/noproductfount.dart';
 import 'package:e_market/model/profile.dart';
 import 'package:e_market/services/product_api_gateway.dart';
 import 'package:flutter/material.dart';
@@ -22,12 +23,18 @@ class _HomeState extends State<Home> {
   Future<List<Product>> _products;
   bool isBuyer = false;
 
-
-  void _session() async
-  {
-    setState((){
-      _products = apiGateway.asyncListGet();
-    });
+  void _session() async {
+    if (widget.profile.usertype == "Seller") {
+      setState(() {
+        isBuyer = false;
+        _products = apiGateway.storeProductsGet(widget.profile.id);
+      });
+    } else {
+      setState(() {
+        isBuyer = true;
+        _products = apiGateway.asyncListGet();
+      });
+    }
   }
 
   @override
@@ -41,19 +48,21 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
     return Scaffold(
-        resizeToAvoidBottomInset: true,
-        appBar: MyAppBar(
-          size: queryData.size.width,
-          screenName: "Home",
-          context: this.context,
-        ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 10, right: 10),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Column(
+      resizeToAvoidBottomInset: true,
+      appBar: MyAppBar(
+        size: queryData.size.width,
+        screenName: "Home",
+        context: this.context,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 10, right: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Visibility(
+                visible: isBuyer,
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
@@ -75,24 +84,34 @@ class _HomeState extends State<Home> {
                           shrinkWrap: true,
                           children: [
                             CategoryCard(
-                              col: Colors.orange,
-                              category: "meat",
+                              col: Colors.grey[200],
+                              category: "All",
+                              img: 'allCategory.png',
                             ),
                             CategoryCard(
-                              col: Colors.orange,
-                              category: "meat",
+                              col: Colors.grey[200],
+                              category: "Meat",
+                              img: 'porkCategory.png',
                             ),
                             CategoryCard(
-                              col: Colors.orange,
-                              category: "meat",
+                              col: Colors.grey[200],
+                              category: "Chicken",
+                              img: "chickenCategory.png",
                             ),
                             CategoryCard(
-                              col: Colors.orange,
-                              category: "meat",
+                              col: Colors.grey[200],
+                              category: "Fish",
+                              img: 'fishCategory.png',
                             ),
                             CategoryCard(
-                              col: Colors.orange,
-                              category: "meat",
+                              col: Colors.grey[200],
+                              category: "Vegetables",
+                              img: "vegetableCategory.png",
+                            ),
+                            CategoryCard(
+                              col: Colors.white54,
+                              category: "Spices",
+                              img: "spice.png",
                             ),
                           ],
                         ),
@@ -100,140 +119,152 @@ class _HomeState extends State<Home> {
                     ),
                   ],
                 ),
-                Visibility(
-                  visible: true,
-                  child: Column(
-                    children: [
-                      Visibility(
-                        visible: true,
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
-                                child: Text(
-                                  "Stores Nearby You",
-                                  style: TextStyle(
-                                    fontSize: 17,
+              ),
+              Visibility(
+                visible: isBuyer,
+                child: Column(
+                  children: [
+                    Visibility(
+                      visible: true,
+                      child: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                              child: Text(
+                                "Stores Nearby You",
+                                style: TextStyle(
+                                  fontSize: 17,
+                                ),
+                              ),
+                            ),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  NearbyStoresCard(),
+                                  SizedBox(
+                                    width: 10,
                                   ),
-                                ),
+                                  NearbyStoresCard(),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  NearbyStoresCard(),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                ],
                               ),
-                              SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    NearbyStoresCard(),
-                                  ],
-                                ),
-                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Best Selling Products",
+                          style: TextStyle(
+                            fontSize: 17,
+                            fontFamily: "Poppins",
+                            color: Colors.blue[900],
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: [
+                              BestSellingCard(),
+                              BestSellingCard(),
+                              BestSellingCard(),
                             ],
                           ),
                         ),
-                      ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Best Selling Products",
-                            style: TextStyle(
-                              fontSize: 17,
-                              fontFamily: "Poppins",
-                              color: Colors.blue[900],
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: [
-                                BestSellingCard(),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Product List',
-                        style: TextStyle(
-                          fontSize: 17,
-                        ),
+              ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Product List',
+                      style: TextStyle(
+                        fontSize: 17,
                       ),
-                      FutureBuilder(
-                          future: _products,
-                          builder: (BuildContext context, AsyncSnapshot<List<Product>> snapshot)
-                          {
-                            if (snapshot.connectionState == ConnectionState.waiting)
-                            {
-                              return Container(
-                                padding: EdgeInsets.all(400),
-                                child: Center(
-                                  child: CircularProgressIndicator(),
-                                ),
+                    ),
+                    FutureBuilder(
+                        future: _products,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<Product>> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Container(
+                              padding: EdgeInsets.all(400),
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            );
+                          } else if (snapshot.hasError) {
+                            final error = snapshot.error;
+                            return Text(error.toString());
+                          }
+                          else if (snapshot.hasData) {
+                            if (snapshot.data.length == 0) {
+                              return NoProduct(
+                                data: queryData,
                               );
                             }
-                            else if(snapshot.hasError)
-                            {
-                              final error = snapshot.error;
-                              return Text(error.toString());
-                            }
-                            else if(snapshot.hasData)
-                            {
-
-                              return SizedBox(
-                                height: 570,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: snapshot.data.length,
-                                  itemBuilder: (context, index)
-                                  {
-                                    return ProductList(product:snapshot.data[index]);
-                                  },
-                                ),
-                              );
-
-                            }
-                            else
-                            {
-                              return Text("No Profile Found");
-                            }
-                          }),
-                    ],
-                  ),
+                            return SizedBox(
+                              height: 570,
+                              child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (context, index) {
+                                  return ProductList(
+                                      product: snapshot.data[index]);
+                                },
+                              ),
+                            );
+                          } else {
+                            return Text("No Profile Found");
+                          }
+                        }),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-    // bottomNavigationBar: CurvedNavigationBar(
-    //   height: 50,
-    //   color: Colors.orange[500],
-    //   backgroundColor: Colors.white,
-    //   items: <Widget>[
-    //     Icon(Icons.home, size:20,color: Colors.white),
-    //     Icon(Icons.shopping_basket, size:20,color: Colors.white),
-    //     Icon(Icons.home, size:20,color: Colors.white),
-    // ],
-    //   animationDuration: Duration(milliseconds: 250),
-    //   animationCurve: Curves.linearToEaseOut,
-    //   index: 1,
-    //   onTap: (index)
-    //   {
-    //     print("$index");
-    //   },
-    //
-    // )
+      ),
+      // bottomNavigationBar: CurvedNavigationBar(
+      //   height: 50,
+      //   color: Colors.orange[500],
+      //   backgroundColor: Colors.white,
+      //   items: <Widget>[
+      //     Icon(Icons.home, size:20,color: Colors.white),
+      //     Icon(Icons.shopping_basket, size:20,color: Colors.white),
+      //     Icon(Icons.home, size:20,color: Colors.white),
+      // ],
+      //   animationDuration: Duration(milliseconds: 250),
+      //   animationCurve: Curves.linearToEaseOut,
+      //   index: 1,
+      //   onTap: (index)
+      //   {
+      //     print("$index");
+      //   },
+      //
+      // )
     );
 
   }

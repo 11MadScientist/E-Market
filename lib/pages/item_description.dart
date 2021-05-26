@@ -36,6 +36,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
   }
 
 
+
   bool toggleDescription = false;
   var iconDescription = Icon(Icons.keyboard_arrow_down, color: Colors.blue[900]);
 
@@ -466,6 +467,16 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                             context: context,
                                             product: widget.product,
                                             cart: widget.cart,
+                                            func: ()
+                                              {
+                                                PopUp(
+                                                    data: queryData,
+                                                    icon: Icons.check_circle,
+                                                    title: 'Success',
+                                                    coloring: Colors.green,
+                                                    message:"Quantity Changed Successfully",
+                                                    context: context);
+                                              }
                                           );
                                         }
                                       else
@@ -475,6 +486,16 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                             buttonText: txtButton,
                                             context: context,
                                             product: widget.product,
+                                            func: ()
+                                            {
+                                              PopUp(
+                                                  data: queryData,
+                                                  icon: Icons.check_circle,
+                                                  title: 'Success',
+                                                  coloring: Colors.green,
+                                                  message:"Added to Cart Successfully",
+                                                  context: context);
+                                            }
                                           );
                                         }
                                       },

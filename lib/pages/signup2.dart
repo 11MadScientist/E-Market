@@ -157,7 +157,6 @@ class _SignUp2State extends State<SignUp2>{
 
                                     if(isBuyer)
                                     {
-                                      print("hello");
                                       await emailBox.validator();
                                       await emailBox.verify();
                                       await phoneNumBox.validator();
@@ -170,8 +169,6 @@ class _SignUp2State extends State<SignUp2>{
                                           !detailedAddressBox.validation() ||
                                           !generalAddressBox.validation())
                                       {
-                                        print("hi");
-
                                         return;
                                       }
 

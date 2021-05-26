@@ -38,6 +38,22 @@ class ProductAPIGateway
     return products;
   }
 
+  Future<List<Product>> storeProductsGet(int id) async
+  {
+    List<Product> products;
+    try
+    {
+      Network network = Network(envEndPoints.getEndPoints('/api/products/$id'));
+      products = productFromJson(await network.getListData());
+    }
+    catch (e)
+    {
+      print(e);
+      return null;
+    }
+    return products;
+  }
+
   Future<Product> asyncPost(Map data) async
   {
     try

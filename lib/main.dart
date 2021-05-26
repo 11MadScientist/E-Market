@@ -10,6 +10,7 @@ import 'package:e_market/pages/cartpage.dart';
 import 'package:e_market/pages/MyBottomNavigationBar.dart';
 import 'package:e_market/pages/item_description.dart';
 import 'package:e_market/pages/SellerStoreProducts.dart';
+import 'package:e_market/pages/purchasedProducts.dart';
 
 void main() => runApp(MaterialApp(
       // THEMING
@@ -41,43 +42,6 @@ void main() => runApp(MaterialApp(
         '/cart': (context) => CartPage(),
         '/item_desc': (context) => ItemDescription(),
         '/seller_store': (context) => SellerStoreProduct(),
+        '/purchasing_page': (context) => Purchased(),
       },
     ));
-
-// void main()
-// {
-//   runApp(MyApp());
-// }
-//
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return const MaterialApp(
-//       home: MyStatelessWidget(),
-//     );
-//   }
-// }
-//
-// class MyStatelessWidget extends StatelessWidget
-// {
-//   const MyStatelessWidget({Key key}) : super(key:key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Emarket'),
-//       ),
-//       body: Center(child: Text('Press the button below!'),),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: ()
-//         {
-//           Navigator.push(context, MaterialPageRoute(builder: (context)=>UserProfile()));
-//         },
-//         child: Icon(Icons.navigation),
-//         backgroundColor: Colors.green,
-//
-//       ),
-//     );
-//   }
-// }

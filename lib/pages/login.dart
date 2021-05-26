@@ -34,7 +34,7 @@ class _LoginState extends State<Login> {
 
     return Scaffold(
         body: GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: SingleChildScrollView(
         child: SizedBox(
             height: queryData.size.height,

@@ -23,6 +23,7 @@ class CartListCard extends StatelessWidget {
 
   void _session() async
   {
+    print(cart.prodId);
     _product = productApiGateway.asyncGet(cart.prodId);
   }
 

@@ -12,34 +12,38 @@ class MyTransactions {
   MyTransactions({
     this.id,
     this.accId,
-    this.storeId,
-    this.prodId,
-    this.prodQty,
+    this.grandTotal,
+    this.paymentMode,
     this.transactionStatus,
+    this.updatedAt,
+    this.createdAt,
   });
 
   int id;
   int accId;
-  int storeId;
-  int prodId;
-  int prodQty;
+  double grandTotal;
+  String paymentMode;
   String transactionStatus;
+  DateTime updatedAt;
+  DateTime createdAt;
 
   factory MyTransactions.fromJson(Map<String, dynamic> json) => MyTransactions(
-    id: json["id"],
-    accId: json["acc_id"],
-    storeId: json["store_id"],
-    prodId: json["prod_id"],
-    prodQty: json["prod_qty"],
+    id: json["id"] as int,
+    accId: json["acc_id"] as int,
+    grandTotal: json["grand_total"] as double,
+    paymentMode: json["payment_mode"],
     transactionStatus: json["transaction_status"],
+    updatedAt: DateTime.parse(json["updated_at"]),
+    createdAt: DateTime.parse(json["created_at"]),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "acc_id": accId,
-    "store_id": storeId,
-    "prod_id": prodId,
-    "prod_qty": prodQty,
+    "grand_total": grandTotal,
+    "payment_mode": paymentMode,
     "transaction_status": transactionStatus,
+    "updated_at": updatedAt.toIso8601String(),
+    "created_at": createdAt.toIso8601String(),
   };
 }

@@ -91,7 +91,7 @@ class ProductList extends StatelessWidget {
                         size: 20,
                       ),
                       Text(
-                        '120',
+                        product.prodFavorite.toString(),
                         style: TextStyle(
                           color: Colors.white,
                         ),

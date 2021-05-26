@@ -62,6 +62,13 @@ flutter:
     - lib/assets/landing-illustration.png
     - lib/assets/background.png
     - lib/assets/e-merkado.png
+    - lib/assets/order.png
+    - lib/assets/noProduct.png
+    - lib/assets/chickenCategory.png
+    - lib/assets/porkCategory.png
+    - lib/assets/vegetableCategory.png
+    - lib/assets/fishCategory.png
+    - lib/assets/allCategory.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

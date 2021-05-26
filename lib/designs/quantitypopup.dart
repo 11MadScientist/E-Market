@@ -37,6 +37,7 @@ class QuantityPopup {
   final Product product;
   Cart cart;
   final String buttonText;
+  final Function func;
 
   int productCounter = 1;
 
@@ -46,6 +47,7 @@ class QuantityPopup {
     this.buttonText,
     this.product,
     this.cart,
+    this.func,
   }) {
     displayPopup(data);
   }
@@ -171,15 +173,16 @@ class QuantityPopup {
                                   {
                                     setState(() {
                                       _cartInfo = {
-                                        "acc_id"  : user_id,
-                                        "store_id":product.storeId.toString(),
-                                        "prod_id" :product.id.toString(),
-                                        "prod_qty":productCounter.toString(),
-                                        "total"   :(product.prodPrice * productCounter).toString(),
+                                        "acc_id"    : user_id,
+                                        "store_id"  :product.storeId.toString(),
+                                        "prod_id"   :product.id.toString(),
+                                        "prod_qty"  :productCounter.toString(),
+                                        "prod_price":product.prodPrice.toString(),
+                                        "total"     :(product.prodPrice * productCounter).toString(),
                                       };
                                     });
                                     // print("_cartInfo: ${_cartInfo}");
-
+                                    func;
                                     _addToCart(_cartInfo).then((value)
                                     {
                                       Navigator.of(context).pop();
@@ -190,16 +193,17 @@ class QuantityPopup {
                                   {
                                     setState(() {
                                       _cartInfo = {
-                                        "id"      :cart.id.toString(),
-                                        "acc_id"  :user_id.toString(),
-                                        "store_id":product.storeId.toString(),
-                                        "prod_id" :product.id.toString(),
-                                        "prod_qty":productCounter.toString(),
-                                        "total"   :(product.prodPrice * productCounter).toString(),
+                                        "id"         :cart.id.toString(),
+                                        "acc_id"     :user_id.toString(),
+                                        "store_id"   :product.storeId.toString(),
+                                        "prod_id"    :product.id.toString(),
+                                        "prod_qty"   :productCounter.toString(),
+                                        "prod_price" :product.prodPrice.toString(),
+                                        "total"      :(product.prodPrice * productCounter).toString(),
                                       };
                                     });
                                     // print("_cartInfo: ${_cartInfo}");
-
+                                    func;
                                     _changeCart(_cartInfo).then((value)
                                     {
                                       Navigator.of(context).pop();

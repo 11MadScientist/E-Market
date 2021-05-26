@@ -1,42 +1,45 @@
+import 'dart:convert';
+
 import 'package:e_market/model/MyTransactions.dart';
 import 'package:e_market/utils/env_endpoints.dart';
 import 'package:e_market/utils/network.dart';
 
-class CartAPIGateway
+class MyTransactionsAPIGateway
 {
   final EnvEndPoints envEndPoints = EnvEndPoints();
-  MyTransactions _transactions;
+  MyTransactions _transaction;
 
-  Future<List<MyTransactions>> asyncListGet() async
+  Future<List<MyTransactions>> asyncListGet(int acc_id) async
   {
-    List<MyTransactions> carts;
+    List<MyTransactions> transactions;
     try
     {
-      Network network = Network(envEndPoints.getEndPoints('/api/mytransactions'));
-      carts = myTransactionsFromJson(await network.getListData());
-      print(carts);
+      Network network = Network(envEndPoints.getEndPoints('/api/mytransactions/$acc_id'));
+      transactions = myTransactionsFromJson(await network.getListData());
     }
     catch (e)
     {
       print(e);
       return null;
     }
-    return carts;
+    return transactions;
   }
 
-  Future<MyTransactions> asyncPost(Map data) async
+  Future<dynamic> asyncPost(Map data) async
   {
     try
     {
-      Network network = Network(envEndPoints.getEndPoints('/api/cart'));
+      Network network = Network(envEndPoints.getEndPoints('/api/mytransactions'));
       dynamic body = await network.postData(data);
-      _transactions = MyTransactions.fromJson(body);
+      return body["data"];
+      // print("body ${body["data"]}");
+      // _transaction = MyTransactions.fromJson(body["data"]);
     }
     catch(e)
     {
-      print(e);
+      print("mytransactions: $e");
     }
-    return _transactions;
+
   }
 }
 
