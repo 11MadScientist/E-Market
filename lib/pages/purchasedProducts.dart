@@ -99,31 +99,38 @@ class _puchasedProduct extends State<Purchased> {
                                 child: CircularProgressIndicator(),
                               ),
                             );
-                          } else if (snapshot.hasError) {
+                          }
+                          else if (snapshot.hasError) {
                             final error = snapshot.error;
                             return Text(error.toString());
-                          } else if (snapshot.hasData) {
+                          }
+                          else if (snapshot.hasData) {
                             print(snapshot.data.length);
-                            // return ListView.builder(
-                            //   scrollDirection: Axis.vertical,
-                            //   itemCount: snapshot.data.length,
-                            //   itemBuilder: (context, index)
-                            //   {
-                            //     return PurchaseList(order:snapshot.data[index]);
-                            //   },
-                            // );
-                          } else {
-                            // return Text("No Data Retrieved");
                             return ListView.builder(
                               scrollDirection: Axis.vertical,
-                              itemCount: 20,
-                              itemBuilder: (context, index) {
+                              itemCount: snapshot.data.length,
+                              itemBuilder: (context, index)
+                              {
+                                print(snapshot.data[index]);
                                 return PurchaseList(
-                                    id: '56',
-                                    total: 'P1080.00',
-                                    status: 'completed');
+                                    order:snapshot.data[index],
+                                    profile: widget.profile,
+                                );
                               },
                             );
+                          }
+                          else {
+                             return Text("No Data Retrieved");
+                            // return ListView.builder(
+                            //   scrollDirection: Axis.vertical,
+                            //   itemCount: 20,
+                            //   itemBuilder: (context, index) {
+                            //     return PurchaseList(
+                            //         id: '56',
+                            //         total: 'P1080.00',
+                            //         status: 'completed');
+                            //   },
+                            // );
                           }
                         }),
                   ),

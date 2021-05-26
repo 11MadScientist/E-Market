@@ -31,7 +31,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
     else
       {
         _routes = [
-          Landing(),
+          Purchased(profile: widget.profile),
           Home(profile: widget.profile),
           CartPage(profile: widget.profile),
         ];

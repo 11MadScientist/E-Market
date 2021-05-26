@@ -16,7 +16,6 @@ class MyTransactionsAPIGateway
     {
       Network network = Network(envEndPoints.getEndPoints('/api/mytransactions/$acc_id'));
       transactions = myTransactionsFromJson(await network.getListData());
-      print(transactions);
     }
     catch (e)
     {

@@ -1,21 +1,23 @@
 import 'package:e_market/model/Order.dart';
+import 'package:e_market/model/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:e_market/designs/confirmPopup.dart';
 
 class PurchaseList extends StatefulWidget {
   @override
-  _PurchaseListState createState() =>
-      _PurchaseListState(id: this.id, total: this.total, status: this.status);
+  _PurchaseListState createState() => _PurchaseListState();
+  //_PurchaseListState(id: this.id, total: this.total, status: this.status);
 
-  // final Order order;
+  final Order order;
+  final Profile profile;
 
-  // PurchaseList({this.order});
+  PurchaseList({this.order, this.profile});
 
-  final String id;
-  final String total;
-  final String status;
-
-  PurchaseList({this.id, this.total, this.status});
+  // final String id;
+  // final String total;
+  // final String status;
+  //
+  // PurchaseList({this.id, this.total, this.status});
 }
 
 class _PurchaseListState extends State<PurchaseList> {
@@ -29,20 +31,21 @@ class _PurchaseListState extends State<PurchaseList> {
 
   @override
   void initState() {
+    print("hi");
     super.initState();
-    // if (widget.order.orderStatus == "pending")
-    //   color = Colors.orange;
-    // else if (widget.order.orderStatus == "completed")
-    //   color = Colors.green[600];
-    // else if (widget.order.orderStatus == "canelled")
-    //   color = Colors.red;
-
-    if (status == 'pending')
+    if (widget.order.orderStatus == "pending")
       color = Colors.orange;
-    else if (status == 'completed')
+    else if (widget.order.orderStatus == "completed")
       color = Colors.green[600];
-    else
+    else if (widget.order.orderStatus == "cancelled")
       color = Colors.red;
+
+    // if (status == 'pending')
+    //   color = Colors.orange;
+    // else if (status == 'completed')
+    //   color = Colors.green[600];
+    // else
+    //   color = Colors.red;
   }
 
   @override
@@ -56,12 +59,12 @@ class _PurchaseListState extends State<PurchaseList> {
             // decoration: BoxDecoration(color: Colors.blue),
             alignment: Alignment.center,
             width: queryData.size.width * .3,
-            child: Text(this.id)),
+            child: Text(widget.order.id.toString())),
         Container(
             // decoration: BoxDecoration(color: Colors.blue),
             alignment: Alignment.center,
             width: queryData.size.width * .3,
-            child: Text(this.total)),
+            child: Text(widget.order.total.toString())),
         Container(
           width: queryData.size.width * .2,
           child: ElevatedButton(
@@ -69,8 +72,8 @@ class _PurchaseListState extends State<PurchaseList> {
               ConfirmPopup(
                   data: queryData,
                   context: context,
-                  usertype: 'user',
-                  transactionID: "7652565");
+                  usertype: widget.profile.usertype,
+                  transactionID:widget.order.id.toString());
             },
             style: ButtonStyle(
                 elevation: MaterialStateProperty.all(0),
@@ -81,7 +84,7 @@ class _PurchaseListState extends State<PurchaseList> {
                 shape: MaterialStateProperty.all(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)))),
             child: Text(
-              this.status,
+              widget.order.orderStatus,
               style: TextStyle(
                 fontSize: queryData.size.width * .03,
               ),

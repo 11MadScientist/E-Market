@@ -23,7 +23,7 @@ class ConfirmPopup {
             builder: (BuildContext context, StateSetter setState) {
               bool isSeller = true;
               String buttonText = 'Decline';
-              if (this.usertype == 'user') {
+              if (this.usertype == 'Buyer') {
                 setState(() {
                   isSeller = false;
                   buttonText = 'Cancel';
