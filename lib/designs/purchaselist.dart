@@ -1,5 +1,6 @@
 import 'package:e_market/model/Order.dart';
 import 'package:flutter/material.dart';
+import 'package:e_market/designs/confirmPopup.dart';
 
 class PurchaseList extends StatefulWidget {
   @override
@@ -64,7 +65,13 @@ class _PurchaseListState extends State<PurchaseList> {
         Container(
           width: queryData.size.width * .2,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              ConfirmPopup(
+                  data: queryData,
+                  context: context,
+                  buttonText: "Decline",
+                  transactionID: "7652565");
+            },
             style: ButtonStyle(
                 elevation: MaterialStateProperty.all(0),
                 padding: MaterialStateProperty.all(EdgeInsets.all(2)),
