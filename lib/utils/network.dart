@@ -38,13 +38,11 @@ class Network
 
     if (response.statusCode == 201)
       {
-        print("Success");
         print(response.statusCode);
         return jsonDecode(response.body);
       }
     else
       {
-        print("Fail");
         print(response.statusCode);
         return null;
       }

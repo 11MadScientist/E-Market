@@ -70,7 +70,6 @@ class ProfileTrap extends Trap
     profile = await apiGateway.asyncGet(email);
     if(profile != null)
     {
-      // print(profile);
       return profile;
     }
     else
