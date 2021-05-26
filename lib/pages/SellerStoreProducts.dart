@@ -7,6 +7,7 @@ import "package:horizontal_data_table/horizontal_data_table.dart";
 import 'package:e_market/designs/imageUploader.dart';
 import 'package:e_market/services/store_api_gateway.dart';
 import 'package:e_market/model/Product.dart';
+import 'package:e_market/pages/MyBottomNavigationBar.dart';
 
 class SellerStoreProduct extends StatefulWidget {
   @override
@@ -629,13 +630,13 @@ class _SellerStoreProductState extends State<SellerStoreProduct> {
                                             style: TextStyle(
                                                 color: Colors.blue[900]),
                                             iconEnabledColor: Colors.blue[900],
-                                            items: <String>['/kl', '/pc']
+                                            items: <String>['kl', 'pc']
                                                 .map<DropdownMenuItem<String>>(
                                                     (String value) {
                                                   return DropdownMenuItem<String>(
                                                     value: value,
                                                     child: Text(
-                                                      value,
+                                                      "/$value",
                                                       style: TextStyle(
                                                           color: Colors.blue[900],
                                                           fontFamily: 'Poppins'),
@@ -731,8 +732,14 @@ class _SellerStoreProductState extends State<SellerStoreProduct> {
                                       });
 
                                       print(productsData);
-                                      _createProduct(productsData);
-
+                                      _createProduct(productsData).then((value) {
+                                        Navigator.of(context).pushReplacement(MaterialPageRoute
+                                          (
+                                          builder:(context) => MyBottomNavigationBar(
+                                            profile: widget.profile,
+                                            idx: 1,),
+                                        ));
+                                      });
                                     },
                                     style: ButtonStyle(
                                       shape: MaterialStateProperty.all(
