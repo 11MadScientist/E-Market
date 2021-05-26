@@ -69,7 +69,7 @@ class _PurchaseListState extends State<PurchaseList> {
               ConfirmPopup(
                   data: queryData,
                   context: context,
-                  buttonText: "Decline",
+                  usertype: 'user',
                   transactionID: "7652565");
             },
             style: ButtonStyle(
