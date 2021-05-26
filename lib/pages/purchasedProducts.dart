@@ -1,6 +1,8 @@
 import 'package:e_market/designs/purchaselist.dart';
+import 'package:e_market/model/MyTransactions.dart';
 import 'package:e_market/model/Order.dart';
 import 'package:e_market/model/profile.dart';
+import 'package:e_market/services/mytransactions_api_gateway.dart';
 import 'package:e_market/services/order_api_gateway.dart';
 import 'package:flutter/material.dart';
 import "package:e_market/designs/appbar.dart";
@@ -15,15 +17,24 @@ class Purchased extends StatefulWidget {
 
 class _puchasedProduct extends State<Purchased> {
   final OrderAPIGateway orderAPIGateway = OrderAPIGateway();
+  final MyTransactionsAPIGateway transactionsAPIGateway = MyTransactionsAPIGateway();
   Future<List<Order>> orders;
-  List<String> dataRows;
+  Future<List<MyTransactions>> transaction;
+  // List<String> dataRows;
 
   void _session() async {
     print("id: ${widget.profile.id}");
-    orders = orderAPIGateway.asyncListGetSeller(widget.profile.id);
-    setState(() {
-      dataRows = new List.generate(5, (index) => null);
-    });
+    if(widget.profile.usertype == "Seller")
+      {
+        orders = orderAPIGateway.asyncListGetSeller(widget.profile.id);
+      }
+    else
+      {
+        transaction = transactionsAPIGateway.asyncListGet(widget.profile.id);
+      }
+    // setState(() {
+    //   dataRows = new List.generate(5, (index) => null);
+    // });
   }
 
   @override

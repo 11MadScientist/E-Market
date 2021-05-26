@@ -43,7 +43,7 @@ class ProductAPIGateway
     List<Product> products;
     try
     {
-      Network network = Network(envEndPoints.getEndPoints('/api/products/$id'));
+      Network network = Network(envEndPoints.getEndPoints('/api/storeproducts/$id'));
       products = productFromJson(await network.getListData());
     }
     catch (e)

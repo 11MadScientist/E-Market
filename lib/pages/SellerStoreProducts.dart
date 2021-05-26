@@ -1,3 +1,4 @@
+import 'package:e_market/model/profile.dart';
 import 'package:e_market/model/store.dart';
 import 'package:e_market/services/product_api_gateway.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +11,8 @@ import 'package:e_market/model/Product.dart';
 class SellerStoreProduct extends StatefulWidget {
   @override
 
-  String profileid;
-  SellerStoreProduct({this.profileid});
+  final Profile profile;
+  SellerStoreProduct({this.profile});
 
 
   _SellerStoreProductState createState() => _SellerStoreProductState();
@@ -46,9 +47,9 @@ class _SellerStoreProductState extends State<SellerStoreProduct> {
   Map productsData;
   Product _productInfo;
 
-  Future<Store> _getStore(int testID) async
+  Future<Store> _getStore() async
   {
-    Store body = await storeAPIGateway.asyncGet(testID);
+    Store body = await storeAPIGateway.asyncGet(widget.profile.id);
 
     setState(() {
       storeid = body.id.toString();
@@ -60,7 +61,7 @@ class _SellerStoreProductState extends State<SellerStoreProduct> {
   @override
   void initState() {
     super.initState();
-    _getStore(12);
+    _getStore();
   }
 
   Future <Product> _createProduct(Map data) async

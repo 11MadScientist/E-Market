@@ -6,6 +6,8 @@ import 'package:e_market/pages/landing.dart';
 import 'package:e_market/pages/purchasedProducts.dart';
 import 'package:flutter/material.dart';
 
+import 'SellerStoreProducts.dart';
+
 class MyBottomNavigationBar extends StatefulWidget {
   @override
   _MyBottomNavigationBarState createState() => _MyBottomNavigationBarState();
@@ -25,7 +27,7 @@ class _MyBottomNavigationBarState extends State<MyBottomNavigationBar> {
         _routes = [
           Purchased(profile: widget.profile),
           Home(profile: widget.profile),
-          CartPage(profile: widget.profile),
+          SellerStoreProduct(profile: widget.profile),
         ];
       }
     else
