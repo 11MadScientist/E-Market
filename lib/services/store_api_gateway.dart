@@ -12,8 +12,9 @@ class StoreAPIGateway
   {
     try{
       Network network = Network(envEndPoints.getEndPoints('/api/storeinfo/$acc_id'));
-      dynamic body = network.getData();
-      store = Store.fromJson(body);
+      dynamic body = await network.getData();
+      print(body);
+      store = Store.fromJson(body["data"]);
     }
     catch(e){
       return null;

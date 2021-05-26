@@ -58,7 +58,7 @@ class ProductAPIGateway
   {
     try
     {
-      Network network = Network(envEndPoints.getEndPoints('/api/product'));
+      Network network = Network(envEndPoints.getEndPoints('/api/products'));
       dynamic body = await network.postData(data);
       product = Product.fromJson(body);
     }
