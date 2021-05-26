@@ -3,51 +3,84 @@ import 'package:flutter/material.dart';
 
 class PurchaseList extends StatefulWidget {
   @override
-  _PurchaseListState createState() => _PurchaseListState();
+  _PurchaseListState createState() =>
+      _PurchaseListState(id: this.id, total: this.total, status: this.status);
 
-  final Order order;
+  // final Order order;
 
-  PurchaseList({this.order});
+  // PurchaseList({this.order});
+
+  final String id;
+  final String total;
+  final String status;
+
+  PurchaseList({this.id, this.total, this.status});
 }
 
 class _PurchaseListState extends State<PurchaseList> {
   Color color;
 
+  final String id;
+  final String total;
+  final String status;
+
+  _PurchaseListState({this.id, this.total, this.status});
+
   @override
   void initState() {
     super.initState();
-    if(widget.order.orderStatus == "pending")
+    // if (widget.order.orderStatus == "pending")
+    //   color = Colors.orange;
+    // else if (widget.order.orderStatus == "completed")
+    //   color = Colors.green[600];
+    // else if (widget.order.orderStatus == "canelled")
+    //   color = Colors.red;
+
+    if (status == 'pending')
       color = Colors.orange;
-    else if(widget.order.orderStatus == "completed")
+    else if (status == 'completed')
       color = Colors.green[600];
-    else if(widget.order.orderStatus == "canelled")
+    else
       color = Colors.red;
   }
 
   @override
   Widget build(BuildContext context) {
+    MediaQueryData queryData = MediaQuery.of(context);
     return Row(
       mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        Text(widget.order.id.toString()),
-        Text("P${widget.order.total.toStringAsFixed(2)}"),
-        TextButton(
-          onPressed:()
-          {
-
-          },
-          child: Text(
-            widget.order.orderStatus,
-            style: TextStyle(
-              color: Colors.white,
-              backgroundColor: color,
+        Container(
+            // decoration: BoxDecoration(color: Colors.blue),
+            alignment: Alignment.center,
+            width: queryData.size.width * .3,
+            child: Text(this.id)),
+        Container(
+            // decoration: BoxDecoration(color: Colors.blue),
+            alignment: Alignment.center,
+            width: queryData.size.width * .3,
+            child: Text(this.total)),
+        Container(
+          width: queryData.size.width * .2,
+          child: ElevatedButton(
+            onPressed: () {},
+            style: ButtonStyle(
+                elevation: MaterialStateProperty.all(0),
+                padding: MaterialStateProperty.all(EdgeInsets.all(2)),
+                minimumSize: MaterialStateProperty.all(Size.fromRadius(5)),
+                foregroundColor: MaterialStateProperty.all(Colors.white),
+                backgroundColor: MaterialStateProperty.all(this.color),
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)))),
+            child: Text(
+              this.status,
+              style: TextStyle(
+                fontSize: queryData.size.width * .03,
+              ),
             ),
-
           ),
-
         ),
-
       ],
     );
   }

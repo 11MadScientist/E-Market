@@ -18,8 +18,7 @@ class _puchasedProduct extends State<Purchased> {
   Future<List<Order>> orders;
   List<String> dataRows;
 
-  void _session()async
-  {
+  void _session() async {
     print("id: ${widget.profile.id}");
     orders = orderAPIGateway.asyncListGetSeller(widget.profile.id);
     setState(() {
@@ -33,7 +32,6 @@ class _puchasedProduct extends State<Purchased> {
     _session();
   }
 
-
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
@@ -45,126 +43,94 @@ class _puchasedProduct extends State<Purchased> {
       resizeToAvoidBottomInset: false,
       appBar: MyAppBar(
         size: queryData.size.width,
-        screenName: "PurchasePage",
+        screenName: "Purchase",
       ),
       body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: DefaultTabController(
-          length: 1,
-          child: SizedBox(
+          padding: const EdgeInsets.all(10.0),
+          child: Container(
             width: queryData.size.width,
-            child: Column(
-              children: [
-                TabBar(
-                  labelColor: Colors.blue[900],
-                  overlayColor: MaterialStateProperty.all(Colors.orange),
-                  tabs: [
-                    Tab(
-                      text: 'Pending',
-                    ),
-                  ],
-                ),
-                Expanded(
-                  child: TabBarView(
-                    children: [
-                      //UNPAID PAGE
-                      Container(
-                        child: Column(
-                          children: [
-                            Expanded(
-                              //TABLE BORDER
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    border: Border.all(
-                                      color: Colors.orange,
-                                    )),
-                                child: SingleChildScrollView(
-                                  child: SingleChildScrollView(
-                                    scrollDirection: Axis.horizontal,
-                                    child: Padding(
-                                      padding: EdgeInsets.all(10),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                          width: queryData.size.width * .85,
-                                          child:Column(
-                                            children: [
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                children: [
-                                                  Text("TRANSACTION ID"),
-                                                  Text("ORDER TOTAL"),
-                                                  Text("STATUS"),
-
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-
-
-                                        ),
-                                          Container(
-                                            width: queryData.size.width * .85,
-                                            height: queryData.size.height*.85,
-                                            child:
-                                            FutureBuilder(
-                                                future: orders,
-                                                builder: (BuildContext context, AsyncSnapshot<List<Order>> snapshot)
-                                                {
-                                                  if (snapshot.connectionState == ConnectionState.waiting)
-                                                  {
-                                                    return Container(
-                                                      padding: EdgeInsets.all(400),
-                                                      child: Center(
-                                                        child: CircularProgressIndicator(),
-                                                      ),
-                                                    );
-                                                  }
-                                                  else if(snapshot.hasError)
-                                                  {
-                                                    final error = snapshot.error;
-                                                    return Text(error.toString());
-                                                  }
-                                                  else if(snapshot.hasData)
-                                                  {
-                                                    print(snapshot.data.length);
-                                                    return ListView.builder(
-                                                      scrollDirection: Axis.vertical,
-                                                      itemCount: snapshot.data.length,
-                                                      itemBuilder: (context, index)
-                                                      {
-                                                        return PurchaseList(order:snapshot.data[index]);
-                                                      },
-                                                    );
-                                                  }
-                                                  else
-                                                  {
-                                                    return Text("No Data Retrieved");
-                                                  }
-                                                }),
-
-
-                                          ),
-                                        ]
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(15),
+                border: Border.all(
+                  color: Colors.orange,
+                )),
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: Column(children: [
+                  Container(
+                    width: double.infinity,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text(
+                          "TRANSACTION ID",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
+                        Text(
+                          "ORDER TOTAL",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        Text(
+                          "STATUS",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                )
-              ],
+                  Container(
+                    height: queryData.size.height * .85,
+                    child: FutureBuilder(
+                        future: orders,
+                        builder: (BuildContext context,
+                            AsyncSnapshot<List<Order>> snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Container(
+                              padding: EdgeInsets.all(400),
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            );
+                          } else if (snapshot.hasError) {
+                            final error = snapshot.error;
+                            return Text(error.toString());
+                          } else if (snapshot.hasData) {
+                            print(snapshot.data.length);
+                            // return ListView.builder(
+                            //   scrollDirection: Axis.vertical,
+                            //   itemCount: snapshot.data.length,
+                            //   itemBuilder: (context, index)
+                            //   {
+                            //     return PurchaseList(order:snapshot.data[index]);
+                            //   },
+                            // );
+                          } else {
+                            // return Text("No Data Retrieved");
+                            return ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              itemCount: 20,
+                              itemBuilder: (context, index) {
+                                return PurchaseList(
+                                    id: '56',
+                                    total: 'P1080.00',
+                                    status: 'completed');
+                              },
+                            );
+                          }
+                        }),
+                  ),
+                ]),
+              ),
             ),
-          ),
-        ),
-      ),
+          )),
     );
   }
 
