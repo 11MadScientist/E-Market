@@ -425,324 +425,326 @@ class _SellerStoreProductState extends State<SellerStoreProduct> {
                               width: 1,
                             ),
                           ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              //PHOTOS
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Text("Photos"),
-                              ),
-                              Container(
-                                height: queryData.size.height * .15,
-                                child: imageRow = new ImageRow(
-                                  queryData: queryData,
+                          child: SingleChildScrollView(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                //PHOTOS
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: Text("Photos"),
                                 ),
-                              ),
-                              //PRODUCT NAME
-                              Padding(
-                                padding:
-                                    const EdgeInsets.only(bottom: 10, top: 20),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                        width: queryData.size.width * .3,
-                                        child: Text("Product Name")),
-                                    //PRODUCT TEXTFIELD
-                                    Expanded(
-                                      child: SizedBox(
-                                        height: 30,
-                                        child: TextField(
-                                          controller: _prodNameController,
-                                          onChanged: (val){
-                                            setState(() {
-                                              prodName = _prodNameController.text;
-                                            });
-                                            print(prodName);
-                                          },
-                                          decoration: InputDecoration(
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              borderSide: BorderSide(
-                                                color: Colors.orange,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              //CATEGORY
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                        width: queryData.size.width * .3,
-                                        child: Text("Category")),
-                                    //DROPDOWN CATEGORY
-                                    Expanded(
-                                      child: Container(
-                                        height: 30,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: Colors.orange,
-                                            width: 1,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: DropdownButton<String>(
-                                          elevation: 0,
-                                          underline: Container(),
-                                          focusColor: Colors.white,
-                                          value: _chosenValue,
-                                          style: TextStyle(
-                                              color: Colors.blue[900]),
-                                          iconEnabledColor: Colors.blue[900],
-                                          items: <String>[
-                                            'Meat',
-                                            'Chicken',
-                                            'Spices',
-                                            'Vegetable',
-                                            'Other',
-                                          ].map<DropdownMenuItem<String>>(
-                                              (String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(
-                                                value,
-                                                style: TextStyle(
-                                                    color: Colors.blue[900],
-                                                    fontFamily: 'Poppins'),
-                                              ),
-                                            );
-                                          }).toList(),
-                                          onChanged: (String value) {
-                                            setState(() {
-                                              _chosenValue = value;
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              //DESCRIPTION
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Container(
-                                        width: queryData.size.width * .3,
-                                        child: Text("Description")),
-                                    //DESCRIPTION TEXTFIELD
-                                    Expanded(
-                                      child: Container(
-                                        height: 100,
-                                        child: TextField(
-                                          controller: _prodDescController,
-                                          onChanged: (val){
-                                            setState(() {
-                                              prodDesc = _prodDescController.text;
-                                            });
-                                            print(prodDesc);
-                                          },
-                                          maxLines: 5,
-                                          decoration: InputDecoration(
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              borderSide: BorderSide(
-                                                color: Colors.orange,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              //PRICE
-                              Padding(
-                                padding: EdgeInsets.only(bottom: 10),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                        width: queryData.size.width * .3,
-                                        child: Text("Price")),
-                                    //PRICE TEXTFIELD
-                                    Expanded(
-                                      child: Container(
-                                        height: 30,
-                                        child: TextField(
-                                          controller: _prodPriceController,
-                                          onChanged: (val){
-                                            setState(() {
-                                              prodPrice = _prodPriceController.text;
-                                            });
-                                            print(prodPrice);
-                                          },
-                                          decoration: InputDecoration(
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              borderSide: BorderSide(
-                                                color: Colors.orange,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    //UNIT FIELDS
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 10),
-                                      child: Container(
-                                        padding: EdgeInsets.only(left: 20),
-                                        height: 30,
-                                        width: queryData.size.width * .2,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(
-                                            color: Colors.orange,
-                                            width: 1,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        child: DropdownButton<String>(
-                                          elevation: 0,
-                                          underline: Container(),
-                                          focusColor: Colors.white,
-                                          value: _chosenUnit,
-                                          style: TextStyle(
-                                              color: Colors.blue[900]),
-                                          iconEnabledColor: Colors.blue[900],
-                                          items: <String>['/kl', '/pc']
-                                              .map<DropdownMenuItem<String>>(
-                                                  (String value) {
-                                            return DropdownMenuItem<String>(
-                                              value: value,
-                                              child: Text(
-                                                value,
-                                                style: TextStyle(
-                                                    color: Colors.blue[900],
-                                                    fontFamily: 'Poppins'),
-                                              ),
-                                            );
-                                          }).toList(),
-                                          onChanged: (String value) {
-                                            setState(() {
-                                              _chosenUnit = value;
-                                            });
-                                          },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              //STOCK
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 10),
-                                child: Row(
-                                  children: [
-                                    Container(
-                                        width: queryData.size.width * .3,
-                                        child: Text("Stock")),
-                                    //PRODUCT TEXTFIELD
-                                    Expanded(
-                                      child: SizedBox(
-                                        height: 30,
-                                        child: TextField(
-                                          controller: _prodStockController,
-                                          onChanged: (val){
-                                            setState(() {
-                                              prodStock = _prodStockController.text;
-                                            });
-                                            print(prodStock);
-                                          },
-                                          decoration: InputDecoration(
-                                            enabledBorder: OutlineInputBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(15),
-                                              borderSide: BorderSide(
-                                                color: Colors.orange,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: double.infinity,
-                                height: 50,
-                                child: ElevatedButton(
-                                  onPressed: (){
-                                    setState(() {
-                                      print(prodName);
-                                      print(_chosenValue);
-                                      print(prodDesc);
-                                      print(prodPrice);
-                                      print(_chosenUnit);
-                                      print(prodStock);
-                                      
-                                      if(_chosenValue.compareTo("Meat") == 0)
-                                        categoryid = "1";
-                                      else if(_chosenValue.compareTo("Chicken") == 0)
-                                        categoryid = "2";
-                                      else if(_chosenValue.compareTo("Spices") == 0)
-                                        categoryid = "3";
-                                      else if(_chosenValue.compareTo("Vegetable") == 0)
-                                        categoryid = "4";
-                                      else if(_chosenValue.compareTo("Other") == 0)
-                                        categoryid = "5";
-
-
-                                      productsData = {
-                                        "store_id"        :storeid,
-                                        "category_id"     :categoryid,
-                                        "category_name"   :_chosenValue,
-                                        "prod_name"       :prodName,
-                                        "prod_img"        :"meat.png",
-                                        "prod_price"      :prodPrice,
-                                        "prod_unit"       :_chosenUnit,
-                                        "prod_desc"       :prodDesc,
-                                        "prod_stock"      :prodStock,
-                                        "prod_sales"      :"0",
-                                        "prod_avail"      :"20",
-                                        "prod_favorite"   :"5",
-                                      };
-                                    });
-
-                                    print(productsData);
-                                    _createProduct(productsData);
-
-                                  },
-                                  style: ButtonStyle(
-                                    shape: MaterialStateProperty.all(
-                                        RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    )),
-                                    backgroundColor: MaterialStateProperty.all(
-                                      Colors.orange,
-                                    ),
-                                    foregroundColor:
-                                        MaterialStateProperty.all(Colors.white),
+                                Container(
+                                  height: queryData.size.height * .15,
+                                  child: imageRow = new ImageRow(
+                                    queryData: queryData,
                                   ),
-                                  child: Text("Save and Publish"),
                                 ),
-                              )
-                            ],
+                                //PRODUCT NAME
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.only(bottom: 10, top: 20),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                          width: queryData.size.width * .3,
+                                          child: Text("Product Name")),
+                                      //PRODUCT TEXTFIELD
+                                      Expanded(
+                                        child: SizedBox(
+                                          height: 30,
+                                          child: TextField(
+                                            controller: _prodNameController,
+                                            onChanged: (val){
+                                              setState(() {
+                                                prodName = _prodNameController.text;
+                                              });
+                                              print(prodName);
+                                            },
+                                            decoration: InputDecoration(
+                                              enabledBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                borderSide: BorderSide(
+                                                  color: Colors.orange,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                //CATEGORY
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                          width: queryData.size.width * .3,
+                                          child: Text("Category")),
+                                      //DROPDOWN CATEGORY
+                                      Expanded(
+                                        child: Container(
+                                          height: 30,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.orange,
+                                              width: 1,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          child: DropdownButton<String>(
+                                            elevation: 0,
+                                            underline: Container(),
+                                            focusColor: Colors.white,
+                                            value: _chosenValue,
+                                            style: TextStyle(
+                                                color: Colors.blue[900]),
+                                            iconEnabledColor: Colors.blue[900],
+                                            items: <String>[
+                                              'Meat',
+                                              'Chicken',
+                                              'Spices',
+                                              'Vegetable',
+                                              'Other',
+                                            ].map<DropdownMenuItem<String>>(
+                                                (String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(
+                                                  value,
+                                                  style: TextStyle(
+                                                      color: Colors.blue[900],
+                                                      fontFamily: 'Poppins'),
+                                                ),
+                                              );
+                                            }).toList(),
+                                            onChanged: (String value) {
+                                              setState(() {
+                                                _chosenValue = value;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                //DESCRIPTION
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                          width: queryData.size.width * .3,
+                                          child: Text("Description")),
+                                      //DESCRIPTION TEXTFIELD
+                                      Expanded(
+                                        child: Container(
+                                          height: 100,
+                                          child: TextField(
+                                            controller: _prodDescController,
+                                            onChanged: (val){
+                                              setState(() {
+                                                prodDesc = _prodDescController.text;
+                                              });
+                                              print(prodDesc);
+                                            },
+                                            maxLines: 5,
+                                            decoration: InputDecoration(
+                                              enabledBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                borderSide: BorderSide(
+                                                  color: Colors.orange,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                //PRICE
+                                Padding(
+                                  padding: EdgeInsets.only(bottom: 10),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                          width: queryData.size.width * .3,
+                                          child: Text("Price")),
+                                      //PRICE TEXTFIELD
+                                      Expanded(
+                                        child: Container(
+                                          height: 30,
+                                          child: TextField(
+                                            controller: _prodPriceController,
+                                            onChanged: (val){
+                                              setState(() {
+                                                prodPrice = _prodPriceController.text;
+                                              });
+                                              print(prodPrice);
+                                            },
+                                            decoration: InputDecoration(
+                                              enabledBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                borderSide: BorderSide(
+                                                  color: Colors.orange,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      //UNIT FIELDS
+                                      Padding(
+                                        padding: const EdgeInsets.only(left: 10),
+                                        child: Container(
+                                          padding: EdgeInsets.only(left: 20),
+                                          height: 30,
+                                          width: queryData.size.width * .2,
+                                          decoration: BoxDecoration(
+                                            border: Border.all(
+                                              color: Colors.orange,
+                                              width: 1,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                          ),
+                                          child: DropdownButton<String>(
+                                            elevation: 0,
+                                            underline: Container(),
+                                            focusColor: Colors.white,
+                                            value: _chosenUnit,
+                                            style: TextStyle(
+                                                color: Colors.blue[900]),
+                                            iconEnabledColor: Colors.blue[900],
+                                            items: <String>['/kl', '/pc']
+                                                .map<DropdownMenuItem<String>>(
+                                                    (String value) {
+                                              return DropdownMenuItem<String>(
+                                                value: value,
+                                                child: Text(
+                                                  value,
+                                                  style: TextStyle(
+                                                      color: Colors.blue[900],
+                                                      fontFamily: 'Poppins'),
+                                                ),
+                                              );
+                                            }).toList(),
+                                            onChanged: (String value) {
+                                              setState(() {
+                                                _chosenUnit = value;
+                                              });
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                //STOCK
+                                Padding(
+                                  padding: const EdgeInsets.only(bottom: 10),
+                                  child: Row(
+                                    children: [
+                                      Container(
+                                          width: queryData.size.width * .3,
+                                          child: Text("Stock")),
+                                      //PRODUCT TEXTFIELD
+                                      Expanded(
+                                        child: SizedBox(
+                                          height: 30,
+                                          child: TextField(
+                                            controller: _prodStockController,
+                                            onChanged: (val){
+                                              setState(() {
+                                                prodStock = _prodStockController.text;
+                                              });
+                                              print(prodStock);
+                                            },
+                                            decoration: InputDecoration(
+                                              enabledBorder: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(15),
+                                                borderSide: BorderSide(
+                                                  color: Colors.orange,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: double.infinity,
+                                  height: 50,
+                                  child: ElevatedButton(
+                                    onPressed: (){
+                                      setState(() {
+                                        print(prodName);
+                                        print(_chosenValue);
+                                        print(prodDesc);
+                                        print(prodPrice);
+                                        print(_chosenUnit);
+                                        print(prodStock);
+                                        
+                                        if(_chosenValue.compareTo("Meat") == 0)
+                                          categoryid = "1";
+                                        else if(_chosenValue.compareTo("Chicken") == 0)
+                                          categoryid = "2";
+                                        else if(_chosenValue.compareTo("Spices") == 0)
+                                          categoryid = "3";
+                                        else if(_chosenValue.compareTo("Vegetable") == 0)
+                                          categoryid = "4";
+                                        else if(_chosenValue.compareTo("Other") == 0)
+                                          categoryid = "5";
+
+
+                                        productsData = {
+                                          "store_id"        :storeid,
+                                          "category_id"     :categoryid,
+                                          "category_name"   :_chosenValue,
+                                          "prod_name"       :prodName,
+                                          "prod_img"        :"meat.png",
+                                          "prod_price"      :prodPrice,
+                                          "prod_unit"       :_chosenUnit,
+                                          "prod_desc"       :prodDesc,
+                                          "prod_stock"      :prodStock,
+                                          "prod_sales"      :"0",
+                                          "prod_avail"      :"20",
+                                          "prod_favorite"   :"5",
+                                        };
+                                      });
+
+                                      print(productsData);
+                                      _createProduct(productsData);
+
+                                    },
+                                    style: ButtonStyle(
+                                      shape: MaterialStateProperty.all(
+                                          RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      )),
+                                      backgroundColor: MaterialStateProperty.all(
+                                        Colors.orange,
+                                      ),
+                                      foregroundColor:
+                                          MaterialStateProperty.all(Colors.white),
+                                    ),
+                                    child: Text("Save and Publish"),
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       ),
