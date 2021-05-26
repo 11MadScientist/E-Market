@@ -51,47 +51,50 @@ class _PurchaseListState extends State<PurchaseList> {
   @override
   Widget build(BuildContext context) {
     MediaQueryData queryData = MediaQuery.of(context);
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: [
-        Container(
-            // decoration: BoxDecoration(color: Colors.blue),
-            alignment: Alignment.center,
-            width: queryData.size.width * .3,
-            child: Text(widget.order.id.toString())),
-        Container(
-            // decoration: BoxDecoration(color: Colors.blue),
-            alignment: Alignment.center,
-            width: queryData.size.width * .3,
-            child: Text(widget.order.total.toString())),
-        Container(
-          width: queryData.size.width * .2,
-          child: ElevatedButton(
-            onPressed: () {
-              ConfirmPopup(
-                  data: queryData,
-                  context: context,
-                  usertype: widget.profile.usertype,
-                  transactionID:widget.order.id.toString());
-            },
-            style: ButtonStyle(
-                elevation: MaterialStateProperty.all(0),
-                padding: MaterialStateProperty.all(EdgeInsets.all(2)),
-                minimumSize: MaterialStateProperty.all(Size.fromRadius(5)),
-                foregroundColor: MaterialStateProperty.all(Colors.white),
-                backgroundColor: MaterialStateProperty.all(this.color),
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)))),
-            child: Text(
-              widget.order.orderStatus,
-              style: TextStyle(
-                fontSize: queryData.size.width * .03,
+    return Padding(
+      padding: EdgeInsets.only(top: 2,bottom: 2),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+              // decoration: BoxDecoration(color: Colors.blue),
+              alignment: Alignment.center,
+              width: queryData.size.width * .3,
+              child: Text(widget.order.id.toString())),
+          Container(
+              // decoration: BoxDecoration(color: Colors.blue),
+              alignment: Alignment.center,
+              width: queryData.size.width * .3,
+              child: Text("P${widget.order.total}")),
+          Container(
+            width: queryData.size.width * .2,
+            child: ElevatedButton(
+              onPressed: () {
+                ConfirmPopup(
+                    data: queryData,
+                    context: context,
+                    usertype: widget.profile.usertype,
+                    transactionID:widget.order.id.toString());
+              },
+              style: ButtonStyle(
+                  elevation: MaterialStateProperty.all(0),
+                  padding: MaterialStateProperty.all(EdgeInsets.all(2)),
+                  minimumSize: MaterialStateProperty.all(Size.fromRadius(5)),
+                  foregroundColor: MaterialStateProperty.all(Colors.white),
+                  backgroundColor: MaterialStateProperty.all(this.color),
+                  shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)))),
+              child: Text(
+                widget.order.orderStatus,
+                style: TextStyle(
+                  fontSize: queryData.size.width * .03,
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
