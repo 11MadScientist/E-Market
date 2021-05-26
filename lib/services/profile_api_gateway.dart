@@ -15,6 +15,7 @@ class ProfileAPIGateway
       Network network = Network(envEndPoints.getEndPoints('/api/userinfo/$email'));
       dynamic body = await network.getData();
       profile = Profile.fromJson(body);
+      print(body);
     }
     catch (e)
     {

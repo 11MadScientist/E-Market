@@ -17,10 +17,10 @@ class Store
   factory Store.fromJson(Map<String, dynamic> json)
   {
     return Store(
-      id             : json['id'],
-      acc_id         : json['acc_id'],
-      store_name     : json['store_name'],
-      store_location : json['store_location'],
+      id             : json['data']['id'] as int,
+      acc_id         : json['data']['acc_id'] as int,
+      store_name     : json['data']['store_name'] as String,
+      store_location : json['data']['store_location'] as String,
     );
   }
 

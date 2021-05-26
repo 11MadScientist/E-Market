@@ -22,10 +22,10 @@ class _HomeState extends State<Home> {
   Future<List<Product>> _products;
   bool isBuyer = false;
 
-
   void _session() async
   {
     setState((){
+      print(widget.profile.id);
       _products = apiGateway.asyncListGet();
     });
   }
