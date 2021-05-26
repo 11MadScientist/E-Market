@@ -35,9 +35,9 @@ class _PurchaseListState extends State<PurchaseList> {
     super.initState();
     if (widget.order.orderStatus == "pending")
       color = Colors.orange;
-    else if (widget.order.orderStatus == "completed")
+    else if (widget.order.orderStatus == "Accepted")
       color = Colors.green[600];
-    else if (widget.order.orderStatus == "cancelled")
+    else if (widget.order.orderStatus == "Declined")
       color = Colors.red;
 
     // if (status == 'pending')
@@ -75,7 +75,10 @@ class _PurchaseListState extends State<PurchaseList> {
                     data: queryData,
                     context: context,
                     usertype: widget.profile.usertype,
-                    transactionID:widget.order.id.toString());
+                    transactionID:widget.order.id.toString(),
+                    order: widget.order,
+                    profile: widget.profile,
+                );
               },
               style: ButtonStyle(
                   elevation: MaterialStateProperty.all(0),

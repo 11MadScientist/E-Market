@@ -54,6 +54,22 @@ class OrderAPIGateway
     }
     // return order;
   }
+
+  Future<Order> asyncPut(Map data) async
+  {
+    try
+    {
+      Network network = Network(envEndPoints.getEndPoints('/api/order'));
+      dynamic body = await network.putData(data);
+      // print(body);
+      // order = Order.fromJson(body["data"]);
+    }
+    catch(e)
+    {
+      print("cart_api_gateway: $e");
+    }
+    // return order;
+  }
   // Future<Order> asyncPut(Map data) async
   // {
   //   try
