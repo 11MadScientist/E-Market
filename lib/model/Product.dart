@@ -43,24 +43,23 @@ class Product {
   String storeName;
   String storeLocation;
 
-  factory Product.fromJson(Map<String, dynamic> json)
-  {
-    return Product(
-      id: json["id"] as int,
-      storeId: json["store_id"] as int,
-      categoryId: json["category_id"] as int,
-      categoryName: json["category_name"] as String,
-      prodName: json["prod_name"] as String,
-      prodImg: json["prod_img"] as String,
-      prodPrice: json["prod_price"] as double,
-      prodUnit: json["prod_unit"] as String,
-      prodDesc: json["prod_desc"] as String,
-      prodStock: json["prod_stock"] as String,
-      prodSales: json["prod_sales"] as int,
-      prodAvail: json["prod_avail"] as int,
-      prodFavorite: json["prod_favorite"] as int,
-    );
-  }
+  factory Product.fromJson(Map<String, dynamic> json) => Product(
+    id: json["id"],
+    storeId: json["store_id"],
+    categoryId: json["category_id"],
+    categoryName: json["category_name"],
+    prodName: json["prod_name"],
+    prodImg: json["prod_img"],
+    prodPrice: json["prod_price"],
+    prodUnit: json["prod_unit"],
+    prodDesc: json["prod_desc"],
+    prodStock: json["prod_stock"],
+    prodSales: json["prod_sales"],
+    prodAvail: json["prod_avail"],
+    prodFavorite: json["prod_favorite"],
+    storeName: json["store_name"],
+    storeLocation: json["store_location"],
+  );
 
   Map<String, dynamic> toJson() => {
     "id": id,
@@ -76,5 +75,7 @@ class Product {
     "prod_sales": prodSales,
     "prod_avail": prodAvail,
     "prod_favorite": prodFavorite,
+    "store_name": storeName,
+    "store_location": storeLocation,
   };
 }
