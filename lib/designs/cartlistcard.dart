@@ -27,9 +27,10 @@ class CartListCard extends StatelessWidget {
     _product = productApiGateway.asyncGet(cart.prodId);
   }
 
-  Future<dynamic> _removeItem() async
+  Future<dynamic> _removeItem()async
   {
-    _cart =  cartApiGateway.asyncDelete(cart.id);
+    print("cartid: ${cart.id}");
+    _cart =  cartApiGateway.asyncRemoveCart(cart.id);
     return _cart;
   }
 

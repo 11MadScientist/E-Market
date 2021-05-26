@@ -33,6 +33,11 @@ class _ItemDescriptionState extends State<ItemDescription> {
       txtButton = "Add to Cart";
     else
       txtButton = "Change Quantity";
+
+    if(widget.profile.usertype == "Seller")
+      {
+        Navigator.of(context).pop();
+      }
   }
 
 
@@ -85,8 +90,7 @@ class _ItemDescriptionState extends State<ItemDescription> {
                                 ),
                                 onPressed: ()
                                 {
-                                  print(widget.profile);
-                                  if(widget.profile == null)
+                                  if(widget.cart  == null)
                                     Navigator.of(context).pop();
                                   else
                                     Navigator.of(context).pushReplacement(MaterialPageRoute

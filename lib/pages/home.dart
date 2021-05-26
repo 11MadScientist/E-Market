@@ -232,7 +232,9 @@ class _HomeState extends State<Home> {
                                 itemCount: snapshot.data.length,
                                 itemBuilder: (context, index) {
                                   return ProductList(
-                                      product: snapshot.data[index]);
+                                      product: snapshot.data[index],
+                                      profile: widget.profile,
+                                      );
                                 },
                               ),
                             );
