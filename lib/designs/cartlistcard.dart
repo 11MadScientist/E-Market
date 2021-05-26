@@ -18,7 +18,7 @@ class CartListCard extends StatelessWidget {
   final ProductAPIGateway productApiGateway = ProductAPIGateway();
   final CartAPIGateway cartApiGateway = CartAPIGateway();
   Future<Product> _product;
-  Future<Cart> _cart;
+  Future<dynamic> _cart;
   bool isBuyer = false;
 
   void _session() async
@@ -27,7 +27,7 @@ class CartListCard extends StatelessWidget {
     _product = productApiGateway.asyncGet(cart.prodId);
   }
 
-  Future<Cart> _removeItem() async
+  Future<dynamic> _removeItem() async
   {
     _cart =  cartApiGateway.asyncDelete(cart.id);
     return _cart;
