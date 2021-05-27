@@ -1,24 +1,61 @@
+import 'package:e_market/designs/popup.dart';
+import 'package:e_market/model/profile.dart';
+import 'package:e_market/services/profile_api_gateway.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
+
+import 'MyBottomNavigationBar.dart';
 
 class ProfileSettings extends StatefulWidget {
   @override
   MapScreenState createState() => MapScreenState();
+
+  final Profile profile;
+  ProfileSettings({this.profile});
+
 }
+
+
 
 class MapScreenState extends State<ProfileSettings>
     with SingleTickerProviderStateMixin {
   bool _status = true;
   final FocusNode myFocusNode = FocusNode();
+  TextEditingController f_nameController;
+  TextEditingController l_nameController;
+  TextEditingController _mobileController;
+  TextEditingController _locationController;
+
+  Profile _profile;
+  MediaQueryData queryData;
+  final ProfileAPIGateway profileAPIGateway = ProfileAPIGateway();
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    print(widget.profile.firstname);
+    f_nameController = TextEditingController();
+    f_nameController.text = widget.profile.firstname;
+
+    l_nameController = TextEditingController();
+    l_nameController.text = widget.profile.lastname;
+
+    _mobileController = TextEditingController();
+    _mobileController.text = widget.profile.phonenumber.toString();
+
+    _locationController = TextEditingController();
+    _locationController.text = widget.profile.address;
+  }
+
+  Future<void> editProfile(Map data)async
+  {
+    await profileAPIGateway.asyncPut(data);
   }
 
   @override
   Widget build(BuildContext context) {
+    queryData = MediaQuery.of(context);
     return new Scaffold(
         body: new Container(
       color: Colors.white,
@@ -36,10 +73,21 @@ class MapScreenState extends State<ProfileSettings>
                         child: new Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            new Icon(
-                              Icons.arrow_back_outlined,
-                              color: Colors.white,
-                              size: 22.0,
+                            new IconButton(
+                              onPressed:()
+                              {
+                                Navigator.of(context).pushReplacement(MaterialPageRoute
+                                  (
+                                  builder:(context) => MyBottomNavigationBar(
+                                    profile: widget.profile,
+                                    idx: 1,),
+                                ));
+                              },
+                              icon:Icon(
+                                Icons.arrow_back_outlined,
+                                color: Colors.white,
+                                size: 22.0,
+                              ),
                             ),
                             Padding(
                               padding: EdgeInsets.only(left: 25.0),
@@ -66,7 +114,7 @@ class MapScreenState extends State<ProfileSettings>
                                   shape: BoxShape.circle,
                                   image: new DecorationImage(
                                     image: new ExactAssetImage(
-                                        'lib/assests/market.jpeg'),
+                                        'lib/assets/market.jpeg'),
                                     fit: BoxFit.cover,
                                   ),
                                 )),
@@ -140,7 +188,7 @@ class MapScreenState extends State<ProfileSettings>
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   new Text(
-                                    'Name',
+                                    'First Name',
                                     style: TextStyle(
                                         fontFamily: 'Poppins',
                                         fontSize: 16.0,
@@ -158,6 +206,7 @@ class MapScreenState extends State<ProfileSettings>
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
+                                  controller: f_nameController,
                                   decoration: const InputDecoration(
                                     hintText: "Name",
                                   ),
@@ -178,7 +227,7 @@ class MapScreenState extends State<ProfileSettings>
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   new Text(
-                                    'Email',
+                                    'Last Name',
                                     style: TextStyle(
                                         fontFamily: 'Poppins',
                                         fontSize: 16.0,
@@ -196,13 +245,15 @@ class MapScreenState extends State<ProfileSettings>
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
+                                  controller: l_nameController,
                                   decoration: const InputDecoration(
-                                      hintText: "Email Address"),
+                                      hintText: "name"),
                                   enabled: !_status,
                                 ),
                               ),
                             ],
                           )),
+                      //password
                       Padding(
                           padding: EdgeInsets.only(
                               left: 25.0, right: 25.0, top: 25.0),
@@ -232,6 +283,7 @@ class MapScreenState extends State<ProfileSettings>
                             children: <Widget>[
                               new Flexible(
                                 child: new TextField(
+                                  controller: _mobileController,
                                   decoration: const InputDecoration(
                                       hintText: "Mobile Number"),
                                   enabled: !_status,
@@ -258,18 +310,18 @@ class MapScreenState extends State<ProfileSettings>
                                 ),
                                 flex: 2,
                               ),
-                              Expanded(
-                                child: Container(
-                                  child: new Text(
-                                    'Zipcode',
-                                    style: TextStyle(
-                                        fontFamily: 'Poppins',
-                                        fontSize: 16.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                flex: 2,
-                              ),
+                              // Expanded(
+                              //   child: Container(
+                              //     child: new Text(
+                              //       'Zipcode',
+                              //       style: TextStyle(
+                              //           fontFamily: 'Poppins',
+                              //           fontSize: 16.0,
+                              //           fontWeight: FontWeight.bold),
+                              //     ),
+                              //   ),
+                              //   flex: 2,
+                              // ),
                             ],
                           )),
                       Padding(
@@ -283,6 +335,7 @@ class MapScreenState extends State<ProfileSettings>
                                 child: Padding(
                                   padding: EdgeInsets.only(right: 10.0),
                                   child: new TextField(
+                                    controller:_locationController,
                                     decoration: const InputDecoration(
                                         hintText: "Location"),
                                     enabled: !_status,
@@ -290,14 +343,14 @@ class MapScreenState extends State<ProfileSettings>
                                 ),
                                 flex: 2,
                               ),
-                              Flexible(
-                                child: new TextField(
-                                  decoration: const InputDecoration(
-                                      hintText: "Zipcode"),
-                                  enabled: !_status,
-                                ),
-                                flex: 2,
-                              ),
+                              // Flexible(
+                              //   child: new TextField(
+                              //     decoration: const InputDecoration(
+                              //         hintText: "Zipcode"),
+                              //     enabled: !_status,
+                              //   ),
+                              //   flex: 2,
+                              // ),
                             ],
                           )),
                       !_status ? _getActionButtons() : new Container(),
@@ -339,11 +392,33 @@ class MapScreenState extends State<ProfileSettings>
                 ),
                 textColor: Colors.white,
                 color: Colors.green,
-                onPressed: () {
-                  setState(() {
-                    _status = true;
-                    FocusScope.of(context).requestFocus(new FocusNode());
+                onPressed: () async{
+                  Map userinfo = {
+                    "id":widget.profile.id.toString(),
+                    "firstname":f_nameController.text.toString(),
+                    "lastname":l_nameController.text,
+                    "password":widget.profile.password,
+                    "email":widget.profile.email,
+                    "address":_locationController.text,
+                    "phonenumber":_mobileController.text,
+                    "usertype":widget.profile.usertype,
+                  };
+                  print(userinfo);
+                  await editProfile(userinfo).then((value)
+                  {
+                    PopUp(
+                        data: queryData,
+                        icon: Icons.check_circle,
+                        title: 'Success',
+                        coloring: Colors.green,
+                        message:"Quantity Changed Successfully",
+                        context: context);
+                    setState(() {
+                      _status = true;
+                      FocusScope.of(context).requestFocus(new FocusNode());
+                    });
                   });
+
                 },
                 shape: new RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(20.0)),
