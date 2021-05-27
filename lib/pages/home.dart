@@ -226,7 +226,7 @@ class _HomeState extends State<Home> {
                               );
                             }
                             return SizedBox(
-                              height: 570,
+                              height: queryData.size.height*.72,
                               child: ListView.builder(
                                 scrollDirection: Axis.vertical,
                                 itemCount: snapshot.data.length,
