@@ -10,7 +10,7 @@ class ProfileSettings extends StatefulWidget {
   @override
   MapScreenState createState() => MapScreenState();
 
-  final Profile profile;
+  Profile profile;
   ProfileSettings({this.profile});
 
 }
@@ -50,7 +50,7 @@ class MapScreenState extends State<ProfileSettings>
 
   Future<void> editProfile(Map data)async
   {
-    await profileAPIGateway.asyncPut(data);
+    _profile = await profileAPIGateway.asyncPut(data);
   }
 
   @override
@@ -79,7 +79,7 @@ class MapScreenState extends State<ProfileSettings>
                                 Navigator.of(context).pushReplacement(MaterialPageRoute
                                   (
                                   builder:(context) => MyBottomNavigationBar(
-                                    profile: widget.profile,
+                                    profile: _profile,
                                     idx: 1,),
                                 ));
                               },
@@ -393,7 +393,13 @@ class MapScreenState extends State<ProfileSettings>
                 textColor: Colors.white,
                 color: Colors.green,
                 onPressed: () async{
-                  Map userinfo = {
+
+                      // widget.profile.firstname =f_nameController.text.toString();
+                      // widget.profile.lastname =l_nameController.text;
+                      // widget.profile.address =_locationController.text;
+                      // widget.profile.phonenumber = _mobileController.text;
+
+                      Map userinfo = {
                     "id":widget.profile.id.toString(),
                     "firstname":f_nameController.text.toString(),
                     "lastname":l_nameController.text,
@@ -406,6 +412,7 @@ class MapScreenState extends State<ProfileSettings>
                   print(userinfo);
                   await editProfile(userinfo).then((value)
                   {
+                    print(_profile.lastname);
                     PopUp(
                         data: queryData,
                         icon: Icons.check_circle,
