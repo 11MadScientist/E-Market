@@ -19,6 +19,7 @@ class _puchasedProduct extends State<Purchased> {
   final OrderAPIGateway orderAPIGateway = OrderAPIGateway();
   final MyTransactionsAPIGateway transactionsAPIGateway = MyTransactionsAPIGateway();
   Future<List<Order>> orders;
+
   Future<List<MyTransactions>> transaction;
   // List<String> dataRows;
 
@@ -27,14 +28,22 @@ class _puchasedProduct extends State<Purchased> {
     if(widget.profile.usertype == "Seller")
       {
         orders = orderAPIGateway.asyncListGetSeller(widget.profile.id);
+        AsyncSnapshot<List<Order>> snapshot;
       }
     else
       {
         transaction = transactionsAPIGateway.asyncListGet(widget.profile.id);
+        AsyncSnapshot<List<MyTransactions>> snapshot;
       }
     // setState(() {
     //   dataRows = new List.generate(5, (index) => null);
     // });
+  }
+  Future <List<Order>> getOrder(int id) async
+  {
+    orders = orderAPIGateway.asyncListGetUser(id);
+
+    return orders;
   }
 
   @override
@@ -99,9 +108,8 @@ class _puchasedProduct extends State<Purchased> {
                   Container(
                     height: queryData.size.height * .85,
                     child: FutureBuilder(
-                        future: orders,
-                        builder: (BuildContext context,
-                            AsyncSnapshot<List<Order>> snapshot) {
+                        future: widget.profile.usertype == "Seller" ? orders : transaction,
+                        builder: (BuildContext context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
                             return Container(
@@ -116,17 +124,34 @@ class _puchasedProduct extends State<Purchased> {
                             return Text(error.toString());
                           }
                           else if (snapshot.hasData) {
+                            print("length");
                             print(snapshot.data.length);
+                            print("data");
+                            print(snapshot.data);
                             return ListView.builder(
                               scrollDirection: Axis.vertical,
                               itemCount: snapshot.data.length,
                               itemBuilder: (context, index)
                               {
                                 print(snapshot.data[index]);
-                                return PurchaseList(
+
+                                if(widget.profile.usertype == "Seller")
+                                {
+                                  return PurchaseList(
                                     order:snapshot.data[index],
                                     profile: widget.profile,
-                                );
+                                  );
+                                }
+                                else
+                                  {
+                                    print("Under buy");
+                                    print(snapshot.data[index]);
+                                    return PurchaseList(
+                                      transaction:snapshot.data[index],
+                                      profile: widget.profile,
+                                    );
+                                  }
+
                               },
                             );
                           }
