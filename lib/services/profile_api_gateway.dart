@@ -37,5 +37,21 @@ class ProfileAPIGateway
     }
     return profile;
   }
+
+  Future<Profile> asyncPut(Map data) async
+  {
+    try
+    {
+      Network network = Network(envEndPoints.getEndPoints('/api/userinfo'));
+      dynamic body = await network.putData(data);
+      profile = Profile.fromJson(body);
+    }
+    catch(e)
+    {
+      print(e);
+    }
+    return profile;
+  }
+
   }
 

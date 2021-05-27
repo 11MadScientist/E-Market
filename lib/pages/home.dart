@@ -53,6 +53,7 @@ class _HomeState extends State<Home> {
         size: queryData.size.width,
         screenName: "Home",
         context: this.context,
+        profile: widget.profile,
       ),
       body: SingleChildScrollView(
         child: Padding(

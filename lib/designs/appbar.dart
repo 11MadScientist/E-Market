@@ -1,9 +1,12 @@
+import 'package:e_market/model/profile.dart';
+import 'package:e_market/pages/profile-settings.dart';
 import 'package:flutter/material.dart';
 
 class MyAppBar extends AppBar
 {
+  final Profile profile;
 
-  MyAppBar({Key key, double size, String screenName, BuildContext context})
+  MyAppBar({Key key, double size, String screenName, BuildContext context, this.profile})
       :super(key: key, toolbarHeight: 100, backgroundColor: Colors.orange[500],
     title:
   Column(
@@ -35,7 +38,12 @@ class MyAppBar extends AppBar
             color: Colors.white,),
             onPressed: ()
             {
-                Navigator.pushNamed(context, '/profile');
+              Navigator.of(context).pushReplacement(MaterialPageRoute
+                (
+                builder:(context) => ProfileSettings(
+                  profile: profile,
+                  ),
+              ));
             },
           ),
           IconButton(
