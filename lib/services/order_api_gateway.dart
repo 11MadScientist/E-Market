@@ -39,6 +39,22 @@ class OrderAPIGateway
     return orders;
   }
 
+  Future<List<Order>> asyncListGet(int acc_id) async
+  {
+    List<Order> orders;
+    try
+    {
+      Network network = Network(envEndPoints.getEndPoints('/api/order/$acc_id'));
+      orders = orderFromJson(await network.getListData());
+    }
+    catch (e)
+    {
+      print("order_api_gateway error: $e");
+      return null;
+    }
+    return orders;
+  }
+
   Future<Order> asyncPost(Map data) async
   {
     try
