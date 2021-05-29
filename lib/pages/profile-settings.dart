@@ -76,6 +76,10 @@ class MapScreenState extends State<ProfileSettings>
                             new IconButton(
                               onPressed:()
                               {
+                                if(_profile == null)
+                                  {
+                                    _profile = widget.profile;
+                                  }
                                 Navigator.of(context).pushReplacement(MaterialPageRoute
                                   (
                                   builder:(context) => MyBottomNavigationBar(

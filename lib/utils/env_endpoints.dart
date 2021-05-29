@@ -5,7 +5,7 @@ class EnvEndPoints
   getEndPoints(path)
   {
     final apiEndPoints = {
-      "dev": "http://emarket.hustle" + path,
+      "dev": "https://emerkado.000webhostapp.com" + path,
     };
     return apiEndPoints[env];
   }
