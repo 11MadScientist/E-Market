@@ -32,9 +32,9 @@ class _puchasedProduct extends State<Purchased> {
       }
     else
       {
-        orders = orderAPIGateway.asyncListGet(widget.profile.id);
-        print("printing orders");
-        print(orders);
+        // orders = orderAPIGateway.asyncListGet(widget.profile.id);
+        // print("printing orders");
+        // print(orders);
 
         transaction = transactionsAPIGateway.asyncListGet(widget.profile.id);
         AsyncSnapshot<List<MyTransactions>> snapshot;
